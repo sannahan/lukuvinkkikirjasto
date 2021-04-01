@@ -11,6 +11,6 @@ public class Lukuvinkki {
 
     @Override
     public String toString() {
-        return otsikko + " " + linkki;
+        return otsikko + ";" + linkki;
     }
 }

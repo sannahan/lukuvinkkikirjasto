@@ -1,5 +1,7 @@
 package Lukuvinkkikirjasto.dao;
 
+import Lukuvinkkikirjasto.Lukuvinkki;
+
 public interface LukuvinkkiDao {
-    void lisaa(String otsikko, String linkki);
+    void lisaa(Lukuvinkki lukuvinkki);
 }

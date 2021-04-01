@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Lukuvinkkikirjasto.Lukuvinkki;
+
 public class FileLukuvinkkiDao implements LukuvinkkiDao {
     private String tiedosto;
     private List<String> lukuvinkit;
@@ -26,8 +28,9 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
     }
 
     @Override
-    public void lisaa(String otsikko, String linkki) {
-        lukuvinkit.add(otsikko + ";" + linkki);
+    public void lisaa(Lukuvinkki lukuvinkki) {
+        String[] palat = lukuvinkki.toString().split(";");
+        lukuvinkit.add(palat[0] + ";" + palat[1]);
         tallenna();
     }
 
