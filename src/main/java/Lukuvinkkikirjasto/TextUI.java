@@ -1,3 +1,5 @@
+package Lukuvinkkikirjasto;
+
 import java.util.Scanner;
 import java.util.concurrent.SynchronousQueue;
 
