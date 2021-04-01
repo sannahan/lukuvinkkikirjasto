@@ -6,6 +6,6 @@
 <TODO info="lisätään sprint backlogille linkki">
 
 ## Definition of done
-- Koodi on selkeää ja helposti luettavaa
+- Koodi on selkeää ja helposti luettavaa: koodi on katselmoitu toisen tiimiläisen johdosta
 - Kattavahkot testit, jotka menee läpi
-- Userstoryn hyväksymis kriteerit toteutuu
+- Userstoryn hyväksymiskriteerit toteutuu
