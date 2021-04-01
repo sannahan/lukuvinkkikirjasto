@@ -8,4 +8,4 @@
 ## Definition of done
 - Koodi on selkeää ja helposti luettavaa
 - Kattavahkot testit, jotka menee läpi
-- Userstoryn hyväksymis kriteerit toteutuu
+- Userstoryn hyväksymiskriteerit toteutuu
