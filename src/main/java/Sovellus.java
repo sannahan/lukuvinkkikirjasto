@@ -11,10 +11,14 @@ public class Sovellus {
 	}
 
 	public void suorita() {
+		this.printInfo();
+		
 		while (true) {
-			this.printInfo();
-
 			int komento = this.ui.nextInt("Komento: ");
+
+			if (komento == 0) {
+				this.printInfo();
+			}
 			
 			if (komento == 1) {
 				selaaVinkkeja();
@@ -37,6 +41,7 @@ public class Sovellus {
 	
 	public void printInfo() {
 		this.ui.print("Valitse toiminto syöttämällä numero:");
+		this.ui.print("0: Info");
 		this.ui.print("1: Selaa vinkkejä");
 		this.ui.print("2: Lisää uusi vinkki");
 		this.ui.print("-1: Poistu");

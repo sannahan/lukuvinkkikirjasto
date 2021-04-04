@@ -12,6 +12,11 @@ public class TextUI implements IO{
         System.out.println(msg);
     }
 
+    // TODO pitäisikö olla "print" toisella parametrilla?
+    private void ask(String msg) {
+        System.out.print(msg);
+    }
+
     @Override
     public String nextLine(String msg) {
         if (msg.length() > 0) {
