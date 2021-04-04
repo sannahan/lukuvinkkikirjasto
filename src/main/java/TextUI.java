@@ -1,9 +1,4 @@
-<<<<<<< HEAD:src/main/java/Lukuvinkkikirjasto/TextUI.java
-package Lukuvinkkikirjasto;
-
-=======
 import java.util.ArrayList;
->>>>>>> main:src/main/java/TextUI.java
 import java.util.Scanner;
 //import dao
 //import Vinkki

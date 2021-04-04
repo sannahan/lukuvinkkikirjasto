@@ -1,7 +1,7 @@
 package dao;
 
-import domain.LukuvinkkiDomain;
+import domain.Vinkki;
 
 public interface LukuvinkkiDao {
-    boolean lisaa(LukuvinkkiDomain lukuvinkki);
+    void lisaa(Vinkki vinkki);
 }
