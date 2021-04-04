@@ -1,31 +1,64 @@
+<<<<<<< HEAD:src/main/java/Lukuvinkkikirjasto/TextUI.java
 package Lukuvinkkikirjasto;
 
+=======
+import java.util.ArrayList;
+>>>>>>> main:src/main/java/TextUI.java
 import java.util.Scanner;
-import java.util.concurrent.SynchronousQueue;
+//import dao
+//import Vinkki
 
-public class TextUI implements IO{
-    private Scanner scanner;
+public class TextUI implements IO {
+	private Scanner scanner;
 
-    public TextUI(Scanner scanner) {
-        this.scanner = scanner;
-    }
+	public TextUI(Scanner scanner) {
+		this.scanner = scanner;
+	}
 
-    @Override
-    public void print(String msg) {
-        System.out.println(msg);
-    }
+	@Override
+	public void komento() {
+		while (true) {
+			System.out.println("Valitse toiminto syöttämällä numero:");
+			System.out.println("1: Selaa vinkkejä");
+			System.out.println("2: Lisää uusi vinkki");
+			System.out.println("-1: Poistu");
+			int komento = Integer.valueOf(scanner.nextLine());
+			
+			if (komento == 1) {
+				selaaVinkkeja();
+			}
 
-    @Override
-    public String nextLine(String msg) {
-        if (msg.length() > 0) {
-            this.print(msg);
-        }
+			else if (komento == 2) {
+				lisaaVinkki();
+			}
+			
+			else if (komento == -1) {
+				System.out.println("Hei hei!");
+				break;
+			}
 
-        return scanner.nextLine();
-    }
+			else {
+				System.out.println("Ei sallittu komento!");
+			}
+		}
+	}
 
-    @Override
-    public void error(String msg) {
-        this.print("ERR: " + msg);
-    }
+	@Override
+	public void selaaVinkkeja() {
+//    	ArrayList<Vinkki> vinkit = vinkkien nouto listana daosta;
+//    	for (Vinkki vinkki : vinkit) {
+//    		vinkki.toString();
+//    		System.out.println("********************");
+//    	}
+	}
+
+	@Override
+	public void lisaaVinkki() {
+		System.out.print("Anna lukuvinkin otsikko: ");
+		String otsikko = scanner.nextLine();
+		System.out.print("Anna lukuvinkin URL: ");
+		String URL = scanner.nextLine();
+		//talleta vinkkiin otsikko ja URL
+		System.out.println("Vinkki lisätty!");
+	}
 }
