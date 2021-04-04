@@ -22,4 +22,9 @@ public class Oletus implements Vinkki {
     public String getLinkki() {
         return this.linkki;
     }
+
+    @Override
+    public String toString() {
+        return "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n";  
+    }
 }

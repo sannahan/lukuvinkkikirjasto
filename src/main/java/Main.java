@@ -1,11 +1,14 @@
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
-        IO textUI = new TextUI(new Scanner(System.in));
+import dao.FileLukuvinkkiDao;
+import dao.LukuvinkkiDao;
 
-        Sovellus app = new Sovellus(textUI);
+public class Main {
+    public static void main(String[] args) throws Exception {
+        IO textUI = new TextUI(new Scanner(System.in));
+        LukuvinkkiDao lukuvinkkiDao = new FileLukuvinkkiDao("testi.txt");
+
+        Sovellus app = new Sovellus(textUI, lukuvinkkiDao);
         app.suorita();
     }
 }
-

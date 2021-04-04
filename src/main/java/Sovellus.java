@@ -1,13 +1,19 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 //import dao
 //import Vinkki
 
+import dao.LukuvinkkiDao;
+import domain.*;
+
 public class Sovellus {
 	private IO ui;
+	private LukuvinkkiDao lukuvinkkiDao;
 
-	public Sovellus(IO ui) {
+	public Sovellus(IO ui, LukuvinkkiDao lukuvinkkiDao) {
 		this.ui = ui;
+		this.lukuvinkkiDao = lukuvinkkiDao;
 	}
 
 	public void suorita() {
@@ -49,11 +55,10 @@ public class Sovellus {
 
 	
 	public void selaaVinkkeja() {
-//    	ArrayList<Vinkki> vinkit = vinkkien nouto listana daosta;
-//    	for (Vinkki vinkki : vinkit) {
-//    		vinkki.toString();
-//    		System.out.println("********************");
-//    	}
+    	List<Vinkki> vinkit = lukuvinkkiDao.listaa();
+    	for (Vinkki vinkki : vinkit) {
+    		System.out.println(vinkki.toString());
+    	}
 	}
 
 	
@@ -62,7 +67,8 @@ public class Sovellus {
 		String otsikko = this.ui.nextLine("Anna lukuvinkin otsikko: ");
 		// System.out.print("Anna lukuvinkin URL: ");
 		String URL = this.ui.nextLine("Anna lukuvinkin URL: ");
-		//talleta vinkkiin otsikko ja URL
+		Vinkki vinkki = new Oletus(otsikko, URL);
+		lukuvinkkiDao.lisaa(vinkki);
 		// System.out.println("Vinkki lisätty!");
 	}
 }
