@@ -1,5 +1,6 @@
 public interface IO {
-    public void komento();
-    public void lisaaVinkki();
-    public void selaaVinkkeja();
+    public void print(String msg);
+    public String nextLine(String msg);
+    public int nextInt(String msg);
+    public void error(String msg);
 }
