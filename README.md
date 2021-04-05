@@ -9,3 +9,5 @@
 - Koodi on selkeää ja helposti luettavaa: koodi on katselmoitu toisen tiimiläisen johdosta
 - Kattavahkot testit, jotka menee läpi
 - Userstoryn hyväksymiskriteerit toteutuu
+
+![GitHub Actions](https://github.com/sannahan/lukuvinkkikirjasto/workflows/Java%20CI%20with%20Gradle/badge.svg)
