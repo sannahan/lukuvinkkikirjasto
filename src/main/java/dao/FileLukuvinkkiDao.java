@@ -10,10 +10,10 @@ import java.util.Scanner;
 import domain.*;
 
 public class FileLukuvinkkiDao implements LukuvinkkiDao {
-    private String tiedosto;
+    private File tiedosto;
     private List<String> lukuvinkit;
 
-    public FileLukuvinkkiDao(String tiedosto) throws Exception {
+    public FileLukuvinkkiDao(File tiedosto) throws Exception {
         lukuvinkit = new ArrayList<>();
         this.tiedosto = tiedosto;
         lueTiedosto();
@@ -21,13 +21,13 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
 
     private void lueTiedosto() throws IOException {
         try {
-            Scanner lukija = new Scanner(new File(tiedosto));
+            Scanner lukija = new Scanner(tiedosto);
             while (lukija.hasNextLine()) {
                 String lukuvinkki = lukija.nextLine();
                 lukuvinkit.add(lukuvinkki);
             }
         } catch (Exception e) {
-            FileWriter writer = new FileWriter(new File(tiedosto));
+            FileWriter writer = new FileWriter(tiedosto);
             writer.close();
         }
     }
@@ -49,7 +49,7 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
     }
 
     private void tallenna() {
-        try (FileWriter writer = new FileWriter(new File(tiedosto))) {
+        try (FileWriter writer = new FileWriter(tiedosto)) {
             for (String lukuvinkki : lukuvinkit) {
                 writer.write(lukuvinkki + "\n");
             }
