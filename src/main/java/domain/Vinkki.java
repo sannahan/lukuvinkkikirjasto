@@ -1,5 +1,5 @@
 package domain;
 
-public interface Vinkki {
-    Tyyppi getTyyppi();
+public enum Vinkki{
+    YLEIS, KIRJA
 }
