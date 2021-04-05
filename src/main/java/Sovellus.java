@@ -11,8 +11,9 @@ public class Sovellus {
 	}
 
 	public void suorita() {
+		this.ui.print("Valitse toiminto syöttämällä numero:");
 		this.printInfo();
-		
+
 		while (true) {
 			int komento = this.ui.nextInt("Komento: ");
 
@@ -20,7 +21,7 @@ public class Sovellus {
 				this.printInfo();
 			}
 			
-			if (komento == 1) {
+			else if (komento == 1) {
 				selaaVinkkeja();
 			}
 
@@ -40,10 +41,9 @@ public class Sovellus {
 	}
 	
 	public void printInfo() {
-		this.ui.print("Valitse toiminto syöttämällä numero:");
-		this.ui.print("0: Info");
-		this.ui.print("1: Selaa vinkkejä");
-		this.ui.print("2: Lisää uusi vinkki");
+		this.ui.print(" 0: Info");
+		this.ui.print(" 1: Selaa vinkkejä");
+		this.ui.print(" 2: Lisää uusi vinkki");
 		this.ui.print("-1: Poistu");
 	}
 
