@@ -71,6 +71,15 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
         }
         return vinkit;
     }
+    
+    public List<String> listaaOtsikot() {
+        List<Vinkki> vinkit = listaa();
+        ArrayList<String> otsikot = new ArrayList<>();
+        for (Vinkki vinkki: vinkit) {
+            otsikot.add(vinkki.getOtsikko());
+        }
+        return otsikot;
+    }
 
     public void poista(int tunnus) {
         // tässä oletetaan, että tunnukset numeroidaan listauksessa ykkösestä alkaen
