@@ -72,4 +72,11 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
         return vinkit;
     }
 
+    public void poista(int tunnus) {
+        // tässä oletetaan, että tunnukset numeroidaan listauksessa ykkösestä alkaen
+        lukuvinkit.remove(tunnus-1);
+        tallenna();
+    }
+
 }
+
