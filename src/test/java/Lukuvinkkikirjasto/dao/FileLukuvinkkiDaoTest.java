@@ -80,4 +80,15 @@ public class FileLukuvinkkiDaoTest {
         assertEquals("linkki3", testi.getLinkki());
     }
 
+    @Test
+    public void listaaOtsikotListaaOtsikot() {
+        lukuvinkit.lisaa(vinkki);
+        lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2"));
+        lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3"));
+        List<String> otsikot = lukuvinkit.listaaOtsikot();
+        assertEquals("otsikko", otsikot.get(0));
+        assertEquals("toinen vinkki", otsikot.get(1));
+        assertEquals("kolmas vinkki", otsikot.get(2));
+    }
+
 }
