@@ -15,3 +15,4 @@
 - Userstoryn hyväksymiskriteerit toteutuu
 
 ![GitHub Actions](https://github.com/sannahan/lukuvinkkikirjasto/workflows/Java%20CI%20with%20Gradle/badge.svg)
+[![codecov](https://codecov.io/gh/sannahan/lukuvinkkikirjasto/branch/main/graph/badge.svg?token=D5RRH7MIFT)](https://codecov.io/gh/sannahan/lukuvinkkikirjasto)
