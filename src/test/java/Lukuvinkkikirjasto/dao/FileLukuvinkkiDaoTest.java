@@ -58,4 +58,26 @@ public class FileLukuvinkkiDaoTest {
         assertEquals(3, vinkit.size());
     }
 
+    @Test
+    public void vinkinPoistoOnnistuu() {
+        lukuvinkit.lisaa(vinkki);
+        lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2"));
+        lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3"));
+        lukuvinkit.poista(1);
+        List<Vinkki> vinkit = lukuvinkit.listaa();
+        assertEquals(2, vinkit.size());
+    }
+
+    @Test
+    public void poistoPoistaaHalutunVinkin() {
+        lukuvinkit.lisaa(vinkki);
+        lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2"));
+        lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3"));
+        lukuvinkit.poista(1);
+        List<Vinkki> vinkit = lukuvinkit.listaa();
+        Oletus testi = (Oletus)vinkit.get(1);
+        assertEquals("kolmas vinkki", testi.getOtsikko());
+        assertEquals("linkki3", testi.getLinkki());
+    }
+
 }
