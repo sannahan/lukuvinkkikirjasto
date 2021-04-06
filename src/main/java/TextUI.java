@@ -31,10 +31,13 @@ public class TextUI implements IO{
         if (msg.length() > 0) {
             this.print(msg);
         }
-
-        return Integer.parseInt(scanner.nextLine());
+        try {
+        	return Integer.parseInt(scanner.nextLine());
+        } catch(NumberFormatException e) {
+        	return -2;
+        }
     }
-
+    
     @Override
     public void error(String msg) {
         this.print("VIRHE: " + msg);

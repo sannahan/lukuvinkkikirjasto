@@ -23,10 +23,15 @@ public class Sovellus {
 		while (true) {
 			int komento = this.ui.nextInt("Komento: ");
 
-			if (komento == 0) {
+			if (komento == -2) {
+				this.ui.error("Ei numero! Syötä numero komentovalikosta");
+				printInfo();
+			}
+
+			else if (komento == 0) {
 				this.printInfo();
 			}
-			
+
 			else if (komento == 1) {
 				selaaVinkkeja();
 			}
@@ -34,7 +39,11 @@ public class Sovellus {
 			else if (komento == 2) {
 				lisaaVinkki();
 			}
-			
+
+			else if (komento == 3) {
+				poistaVinkki();
+			}
+
 			else if (komento == -1) {
 				this.ui.print("Hei hei!");
 				break;
@@ -42,26 +51,26 @@ public class Sovellus {
 
 			else {
 				this.ui.error("Komentoa ei löydy!");
+				printInfo();
 			}
 		}
 	}
-	
+
 	public void printInfo() {
 		this.ui.print(" 0: Info");
 		this.ui.print(" 1: Selaa vinkkejä");
 		this.ui.print(" 2: Lisää uusi vinkki");
+		this.ui.print(" 3: Poista vinkki");
 		this.ui.print("-1: Poistu");
 	}
 
-	
 	public void selaaVinkkeja() {
-    	List<Vinkki> vinkit = lukuvinkkiDao.listaa();
-    	for (Vinkki vinkki : vinkit) {
-    		System.out.println(vinkki.toString());
-    	}
+		List<Vinkki> vinkit = lukuvinkkiDao.listaa();
+		for (Vinkki vinkki : vinkit) {
+			System.out.println(vinkki.toString());
+		}
 	}
 
-	
 	public void lisaaVinkki() {
 		// System.out.print("Anna lukuvinkin otsikko: ");
 		String otsikko = this.ui.nextLine("Anna lukuvinkin otsikko: ");
@@ -70,5 +79,31 @@ public class Sovellus {
 		Vinkki vinkki = new Oletus(otsikko, URL);
 		lukuvinkkiDao.lisaa(vinkki);
 		// System.out.println("Vinkki lisätty!");
+	}
+
+	public void poistaVinkki() {
+		List<String> otsikot = tulostaOtsikotIdlla();
+		if (otsikot.isEmpty()) {
+			System.out.println("Ei poistettavia vinkkejä!");
+		} else {
+			int poistettava = this.ui.nextInt("Anna poistettavan vinkin id-numero:");
+			String vastaus = this.ui
+					.nextLine("Haluatko varmasti poistaa vinkin " + otsikot.get(poistettava - 1) + " (y/n)");
+			if (vastaus.equals("y")) {
+				lukuvinkkiDao.poista(poistettava);
+				System.out.println("Vinkki poistettu");
+			} else {
+				System.out.println("Vinkkiä ei poistettu");
+			}
+		}
+	}
+
+	public List<String> tulostaOtsikotIdlla() {
+		List<String> otsikot = lukuvinkkiDao.listaaOtsikot();
+		for (int i = 0; i < otsikot.size(); i++) {
+			int index = i + 1;
+			System.out.println(index + ": " + otsikot.get(i));
+		}
+		return otsikot;
 	}
 }

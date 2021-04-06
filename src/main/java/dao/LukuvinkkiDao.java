@@ -8,4 +8,5 @@ public interface LukuvinkkiDao {
     void lisaa(Vinkki vinkki);
     List<Vinkki> listaa();
     void poista(int tunnus);
+    List<String> listaaOtsikot();
 }
