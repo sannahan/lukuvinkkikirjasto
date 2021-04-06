@@ -88,8 +88,8 @@ public class Sovellus {
 		} else {
 			int poistettava = this.ui.nextInt("Anna poistettavan vinkin id-numero:");
 			String vastaus = this.ui
-					.nextLine("Haluatko varmasti poistaa vinkin " + otsikot.get(poistettava - 1) + " (y/n)");
-			if (vastaus.equals("y")) {
+					.nextLine("Haluatko varmasti poistaa vinkin " + otsikot.get(poistettava - 1) + " (kyllä/ei)");
+			if (vastaus.equals("kyllä")) {
 				lukuvinkkiDao.poista(poistettava);
 				System.out.println("Vinkki poistettu");
 			} else {
