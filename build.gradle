@@ -25,8 +25,8 @@ repositories {
 dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.1.0'
     testImplementation group: 'junit', name: 'junit', version: '4.13'
-    testCompile 'io.cucumber:cucumber-java:6.8.1'
-    testCompile 'io.cucumber:cucumber-junit:6.8.1'
+    testImplementation 'io.cucumber:cucumber-java:6.8.1'
+    testImplementation 'io.cucumber:cucumber-junit:6.8.1'
 
 }
 
@@ -35,4 +35,15 @@ jacocoTestReport {
         xml.enabled true
         html.enabled true
     }
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
 }
