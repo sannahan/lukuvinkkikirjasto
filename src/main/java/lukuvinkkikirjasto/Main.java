@@ -1,4 +1,4 @@
-package main;
+package lukuvinkkikirjasto;
 
 import ui.TextUI;
 import ui.Sovellus;

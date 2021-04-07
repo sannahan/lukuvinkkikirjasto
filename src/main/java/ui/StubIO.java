@@ -13,6 +13,7 @@ public class StubIO implements IO {
     public StubIO (List<String> syotteet) {
         this.syotteet = syotteet;
         tulosteet = new ArrayList<>();
+        i = 0;
     }
     
     @Override
@@ -25,7 +26,10 @@ public class StubIO implements IO {
         if (msg.length() > 0) {
             this.print(msg);
         }
-        return tulosteet.get(i++);
+        String palautettava = syotteet.get(i);
+        i++;
+        return palautettava;
+
      }
 
     @Override
@@ -33,10 +37,13 @@ public class StubIO implements IO {
         if (msg.length() > 0) {
             this.print(msg);
         }
-        try {
-            return Integer.parseInt(tulosteet.get(i++));
-        } catch(NumberFormatException e) {
+
+        if (i == syotteet.size()) {
             return -2;
+        } else {
+            int palautettava = Integer.parseInt(syotteet.get(i));
+            i++;
+            return palautettava;
         }
     }
 
@@ -45,4 +52,11 @@ public class StubIO implements IO {
         this.print("VIRHE: " + msg);
     }
     
+    //testeja varten
+    public ArrayList<String> getTulosteet() {
+        return tulosteet;
+    }
+    public void lisaaSyote(String syote) {
+        syotteet.add(syote);
+    }
 }

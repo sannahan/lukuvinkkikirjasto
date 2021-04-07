@@ -1,6 +1,7 @@
 Feature: Kayttaja voi lisata vinkin
 
-    Scenario: kayttaja voi lisata otsikon
+    Scenario: kayttaja voi lisata vinkin ja sovellus lopettaa kaskysta
         Given kayttaja kertoo haluavansa lisata vinkin
-        When
-        Then
+        When  otsikko "loistovinkki" ja URL "www.hs.fi" annetaan
+	And   annetaan lopetuskomento
+        Then  sovellus suorittaa ja lopettaa
