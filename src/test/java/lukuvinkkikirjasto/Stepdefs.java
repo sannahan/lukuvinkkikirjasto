@@ -52,7 +52,7 @@ public class Stepdefs {
     }
     
     @Then("sovellus suorittaa ja lopettaa")
-    public void sovellusKysyyUuttaKomentoa() {
+    public void sovellusSuorittaaJaLopettaa() {
         app = new Sovellus(io, lukuvinkit);
         app.suorita();
         boolean sisaltaako = false;
@@ -65,4 +65,18 @@ public class Stepdefs {
         assertTrue(sisaltaako);
     }
     
+    @Then("sovellus vastaa {string}")
+    public void sovellusVastaaOdotetulla(String expectedOutput) {
+        app = new Sovellus(io, lukuvinkit);
+        app.suorita();        
+        //assertTrue(io.getTulosteet().contains(expectedOutput));
+        boolean sisaltaako = false;
+        for (String s: io.getTulosteet()) {
+            if (s.contains(expectedOutput)) {
+                sisaltaako = true;
+            }
+        }
+        
+        assertTrue(sisaltaako);
+    }   
 }
