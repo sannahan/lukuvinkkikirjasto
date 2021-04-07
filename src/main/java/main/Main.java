@@ -1,3 +1,8 @@
+package main;
+
+import ui.TextUI;
+import ui.Sovellus;
+import ui.IO;
 import java.io.File;
 import java.util.Scanner;
 
