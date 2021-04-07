@@ -32,9 +32,9 @@ public class TextUI implements IO{
             this.print(msg);
         }
         try {
-        	return Integer.parseInt(scanner.nextLine());
+            return Integer.parseInt(scanner.nextLine());
         } catch(NumberFormatException e) {
-        	return -2;
+            return -2;
         }
     }
     
