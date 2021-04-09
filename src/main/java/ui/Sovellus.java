@@ -70,7 +70,7 @@ public class Sovellus {
 	public void selaaVinkkeja() {
 		List<Vinkki> vinkit = lukuvinkkiDao.listaa();
 		for (Vinkki vinkki : vinkit) {
-			System.out.println(vinkki.toString());
+			this.ui.print(vinkki.toString());
 		}
 	}
 
