@@ -10,13 +10,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.After;
 import static org.junit.Assert.assertTrue;
+import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
 import ui.Sovellus;
 
 public class Stepdefs {
+    
+    @Rule
+    public TemporaryFolder testiKansio = new TemporaryFolder();
+    
     Sovellus app;
-    TemporaryFolder testiKansio;
     File tiedosto;
     StubIO io;
     FileLukuvinkkiDao lukuvinkit;
@@ -35,6 +40,11 @@ public class Stepdefs {
         io = new StubIO(syoterivit); 
     }
     
+    @After
+    public void tearDown() {
+        tiedosto.delete();
+    }
+
     @Given("kayttaja kertoo haluavansa lisata vinkin")
     public void kayttajaKertooHaluavansaLisataVinkin() {
         io.lisaaSyote("2");     
@@ -45,10 +55,25 @@ public class Stepdefs {
         io.lisaaSyote(otsikko);
         io.lisaaSyote(url);
     }
-    
+
+    @When("kayttaja kertoo haluavansa selata vinkkeja")
+    public void kayttajaHaluaaSelataVinkkeja() {
+        io.lisaaSyote("1");
+    }
+       
     @When("annetaan lopetuskomento")
     public void kayttajaAntaaLopetuskomennon() {
         io.lisaaSyote("-1");        
+    }
+    
+    @When("kayttaja antaa idn 220")
+    public void kayttajaAntaaOlemattomanKomennon() {
+        io.lisaaSyote("220");
+    }
+
+    @When("kayttaja antaa komennoksi poo")
+    public void kayttajaAntaaKomennoksiTekstia() {
+        io.lisaaSyote("poo");
     }
     
     @Then("sovellus suorittaa ja lopettaa")
@@ -79,4 +104,25 @@ public class Stepdefs {
         
         assertTrue(sisaltaako);
     }   
+    
+    @Then("listauksesta loytyy vinkki {string} ja linkki {string}") 
+    public void listauksestaLoytyyVinkkiJaLinkki(String vinkki, String linkki) {
+        app = new Sovellus(io, lukuvinkit);
+        app.suorita();        
+        boolean sisVinkin = false;
+        boolean sisLinkin = false;
+        for (String s: io.getTulosteet()) {
+            if (s.contains(vinkki)) {
+                sisVinkin = true;
+            }
+            if (s.contains(linkki)) {
+                sisLinkin = true;
+            }
+        }
+        boolean molemmatLoytyy = false;
+        if (sisVinkin && sisLinkin) {
+            molemmatLoytyy = true;
+        }
+        assertTrue(molemmatLoytyy);        
+    }
 }
