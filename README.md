@@ -6,8 +6,8 @@
 <TODO info="lisätään sprint backlogille linkki">
 
 ## Käyttöohjeet
-- Suorita pääohjelma komennolla 'gradle run' (käytä komennosta muotoa './gradlew', jos 'gradle' ei toimi) projektin juurihakemistossa
-- Generoi jar-tiedosto komennolla 'gradle jar' ja suorita jar-tiedosto komennolla 'java -jar build/libs/lukuvinkkikirjasto.jar' projektin juurihakemistossa
+- Suorita pääohjelma komennolla `gradle -q --console plain run` (käytä komennosta muotoa `./gradlew`, jos `gradle` ei toimi) projektin juurihakemistossa
+- Generoi jar-tiedosto komennolla `gradle jar` ja suorita jar-tiedosto komennolla `java -jar build/libs/lukuvinkkikirjasto.jar` projektin juurihakemistossa
 
 ## Definition of done
 - Koodi on selkeää ja helposti luettavaa: koodi on katselmoitu toisen tiimiläisen johdosta
