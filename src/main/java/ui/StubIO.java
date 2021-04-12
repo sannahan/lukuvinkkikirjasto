@@ -33,9 +33,11 @@ public class StubIO implements IO {
     @Override
     public int nextInt(String msg) {
         this.print(msg);
-        int palautettava = Integer.parseInt(syotteet.get(i));
-        i++;
-        return palautettava;
+        // int palautettava = Integer.parseInt(syotteet.get(i));
+        // i++;
+        // return palautettava;
+        
+        return Integer.parseInt(syotteet.get(i++));
     }
 
     @Override
