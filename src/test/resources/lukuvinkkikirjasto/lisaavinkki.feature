@@ -22,5 +22,5 @@ Feature: Kayttaja voi lisata vinkkeja
     Scenario: kayttaja voi lisata vinkin ja uusi komento JOKA EI TOIMI
         Given kayttaja kertoo haluavansa lisata vinkin
         When  otsikko "loisto" ja URL "muu.com" annetaan
-        Then  sovellus vastaa "Komento:"
+        Then  sovellus kysyy käyttäjältä uutta komentoa
 

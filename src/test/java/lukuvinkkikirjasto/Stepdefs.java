@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
@@ -98,7 +100,16 @@ public class Stepdefs {
         }
         
         assertTrue(sisaltaako);
-    }   
+    }
+    
+    @Then("sovellus kysyy käyttäjältä uutta komentoa")
+    public void sovellusKysyyKomentoa() {
+        io.lisaaSyote("-1");
+        app = new Sovellus(io, lukuvinkit);
+        app.suorita();
+        List<String> tulosteet = io.getTulosteet();
+        assertEquals("Komento: ", tulosteet.get(tulosteet.size() - 2));
+    }
     
     @Then("listauksesta loytyy vinkki {string} ja linkki {string}") 
     public void listauksestaLoytyyVinkkiJaLinkki(String vinkki, String linkki) {
