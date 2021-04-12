@@ -71,11 +71,6 @@ public class Stepdefs {
         io.lisaaSyote("220");
     }
 
-    @When("kayttaja antaa komennoksi poo")
-    public void kayttajaAntaaKomennoksiTekstia() {
-        io.lisaaSyote("poo");
-    }
-    
     @Then("sovellus suorittaa ja lopettaa")
     public void sovellusSuorittaaJaLopettaa() {
         app = new Sovellus(io, lukuvinkit);

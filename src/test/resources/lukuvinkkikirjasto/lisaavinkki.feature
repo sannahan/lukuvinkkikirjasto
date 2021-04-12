@@ -19,4 +19,8 @@ Feature: Kayttaja voi lisata vinkkeja
         And   annetaan lopetuskomento
         Then  listauksesta loytyy vinkki "Vinkki: paras" ja linkki "miu.com"
 
+    Scenario: kayttaja voi lisata vinkin ja uusi komento JOKA EI TOIMI
+        Given kayttaja kertoo haluavansa lisata vinkin
+        When  otsikko "loisto" ja URL "muu.com" annetaan
+        Then  sovellus vastaa "Komento:"
 
