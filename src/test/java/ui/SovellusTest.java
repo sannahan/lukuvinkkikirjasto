@@ -1,6 +1,9 @@
 package ui;
 
 import dao.*;
+import domain.Sovellus;
+import io.IO;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +23,7 @@ public class SovellusTest {
     @Before
     public void setUp() {
         System.out.println("Alustetaan rajapinnat");
-        tui = mock(TextUI.class);
+        tui = mock(IO.class);
         // vDao = mock(FileLukuvinkkiDao.class);
 
         try {

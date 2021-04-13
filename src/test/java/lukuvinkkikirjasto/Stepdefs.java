@@ -1,7 +1,8 @@
 package lukuvinkkikirjasto;
 
 import dao.FileLukuvinkkiDao;
-import ui.StubIO;
+import domain.Sovellus;
+import io.StubIO;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -16,7 +17,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
-import ui.Sovellus;
 
 public class Stepdefs {
     

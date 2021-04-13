@@ -1,4 +1,4 @@
-package ui;
+package io;
 
 public interface IO {
     public void print(String msg);
