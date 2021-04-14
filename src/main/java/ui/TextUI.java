@@ -87,7 +87,8 @@ public class TextUI {
             otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
         }
         var URL = this.io.nextLine("Anna lukuvinkin URL: ");
-        sovellus.lisaaVinkki(otsikko, URL);
+        String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
+        sovellus.lisaaVinkki(otsikko, URL, tagit);
     }
 
     private void printInfo() {
