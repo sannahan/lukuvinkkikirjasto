@@ -75,15 +75,14 @@ public class Sovellus {
 	}
 
 	public void lisaaVinkki() {
-		// System.out.print("Anna lukuvinkin otsikko: ");
 		String otsikko = this.ui.nextLine("Anna lukuvinkin otsikko: ");
-		// System.out.print("Anna lukuvinkin URL: ");
-		if (lukuvinkkiDao.listaaOtsikot().contains(otsikko)) {
+		while (lukuvinkkiDao.listaaOtsikot().contains(otsikko)) {
 			this.ui.error("Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko");
 			otsikko = this.ui.nextLine("Anna lukuvinkin otsikko: ");
 		}
 		String URL = this.ui.nextLine("Anna lukuvinkin URL: ");
-		Vinkki vinkki = new Oletus(otsikko, URL);
+		String tagit = this.ui.nextLine("Lisää tägejä pilkulla erotettuna: ");
+		Vinkki vinkki = new Oletus(otsikko, URL, tagit);
 		lukuvinkkiDao.lisaa(vinkki);
 		// System.out.println("Vinkki lisätty!");
 	}

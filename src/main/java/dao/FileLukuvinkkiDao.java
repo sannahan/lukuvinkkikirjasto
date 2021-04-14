@@ -40,7 +40,7 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
             // case KADUNMIES:
             default:
                 Oletus oletusVinkki = (Oletus) vinkki;
-                lukuvinkit.add("1;" + oletusVinkki.getOtsikko() + ";" + oletusVinkki.getLinkki()); // Laitoin oletusvinkin tunnisteeksi nyt 1, mutta tätä voi toki muuttaa.
+                lukuvinkit.add("1;" + oletusVinkki.getOtsikko() + ";" + oletusVinkki.getLinkki() + ";" + oletusVinkki.getTagit()); // Laitoin oletusvinkin tunnisteeksi nyt 1, mutta tätä voi toki muuttaa.
                 break;
         }
 
@@ -65,7 +65,7 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
             switch (osat[0]) {
                 // case "2", "3", "4", ...
                 default: // eli "1"
-                vinkit.add(new Oletus(osat[1], osat[2]));
+                vinkit.add(new Oletus(osat[1], osat[2], osat[3]));
                 break;
             }
         }
