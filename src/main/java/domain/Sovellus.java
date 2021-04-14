@@ -3,6 +3,8 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 import dao.LukuvinkkiDao;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Sovellus {
 	private LukuvinkkiDao lukuvinkkiDao;
@@ -25,8 +27,14 @@ public class Sovellus {
 		lukuvinkkiDao.lisaa(vinkki);
 	}
 
-	public void poistaVinkki(int indeksi) {
-		lukuvinkkiDao.poista(indeksi);
+	public Map<String, String> poistaVinkki(int indeksi) {
+                Map<String, String> vinkinTiedot = new HashMap<>();
+		Vinkki vinkki = lukuvinkkiDao.poista(indeksi);
+                if (vinkki != null) {
+                    vinkinTiedot.put("otsikko", vinkki.getOtsikko());
+                    vinkinTiedot.put("linkki", vinkki.getLinkki());
+                } 
+                return vinkinTiedot;
 	}
 
 	public boolean tarkistaOtsikko(String otsikko) {
@@ -41,4 +49,16 @@ public class Sovellus {
 		}
 		return lista;
 	}
+        
+        public boolean tarkistaId(int id) {
+            int vinkkiMaara = lukuvinkkiDao.getMaara();
+            if (id > vinkkiMaara || id < 1) {
+                return false;
+            }
+            return true;
+        }
+        
+        public String getOtsikko(int id) {
+            return lukuvinkkiDao.listaa().get(id - 1).getOtsikko();
+        }
 }
