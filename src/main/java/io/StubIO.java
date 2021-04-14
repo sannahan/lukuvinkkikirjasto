@@ -1,4 +1,4 @@
-package ui;
+package io;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,22 +21,14 @@ public class StubIO implements IO {
 
     @Override
     public String nextLine(String msg) {
-        if (msg.length() > 0) {
-            this.print(msg);
-        }
-        String palautettava = syotteet.get(i);
-        i++;
-        return palautettava;
+        this.print(msg);
+        return syotteet.get(i++);
 
     }
 
     @Override
     public int nextInt(String msg) {
-        this.print(msg);
-        // int palautettava = Integer.parseInt(syotteet.get(i));
-        // i++;
-        // return palautettava;
-        
+        this.print(msg);        
         return Integer.parseInt(syotteet.get(i++));
     }
 
