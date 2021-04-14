@@ -90,7 +90,7 @@ public class TextUI {
         sovellus.lisaaVinkki(otsikko, URL);
     }
 
-    public void printInfo() {
+    private void printInfo() {
         this.io.print(" 0: Info");
         this.io.print(" 1: Selaa vinkkejä");
         this.io.print(" 2: Lisää uusi vinkki");

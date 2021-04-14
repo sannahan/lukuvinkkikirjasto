@@ -7,6 +7,8 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import ui.TextUI;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class Stepdefs {
     StubIO io;
     FileLukuvinkkiDao lukuvinkit;
     List<String> syoterivit;
+    TextUI ui;
     
     @Before
     public void setup() throws Exception {
@@ -39,7 +42,9 @@ public class Stepdefs {
         }
         lukuvinkit = new FileLukuvinkkiDao(tiedosto);
         syoterivit = new ArrayList<>();
-        io = new StubIO(syoterivit); 
+        io = new StubIO(syoterivit);
+        app = new Sovellus(lukuvinkit);
+        ui = new TextUI(io, app);
     }
     
     @After
@@ -75,8 +80,7 @@ public class Stepdefs {
 
     @Then("sovellus suorittaa ja lopettaa")
     public void sovellusSuorittaaJaLopettaa() {
-        app = new Sovellus(io, lukuvinkit);
-        app.suorita();
+        ui.suorita();
         boolean sisaltaako = false;
         for (String s: io.getTulosteet()) {
             if (s.contains("hei")) {
@@ -89,8 +93,7 @@ public class Stepdefs {
     
     @Then("sovellus vastaa {string}")
     public void sovellusVastaaOdotetulla(String expectedOutput) {
-        app = new Sovellus(io, lukuvinkit);
-        app.suorita();        
+        ui.suorita();        
         //assertTrue(io.getTulosteet().contains(expectedOutput));
         boolean sisaltaako = false;
         for (String s: io.getTulosteet()) {
@@ -105,16 +108,14 @@ public class Stepdefs {
     @Then("sovellus kysyy käyttäjältä uutta komentoa")
     public void sovellusKysyyKomentoa() {
         io.lisaaSyote("-1");
-        app = new Sovellus(io, lukuvinkit);
-        app.suorita();
+        ui.suorita();
         List<String> tulosteet = io.getTulosteet();
         assertEquals("Komento: ", tulosteet.get(tulosteet.size() - 2));
     }
     
     @Then("listauksesta loytyy vinkki {string} ja linkki {string}") 
     public void listauksestaLoytyyVinkkiJaLinkki(String vinkki, String linkki) {
-        app = new Sovellus(io, lukuvinkit);
-        app.suorita();        
+        ui.suorita();  
         boolean sisVinkin = false;
         boolean sisLinkin = false;
         for (String s: io.getTulosteet()) {
