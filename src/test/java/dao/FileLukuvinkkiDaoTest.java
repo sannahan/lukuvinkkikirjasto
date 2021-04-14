@@ -1,4 +1,4 @@
-package Lukuvinkkikirjasto.dao;
+package dao;
 
 import static org.junit.Assert.*;
 
@@ -12,7 +12,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import dao.FileLukuvinkkiDao;
 import domain.*;
 
 public class FileLukuvinkkiDaoTest {
