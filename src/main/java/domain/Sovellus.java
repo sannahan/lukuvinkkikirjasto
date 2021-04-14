@@ -20,8 +20,8 @@ public class Sovellus {
 		return lista;
 	}
 
-	public void lisaaVinkki(String otsikko, String URL) {
-		Vinkki vinkki = new Oletus(otsikko, URL);
+	public void lisaaVinkki(String otsikko, String URL, String tagit) {
+		Vinkki vinkki = new Oletus(otsikko, URL, tagit);
 		lukuvinkkiDao.lisaa(vinkki);
 	}
 
