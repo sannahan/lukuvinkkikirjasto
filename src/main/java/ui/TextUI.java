@@ -67,7 +67,8 @@ public class TextUI {
             otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
         }
         var URL = this.io.nextLine("Anna lukuvinkin URL: ");
-        sovellus.lisaaVinkki(otsikko, URL);
+        String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
+        sovellus.lisaaVinkki(otsikko, URL, tagit);
     }
 
     private void poistaVinkki() {
@@ -107,7 +108,12 @@ public class TextUI {
                 if (url.isEmpty()) {
                     url = vanhaVinkki.get("linkki");
                 }
-                sovellus.lisaaVinkki(otsikko, url);
+                this.io.print("Vinkillä on seuraavat tagit " + vanhaVinkki.get("tagit"));
+                var tagit = this.io.nextLine("Anna uudet tagit (tyhja syöte säilyttää tagit ennallaan):");
+                if (tagit.isEmpty()) {
+                    tagit = vanhaVinkki.get("tagit");
+                }
+                sovellus.lisaaVinkki(otsikko, url, tagit);
             } else {
                 this.io.print("Virheellinen id-numero"); 
             }

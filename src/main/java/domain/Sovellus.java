@@ -33,6 +33,7 @@ public class Sovellus {
                 if (vinkki != null) {
                     vinkinTiedot.put("otsikko", vinkki.getOtsikko());
                     vinkinTiedot.put("linkki", vinkki.getLinkki());
+                    vinkinTiedot.put("tagit", vinkki.getTagit());
                 } 
                 return vinkinTiedot;
 	}

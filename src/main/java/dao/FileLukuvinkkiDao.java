@@ -94,7 +94,7 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
         switch (osat[0]) {
             // case "2", "3", "4", ...
             default: // eli "1"
-                Vinkki vinkki = new Oletus(osat[1], osat[2]);
+                Vinkki vinkki = new Oletus(osat[1], osat[2], osat[3]);
                 return vinkki;
         }
     }
