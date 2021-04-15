@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import domain.*;
+import java.time.LocalDate;
 
 public class FileLukuvinkkiDao implements LukuvinkkiDao {
     private File tiedosto;
@@ -40,7 +41,7 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
             // case KADUNMIES:
             default:
                 Oletus oletusVinkki = (Oletus) vinkki;
-                lukuvinkit.add("1;" + oletusVinkki.getOtsikko() + ";" + oletusVinkki.getLinkki() + ";" + oletusVinkki.getTagit()); // Laitoin oletusvinkin tunnisteeksi nyt 1, mutta tätä voi toki muuttaa.
+                lukuvinkit.add("1;" + oletusVinkki.getOtsikko() + ";" + oletusVinkki.getLinkki() + ";" + oletusVinkki.getTagit() + ";" + oletusVinkki.getLuettu() + ";" + oletusVinkki.getluettuPvm()); // Laitoin oletusvinkin tunnisteeksi nyt 1, mutta tätä voi toki muuttaa.
                 break;
         }
 
@@ -65,7 +66,8 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
             switch (osat[0]) {
                 // case "2", "3", "4", ...
                 default: // eli "1"
-                vinkit.add(new Oletus(osat[1], osat[2], osat[3]));
+                //LocalDate date = new LocalDate(osat[4]);
+                vinkit.add(new Oletus(osat[1], osat[2], osat[3], osat[5]));
                 break;
             }
         }
@@ -94,7 +96,7 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
         switch (osat[0]) {
             // case "2", "3", "4", ...
             default: // eli "1"
-                Vinkki vinkki = new Oletus(osat[1], osat[2], osat[3]);
+                Vinkki vinkki = new Oletus(osat[1], osat[2], osat[3], osat[4]);
                 return vinkki;
         }
     }
