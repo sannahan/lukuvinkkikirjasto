@@ -4,6 +4,7 @@ import java.util.List;
 
 import domain.Sovellus;
 import io.IO;
+import java.util.Map;
 
 public class TextUI {
     private IO io;
@@ -43,6 +44,9 @@ public class TextUI {
             case 3:
                 poistaVinkki();
                 break;
+            case 4:
+                muokkaaVinkkia();
+                break;
             default:
                 this.io.error("Komentoa ei löydy!");
                 printInfo();
@@ -55,31 +59,7 @@ public class TextUI {
         for (String vinkki : sovellus.selaaVinkkeja())
             this.io.print(vinkki);
     }
-
-    private void poistaVinkki() {
-        List<String> otsikot = sovellus.listaaOtsikotIdlla();
-        if (otsikot.isEmpty()) {
-            this.io.print("Ei poistettavia vinkkejä!");
-        } else {
-            for (String otsikko : otsikot) {
-                this.io.print(otsikko);
-            }
-            var poistettava = this.io.nextInt("Anna poistettavan vinkin id-numero:");
-            if (poistettava > otsikot.size() || poistettava < 1) {
-                this.io.print("Virheellinen id-numero");
-            } else {
-                var vastaus = this.io
-                        .nextLine("Haluatko varmasti poistaa vinkin " + otsikot.get(poistettava - 1) + " (kyllä/ei)");
-                if (vastaus.equals("kyllä")) {
-                    sovellus.poistaVinkki(poistettava);
-                    this.io.print("Vinkki poistettu");
-                } else {
-                    this.io.print("Vinkkiä ei poistettu");
-                }
-            }
-        }
-    }
-
+    
     private void lisaaVinkki() {
         var otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
         while (sovellus.tarkistaOtsikko(otsikko)) {
@@ -87,8 +67,64 @@ public class TextUI {
             otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
         }
         var URL = this.io.nextLine("Anna lukuvinkin URL: ");
-        String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
-        sovellus.lisaaVinkki(otsikko, URL, tagit);
+        sovellus.lisaaVinkki(otsikko, URL);
+    }
+
+    private void poistaVinkki() {
+        if (listaaOtsikotJosVinkkejaOnOlemassa()) {
+            var poistettava = this.io.nextInt("Anna poistettavan vinkin id-numero:");
+            if (sovellus.tarkistaId(poistettava)) {
+                var vastaus = this.io.nextLine("Haluatko varmasti poistaa vinkin " + sovellus.getOtsikko(poistettava) + " (kyllä/ei)");
+                if (vastaus.equals("kyllä")) {
+                    sovellus.poistaVinkki(poistettava);
+                    this.io.print("Vinkki poistettu");
+                } else {
+                    this.io.print("Vinkkiä ei poistettu");
+                }
+            } else {
+                this.io.print("Virheellinen id-numero"); 
+            }
+        }
+    }
+    
+    private void muokkaaVinkkia() {
+        if (listaaOtsikotJosVinkkejaOnOlemassa()) {
+            var muokattava = this.io.nextInt("Anna muokattavan vinkin id-numero:");
+            if (sovellus.tarkistaId(muokattava)) {
+                Map<String, String> vanhaVinkki = sovellus.poistaVinkki(muokattava);
+                this.io.print("Otsikko on nyt " + vanhaVinkki.get("otsikko"));
+                var otsikko = this.io.nextLine("Anna uusi otsikko (tyhjä syöte säilyttää otsikon ennallaan): ");
+                if (otsikko.isEmpty()) {
+                    otsikko = vanhaVinkki.get("otsikko");
+                } else {
+                    while (sovellus.tarkistaOtsikko(otsikko)) {
+                        this.io.error("Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko");
+                        otsikko = this.io.nextLine("Anna uusi otsikko: ");
+                    }
+                }
+                this.io.print("Linkki on nyt " + vanhaVinkki.get("linkki"));
+                var url = this.io.nextLine("Anna uusi URL (tyhjä syöte säilyttää linkin ennallaan): ");
+                if (url.isEmpty()) {
+                    url = vanhaVinkki.get("linkki");
+                }
+                sovellus.lisaaVinkki(otsikko, url);
+            } else {
+                this.io.print("Virheellinen id-numero"); 
+            }
+        }
+    }
+
+    private boolean listaaOtsikotJosVinkkejaOnOlemassa() {
+        List<String> otsikot = sovellus.listaaOtsikotIdlla();
+        if (otsikot.isEmpty()) {
+            this.io.print("Ei vinkkejä!");
+            return false;
+        }
+
+        for (String otsikko : otsikot) {
+            this.io.print(otsikko);
+        }
+        return true;
     }
 
     private void printInfo() {
@@ -96,6 +132,7 @@ public class TextUI {
         this.io.print(" 1: Selaa vinkkejä");
         this.io.print(" 2: Lisää uusi vinkki");
         this.io.print(" 3: Poista vinkki");
+        this.io.print(" 4: Muokkaa vinkkiä");
         this.io.print("-1: Poistu");
     }
 }
