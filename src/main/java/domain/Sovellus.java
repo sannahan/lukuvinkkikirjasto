@@ -35,7 +35,7 @@ public class Sovellus {
 	}
         
 	public void lisaaVinkki(String otsikko, String URL, String tagit) {
-		Vinkki vinkki = new Oletus(otsikko, URL, tagit.replaceAll("\\s", ""));
+		Vinkki vinkki = new Oletus(otsikko.trim().replaceAll(";", ":"), URL.trim().replaceAll(";", ":"), tagit.replaceAll("\\s|;", ""));
 		lukuvinkkiDao.lisaa(vinkki);
 	}
         
