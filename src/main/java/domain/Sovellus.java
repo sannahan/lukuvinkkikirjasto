@@ -45,21 +45,6 @@ public class Sovellus {
 		return lista;
 	}
 
-	/*
-	public List<String> etsiVinkkejaTagilla(String haettavaTagi) {
-		List<Vinkki> vinkit = lukuvinkkiDao.listaa();
-		List<String> lista = new ArrayList<>();
-
-		for (Vinkki vinkki : vinkit) {
-			String[] tagit = vinkki.getTagit().split(",");
-
-			if (Arrays.asList(tagit).contains(haettavaTagi)) {
-				lista.add(vinkki.toString());
-			}
-		}
-		return lista;
-	} */
-
 	public List<String> etsiVinkkejaTagilla(String haettavaTagi) {
 		return suodataVinkkeja(new SisaltaaTagin(haettavaTagi));
 	}
