@@ -68,17 +68,18 @@ public class TextUI {
             this.io.print(vinkki);
         }
     }
-    
+
     private void selaaLuettujaVinkkeja() {
         for (String vinkki : sovellus.selaaLuettujaVinkkeja()) {
             this.io.print(vinkki);
         }
     }
-    
+
     private void lisaaVinkki() {
         var otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
-        while (sovellus.tarkistaOtsikko(otsikko)) {
-            this.io.error("Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko");
+        while (sovellus.tarkistaOtsikko(otsikko) || otsikko.isBlank()) {
+            var error = (otsikko.isBlank()) ? "Otsikko ei voi olla tyhjä" : "Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko";
+            this.io.error(error);
             otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
         }
         var url = this.io.nextLine("Anna lukuvinkin URL: ");
@@ -90,7 +91,8 @@ public class TextUI {
         if (listaaOtsikotJosVinkkejaOnOlemassa()) {
             var poistettava = this.io.nextInt("Anna poistettavan vinkin id-numero:");
             if (sovellus.tarkistaId(poistettava)) {
-                var vastaus = this.io.nextLine("Haluatko varmasti poistaa vinkin " + sovellus.getOtsikko(poistettava) + " (kyllä/ei)");
+                var vastaus = this.io.nextLine(
+                        "Haluatko varmasti poistaa vinkin " + sovellus.getOtsikko(poistettava) + " (kyllä/ei)");
                 if (vastaus.equals("kyllä")) {
                     sovellus.poistaVinkki(poistettava);
                     this.io.print("Vinkki poistettu");
@@ -98,26 +100,17 @@ public class TextUI {
                     this.io.print("Vinkkiä ei poistettu");
                 }
             } else {
-                this.io.print("Virheellinen id-numero"); 
+                this.io.print("Virheellinen id-numero");
             }
         }
     }
-    
+
     private void muokkaaVinkkia() {
         if (listaaOtsikotJosVinkkejaOnOlemassa()) {
             var muokattava = this.io.nextInt("Anna muokattavan vinkin id-numero:");
             if (sovellus.tarkistaId(muokattava)) {
                 Map<String, String> vanhaVinkki = sovellus.poistaVinkki(muokattava);
-                this.io.print("Otsikko on nyt " + vanhaVinkki.get("otsikko"));
-                var otsikko = this.io.nextLine("Anna uusi otsikko (tyhjä syöte säilyttää otsikon ennallaan): ");
-                if (otsikko.isEmpty()) {
-                    otsikko = vanhaVinkki.get("otsikko");
-                } else {
-                    while (sovellus.tarkistaOtsikko(otsikko)) {
-                        this.io.error("Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko");
-                        otsikko = this.io.nextLine("Anna uusi otsikko: ");
-                    }
-                }
+                var otsikko = muokkaaOtsikkoa(vanhaVinkki.get("otsikko"));
                 this.io.print("Linkki on nyt " + vanhaVinkki.get("linkki"));
                 var url = this.io.nextLine("Anna uusi URL (tyhjä syöte säilyttää linkin ennallaan): ");
                 if (url.isEmpty()) {
@@ -131,9 +124,20 @@ public class TextUI {
                 sovellus.lisaaVinkki(otsikko, url, tagit);
                 this.io.print("Vinkki muokattu!");
             } else {
-                this.io.print("Virheellinen id-numero"); 
+                this.io.print("Virheellinen id-numero");
             }
         }
+    }
+
+    private String muokkaaOtsikkoa(String otsikko) {
+        this.io.print("Otsikko on nyt " + otsikko);
+        var uusiOtsikko = this.io.nextLine("Anna uusi otsikko (tyhjä syöte säilyttää otsikon ennallaan): ");
+        while (sovellus.tarkistaOtsikko(uusiOtsikko)) {
+            if (uusiOtsikko.isBlank()) break;
+            this.io.error("Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko");
+            uusiOtsikko = this.io.nextLine("Anna uusi otsikko: ");
+        }
+        return (uusiOtsikko.isBlank()) ? otsikko : uusiOtsikko;
     }
 
     private void merkitseVinkkiLuetuksi() {
@@ -144,13 +148,14 @@ public class TextUI {
                 LocalDate dateLD = LocalDate.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
                 String date = dateLD.format(formatter);
-                sovellus.lisaaLuettuVinkki(vanhaVinkki.get("otsikko"), vanhaVinkki.get("url"), vanhaVinkki.get("tagit"), date);
+                sovellus.lisaaLuettuVinkki(vanhaVinkki.get("otsikko"), vanhaVinkki.get("url"), vanhaVinkki.get("tagit"),
+                        date);
             } else {
-                this.io.print("Virheellinen id-numero"); 
+                this.io.print("Virheellinen id-numero");
             }
-        }        
+        }
     }
-    
+
     private boolean listaaOtsikotJosVinkkejaOnOlemassa() {
         List<String> otsikot = sovellus.listaaOtsikotIdlla();
         if (otsikot.isEmpty()) {
