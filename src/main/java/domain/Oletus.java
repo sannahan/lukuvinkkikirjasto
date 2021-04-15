@@ -1,5 +1,6 @@
 package domain;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -59,9 +60,16 @@ public class Oletus implements Vinkki {
     }
     
     public String tagitToString() {
-    	String tagitStr = "#";
+    	String tagitStr = "";
     	String[] tagit = this.tagit.split(",");
-    	tagitStr += String.join(",  #", tagit);
+    	for (int i = 0; i < tagit.length; i++) {
+    		String tagi = tagit[i];
+    		if (i != tagit.length-1) {
+    			tagitStr += "#" + tagi + " ";
+    		} else {
+    			tagitStr += "#" + tagi;
+    		}
+    	}
     	return tagitStr;
     }
 
