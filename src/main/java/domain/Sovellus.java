@@ -3,7 +3,6 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 import dao.LukuvinkkiDao;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,13 +33,13 @@ public class Sovellus {
 		return lista;
 	}
         
-	public void lisaaVinkki(String otsikko, String URL, String tagit) {
-		Vinkki vinkki = new Oletus(otsikko, URL, tagit);
+	public void lisaaVinkki(String otsikko, String url, String tagit) {
+		Vinkki vinkki = new Oletus(otsikko, url, tagit);
 		lukuvinkkiDao.lisaa(vinkki);
 	}
         
-	public void lisaaLuettuVinkki(String otsikko, String URL, String tagit, String date) {
-		Vinkki vinkki = new Oletus(otsikko, URL, tagit, date);
+	public void lisaaLuettuVinkki(String otsikko, String url, String tagit, String date) {
+		Vinkki vinkki = new Oletus(otsikko, url, tagit, date);
 		lukuvinkkiDao.lisaa(vinkki);
 	}
         

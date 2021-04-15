@@ -64,13 +64,15 @@ public class TextUI {
     }
 
     private void selaaVinkkeja() {
-        for (String vinkki : sovellus.selaaVinkkeja())
+        for (String vinkki : sovellus.selaaVinkkeja()) {
             this.io.print(vinkki);
+        }
     }
     
     private void selaaLuettujaVinkkeja() {
-        for (String vinkki : sovellus.selaaLuettujaVinkkeja())
+        for (String vinkki : sovellus.selaaLuettujaVinkkeja()) {
             this.io.print(vinkki);
+        }
     }
     
     private void lisaaVinkki() {
@@ -79,9 +81,9 @@ public class TextUI {
             this.io.error("Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko");
             otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
         }
-        var URL = this.io.nextLine("Anna lukuvinkin URL: ");
+        var url = this.io.nextLine("Anna lukuvinkin URL: ");
         String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
-        sovellus.lisaaVinkki(otsikko, URL, tagit);
+        sovellus.lisaaVinkki(otsikko, url, tagit);
     }
 
     private void poistaVinkki() {

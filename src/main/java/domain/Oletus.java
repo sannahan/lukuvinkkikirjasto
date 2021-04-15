@@ -1,9 +1,5 @@
 package domain;
 
-import java.time.LocalDate;
-import java.util.List;
-
-
 public class Oletus implements Vinkki {
 	private Tyyppi tyyppi;
 	private String otsikko;
@@ -18,7 +14,7 @@ public class Oletus implements Vinkki {
 		this.linkki = linkki;
 		this.tagit = tagit;
 		this.luettu = false;
-                this.luettuPvm = null;
+		this.luettuPvm = null;
 	}
 
 	public Oletus(String otsikko, String linkki, String tagit, String date) {
@@ -27,9 +23,9 @@ public class Oletus implements Vinkki {
 		this.linkki = linkki;
 		this.tagit = tagit;
 		this.luettu = true;
-                this.luettuPvm = date;
-	}        
-        
+		this.luettuPvm = date;
+	}
+
 	public Tyyppi getTyyppi() {
 		return this.tyyppi;
 	}
@@ -45,47 +41,48 @@ public class Oletus implements Vinkki {
 	public String getTagit() {
 		return tagit;
 	}
-	
+
 	public boolean getLuettu() {
 		return luettu;
 	}
-	
+
 	public String getluettuPvm() {
 		return luettuPvm;
 	}
-	
+
 	public void setLuetuksi(String pvm) {
 		luettu = true;
 		luettuPvm = pvm;
 	}
-	
+
 	public void setLukemattomaksi() {
 		luettu = false;
 		luettuPvm = null;
 	}
-	
-    @Override
-    public String toString() {
-        return "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n" + "Tägit: " + tagitToString() + "\n" ;  
-    }
-    
-    public String luetutToString() {
-        return "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n" + "Tägit: " + tagitToString() + "\n" + "Milloin luettu: " + this.getluettuPvm() + "\n";  
- 
-    }
-    
-    public String tagitToString() {
-    	String tagitStr = "";
-    	String[] tagit = this.tagit.split(",");
-    	for (int i = 0; i < tagit.length; i++) {
-    		String tagi = tagit[i];
-    		if (i != tagit.length-1) {
-    			tagitStr += "#" + tagi + " ";
-    		} else {
-    			tagitStr += "#" + tagi;
-    		}
-    	}
-    	return tagitStr;
-    }
+
+	@Override
+	public String toString() {
+		return "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n" + "Tägit: " + tagitToString() + "\n";
+	}
+
+	public String luetutToString() {
+		return "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n" + "Tägit: " + tagitToString() + "\n"
+				+ "Milloin luettu: " + this.getluettuPvm() + "\n";
+
+	}
+
+	public String tagitToString() {
+		String tagitStr = "";
+		String[] tagit = this.tagit.split(",");
+		for (int i = 0; i < tagit.length; i++) {
+			String tagi = tagit[i];
+			if (i != tagit.length - 1) {
+				tagitStr += "#" + tagi + " ";
+			} else {
+				tagitStr += "#" + tagi;
+			}
+		}
+		return tagitStr;
+	}
 
 }

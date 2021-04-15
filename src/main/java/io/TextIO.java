@@ -2,8 +2,6 @@ package io;
 
 import java.util.Scanner;
 
-import io.IO;
-
 public class TextIO implements IO{
     private Scanner scanner;
 
