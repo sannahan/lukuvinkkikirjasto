@@ -81,11 +81,25 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
         return otsikot;
     }
 
-    public void poista(int tunnus) {
+    public Vinkki poista(int tunnus) {
         // tässä oletetaan, että tunnukset numeroidaan listauksessa ykkösestä alkaen
-        lukuvinkit.remove(tunnus-1);
+        String poistettu = lukuvinkit.remove(tunnus-1);
         tallenna();
+        return teeRivistaVinkki(poistettu);
+    }
+    
+    // TODO: toisteista koodia lisaa()-metodin kanssa
+    private Vinkki teeRivistaVinkki(String rivi) {
+        String[] osat = rivi.split(";");
+        switch (osat[0]) {
+            // case "2", "3", "4", ...
+            default: // eli "1"
+                Vinkki vinkki = new Oletus(osat[1], osat[2], osat[3]);
+                return vinkki;
+        }
     }
 
+    public int getMaara() {
+        return lukuvinkit.size();
+    }
 }
-

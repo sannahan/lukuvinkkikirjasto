@@ -1,48 +1,144 @@
 package ui;
 
-import ui.IO;
-import java.util.Scanner;
+import java.util.List;
 
-public class TextUI implements IO{
-    private Scanner scanner;
+import domain.Sovellus;
+import io.IO;
+import java.util.Map;
 
-    public TextUI(Scanner scanner) {
-        this.scanner = scanner;
+public class TextUI {
+    private IO io;
+    private Sovellus sovellus;
+
+    public TextUI(IO io, Sovellus sovellus) {
+        this.io = io;
+        this.sovellus = sovellus;
     }
 
-    @Override
-    public void print(String msg) {
-        System.out.println(msg);
-    }
+    public void suorita() {
+        this.io.print("Valitse toiminto syöttämällä numero:");
+        this.printInfo();
 
-    // TODO pitäisikö olla "print" toisella parametrilla?
-    private void ask(String msg) {
-        System.out.print(msg);
-    }
+        while (true) {
+            var komento = this.io.nextInt("Komento: ");
 
-    @Override
-    public String nextLine(String msg) {
-        if (msg.length() > 0) {
-            this.print(msg);
+            if (komento == -1) {
+                this.io.print("Hei hei!");
+                break;
+            }
+
+            switch (komento) {
+            case -2:
+                this.io.error("Ei numero! Syötä numero komentovalikosta");
+                printInfo();
+                break;
+            case 0:
+                printInfo();
+                break;
+            case 1:
+                selaaVinkkeja();
+                break;
+            case 2:
+                lisaaVinkki();
+                break;
+            case 3:
+                poistaVinkki();
+                break;
+            case 4:
+                muokkaaVinkkia();
+                break;
+            default:
+                this.io.error("Komentoa ei löydy!");
+                printInfo();
+                break;
+            }
         }
-
-        return scanner.nextLine();
     }
 
-    @Override
-    public int nextInt(String msg) {
-        if (msg.length() > 0) {
-            this.print(msg);
+    private void selaaVinkkeja() {
+        for (String vinkki : sovellus.selaaVinkkeja())
+            this.io.print(vinkki);
+    }
+    
+    private void lisaaVinkki() {
+        var otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
+        while (sovellus.tarkistaOtsikko(otsikko)) {
+            this.io.error("Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko");
+            otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
         }
-        try {
-            return Integer.parseInt(scanner.nextLine());
-        } catch(NumberFormatException e) {
-            return -2;
+        var URL = this.io.nextLine("Anna lukuvinkin URL: ");
+        String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
+        sovellus.lisaaVinkki(otsikko, URL, tagit);
+    }
+
+    private void poistaVinkki() {
+        if (listaaOtsikotJosVinkkejaOnOlemassa()) {
+            var poistettava = this.io.nextInt("Anna poistettavan vinkin id-numero:");
+            if (sovellus.tarkistaId(poistettava)) {
+                var vastaus = this.io.nextLine("Haluatko varmasti poistaa vinkin " + sovellus.getOtsikko(poistettava) + " (kyllä/ei)");
+                if (vastaus.equals("kyllä")) {
+                    sovellus.poistaVinkki(poistettava);
+                    this.io.print("Vinkki poistettu");
+                } else {
+                    this.io.print("Vinkkiä ei poistettu");
+                }
+            } else {
+                this.io.print("Virheellinen id-numero"); 
+            }
         }
     }
     
-    @Override
-    public void error(String msg) {
-        this.print("VIRHE: " + msg);
+    private void muokkaaVinkkia() {
+        if (listaaOtsikotJosVinkkejaOnOlemassa()) {
+            var muokattava = this.io.nextInt("Anna muokattavan vinkin id-numero:");
+            if (sovellus.tarkistaId(muokattava)) {
+                Map<String, String> vanhaVinkki = sovellus.poistaVinkki(muokattava);
+                this.io.print("Otsikko on nyt " + vanhaVinkki.get("otsikko"));
+                var otsikko = this.io.nextLine("Anna uusi otsikko (tyhjä syöte säilyttää otsikon ennallaan): ");
+                if (otsikko.isEmpty()) {
+                    otsikko = vanhaVinkki.get("otsikko");
+                } else {
+                    while (sovellus.tarkistaOtsikko(otsikko)) {
+                        this.io.error("Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko");
+                        otsikko = this.io.nextLine("Anna uusi otsikko: ");
+                    }
+                }
+                this.io.print("Linkki on nyt " + vanhaVinkki.get("linkki"));
+                var url = this.io.nextLine("Anna uusi URL (tyhjä syöte säilyttää linkin ennallaan): ");
+                if (url.isEmpty()) {
+                    url = vanhaVinkki.get("linkki");
+                }
+                this.io.print("Vinkillä on seuraavat tagit " + vanhaVinkki.get("tagit"));
+                var tagit = this.io.nextLine("Anna uudet tagit (tyhja syöte säilyttää tagit ennallaan):");
+                if (tagit.isEmpty()) {
+                    tagit = vanhaVinkki.get("tagit");
+                }
+                sovellus.lisaaVinkki(otsikko, url, tagit);
+            } else {
+                this.io.print("Virheellinen id-numero"); 
+            }
+        }
+    }
+
+    private boolean listaaOtsikotJosVinkkejaOnOlemassa() {
+        List<String> otsikot = sovellus.listaaOtsikotIdlla();
+        if (otsikot.isEmpty()) {
+            this.io.print("Ei vinkkejä!");
+            return false;
+        }
+
+        for (String otsikko : otsikot) {
+            this.io.print(otsikko);
+        }
+        return true;
+    }
+
+    private void printInfo() {
+        this.io.print(" 0: Info");
+        this.io.print(" 1: Selaa vinkkejä");
+        this.io.print(" 2: Lisää uusi vinkki");
+        this.io.print(" 3: Poista vinkki");
+        this.io.print(" 4: Muokkaa vinkkiä");
+        this.io.print("-1: Poistu");
     }
 }

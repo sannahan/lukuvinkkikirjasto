@@ -1,19 +1,24 @@
 package lukuvinkkikirjasto;
 
-import ui.TextUI;
-import ui.Sovellus;
-import ui.IO;
 import java.io.File;
 import java.util.Scanner;
 
 import dao.*;
+import domain.Sovellus;
+import io.IO;
+import io.TextIO;
+import ui.TextUI;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        IO textUI = new TextUI(new Scanner(System.in));
-        LukuvinkkiDao lukuvinkkiDao = new FileLukuvinkkiDao(new File("testi.txt"));
+        IO textIO = new TextIO(new Scanner(System.in));
 
-        Sovellus app = new Sovellus(textUI, lukuvinkkiDao);
-        app.suorita();
+        LukuvinkkiDao lukuvinkkiDao = new FileLukuvinkkiDao(new File("testi.txt"));
+        // LukuvinkkiDao lukuvinkkiDao = new FileLukuvinkkiDao(new File("demo.txt"));
+        
+        Sovellus sovellus = new Sovellus(lukuvinkkiDao);
+        TextUI kayttoliittyma = new TextUI(textIO, sovellus);
+
+        kayttoliittyma.suorita();
     }
 }

@@ -1,4 +1,4 @@
-package Lukuvinkkikirjasto.dao;
+package dao;
 
 import static org.junit.Assert.*;
 
@@ -12,7 +12,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import dao.FileLukuvinkkiDao;
 import domain.*;
 
 public class FileLukuvinkkiDaoTest {
@@ -25,7 +24,7 @@ public class FileLukuvinkkiDaoTest {
 
     @Before
     public void setUp() throws Exception {
-        vinkki = new Oletus("otsikko", "linkki");
+        vinkki = new Oletus("otsikko", "linkki", "tagi1,tagi2,tagi3");
         try {
             tiedosto = File.createTempFile("tmp", null);
         } catch (IOException ioe) {
@@ -52,8 +51,8 @@ public class FileLukuvinkkiDaoTest {
     @Test
     public void vinkkienListausOnnistuu() {
         lukuvinkit.lisaa(vinkki);
-        lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2"));
-        lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3"));
+        lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2", "tagi1,tagi2,tagi3"));
+        lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3", "tagi1,tagi2,tagi3"));
         List<Vinkki> vinkit = lukuvinkit.listaa();
         assertEquals(3, vinkit.size());
     }
@@ -61,8 +60,8 @@ public class FileLukuvinkkiDaoTest {
     @Test
     public void vinkinPoistoOnnistuu() {
         lukuvinkit.lisaa(vinkki);
-        lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2"));
-        lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3"));
+        lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2", "tagi1,tagi2,tagi3"));
+        lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3", "tagi1,tagi2,tagi3"));
         lukuvinkit.poista(1);
         List<Vinkki> vinkit = lukuvinkit.listaa();
         assertEquals(2, vinkit.size());
@@ -71,8 +70,8 @@ public class FileLukuvinkkiDaoTest {
     @Test
     public void poistoPoistaaHalutunVinkin() {
         lukuvinkit.lisaa(vinkki);
-        lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2"));
-        lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3"));
+        lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2", "tagi1,tagi2,tagi3"));
+        lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3", "tagi1,tagi2,tagi3"));
         lukuvinkit.poista(1);
         List<Vinkki> vinkit = lukuvinkit.listaa();
         Oletus testi = (Oletus)vinkit.get(1);
@@ -83,8 +82,8 @@ public class FileLukuvinkkiDaoTest {
     @Test
     public void listaaOtsikotListaaOtsikot() {
         lukuvinkit.lisaa(vinkki);
-        lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2"));
-        lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3"));
+        lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2", "tagi1,tagi2,tagi3"));
+        lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3", "tagi1,tagi2,tagi3"));
         List<String> otsikot = lukuvinkit.listaaOtsikot();
         assertEquals("otsikko", otsikot.get(0));
         assertEquals("toinen vinkki", otsikot.get(1));
