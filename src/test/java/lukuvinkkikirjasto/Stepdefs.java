@@ -17,6 +17,7 @@ import java.util.List;
 import org.junit.After;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
@@ -144,6 +145,25 @@ public class Stepdefs {
     @When("kayttaja antaa id:n {string}")
     public void kayttajaAntaaIdn(String id) {
         io.lisaaSyote(id);
+    }
+    
+    @Then("listauksesta ei loydy vinkkia {string} ja linkkia {string}")
+    public void listauksestaEiLoydyVinkkiaJaLinkkia(String vinkki, String linkki) { 
+        boolean sisVinkin = false;
+        boolean sisLinkin = false;
+        for (String s: io.getTulosteet()) {
+            if (s.contains("Vinkki: " + vinkki)) {
+                sisVinkin = true;
+            }
+            if (s.contains("Linkki: " + linkki)) {
+                sisLinkin = true;
+            }
+        }
+        boolean molemmatLoytyy = false;
+        if (sisVinkin && sisLinkin) {
+            molemmatLoytyy = true;
+        }
+        assertFalse(molemmatLoytyy); 
     }
     
 }
