@@ -57,10 +57,11 @@ public class Stepdefs {
         io.lisaaSyote("2");     
     }
     
-    @When("otsikko {string} ja URL {string} annetaan")
-    public void kayttajaAntaaOtsikonJaUrlin(String otsikko, String url) {
+    @When("otsikko {string}, URL {string} ja tagi {string} annetaan")
+    public void kayttajaAntaaOtsikonJaUrlin(String otsikko, String url, String tagi) {
         io.lisaaSyote(otsikko);
         io.lisaaSyote(url);
+        io.lisaaSyote(tagi);
     }
 
     @When("kayttaja kertoo haluavansa selata vinkkeja")

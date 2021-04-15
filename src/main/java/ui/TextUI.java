@@ -120,6 +120,7 @@ public class TextUI {
             this.io.print("Ei vinkkejä!");
             return false;
         }
+
         for (String otsikko : otsikot) {
             this.io.print(otsikko);
         }
