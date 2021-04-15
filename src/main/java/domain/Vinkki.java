@@ -8,5 +8,7 @@ public interface Vinkki {
     String getOtsikko();
     String getLinkki();
     String getTagit();
-    LocalDate getluettuPvm();
+    boolean getLuettu();
+    String getluettuPvm();
+    String luetutToString();
 }

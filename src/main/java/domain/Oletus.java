@@ -10,7 +10,7 @@ public class Oletus implements Vinkki {
 	private String linkki;
 	private String tagit;
 	private boolean luettu;
-	private LocalDate luettuPvm;
+	private String luettuPvm;
 
 	public Oletus(String otsikko, String linkki, String tagit) {
 		this.tyyppi = Tyyppi.OLETUS;
@@ -21,7 +21,7 @@ public class Oletus implements Vinkki {
                 this.luettuPvm = null;
 	}
 
-	public Oletus(String otsikko, String linkki, String tagit, LocalDate date) {
+	public Oletus(String otsikko, String linkki, String tagit, String date) {
 		this.tyyppi = Tyyppi.OLETUS;
 		this.otsikko = otsikko;
 		this.linkki = linkki;
@@ -50,11 +50,11 @@ public class Oletus implements Vinkki {
 		return luettu;
 	}
 	
-	public LocalDate getluettuPvm() {
+	public String getluettuPvm() {
 		return luettuPvm;
 	}
 	
-	public void setLuetuksi(LocalDate pvm) {
+	public void setLuetuksi(String pvm) {
 		luettu = true;
 		luettuPvm = pvm;
 	}
@@ -67,6 +67,11 @@ public class Oletus implements Vinkki {
     @Override
     public String toString() {
         return "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n" + "Tägit: " + tagitToString() + "\n" ;  
+    }
+    
+    public String luetutToString() {
+        return "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n" + "Tägit: " + tagitToString() + "\n" + "Milloin luettu: " + this.getluettuPvm() + "\n";  
+ 
     }
     
     public String tagitToString() {

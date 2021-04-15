@@ -5,6 +5,7 @@ import java.util.List;
 import domain.Sovellus;
 import io.IO;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public class TextUI {
@@ -51,6 +52,9 @@ public class TextUI {
             case 5:
                 merkitseVinkkiLuetuksi();
                 break;
+            case 6:
+                selaaLuettujaVinkkeja();
+                break;
             default:
                 this.io.error("Komentoa ei löydy!");
                 printInfo();
@@ -61,6 +65,11 @@ public class TextUI {
 
     private void selaaVinkkeja() {
         for (String vinkki : sovellus.selaaVinkkeja())
+            this.io.print(vinkki);
+    }
+    
+    private void selaaLuettujaVinkkeja() {
+        for (String vinkki : sovellus.selaaLuettujaVinkkeja())
             this.io.print(vinkki);
     }
     
@@ -129,7 +138,10 @@ public class TextUI {
             var muokattava = this.io.nextInt("Anna luetuksi merkattavan vinkin id-numero:");
             if (sovellus.tarkistaId(muokattava)) {
                 Map<String, String> vanhaVinkki = sovellus.poistaVinkki(muokattava);
-                sovellus.lisaaLuettuVinkki(vanhaVinkki.get("otsikko"), vanhaVinkki.get("url"), vanhaVinkki.get("tagit"), LocalDate.now());
+                LocalDate dateLD = LocalDate.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
+                String date = dateLD.format(formatter);
+                sovellus.lisaaLuettuVinkki(vanhaVinkki.get("otsikko"), vanhaVinkki.get("url"), vanhaVinkki.get("tagit"), date);
             } else {
                 this.io.print("Virheellinen id-numero"); 
             }
@@ -156,6 +168,7 @@ public class TextUI {
         this.io.print(" 3: Poista vinkki");
         this.io.print(" 4: Muokkaa vinkkiä");
         this.io.print(" 5: Merkitse vinkki luetuksi");
+        this.io.print(" 6: Selaa luettuja vinkkejä");
         this.io.print("-1: Poistu");
     }
 }

@@ -23,12 +23,23 @@ public class Sovellus {
 		return lista;
 	}
 
+	public List<String> selaaLuettujaVinkkeja() {
+		List<Vinkki> vinkit = lukuvinkkiDao.listaa();
+		List<String> lista = new ArrayList<>();
+		for (Vinkki vinkki : vinkit) {
+                    if (vinkki.getLuettu()) {
+                        lista.add(vinkki.luetutToString());
+                    }
+		}
+		return lista;
+	}
+        
 	public void lisaaVinkki(String otsikko, String URL, String tagit) {
 		Vinkki vinkki = new Oletus(otsikko, URL, tagit);
 		lukuvinkkiDao.lisaa(vinkki);
 	}
         
-	public void lisaaLuettuVinkki(String otsikko, String URL, String tagit, LocalDate date) {
+	public void lisaaLuettuVinkki(String otsikko, String URL, String tagit, String date) {
 		Vinkki vinkki = new Oletus(otsikko, URL, tagit, date);
 		lukuvinkkiDao.lisaa(vinkki);
 	}
@@ -40,6 +51,7 @@ public class Sovellus {
                     vinkinTiedot.put("otsikko", vinkki.getOtsikko());
                     vinkinTiedot.put("linkki", vinkki.getLinkki());
                     vinkinTiedot.put("tagit", vinkki.getTagit());
+                    vinkinTiedot.put("lukupvm", vinkki.getluettuPvm());
                 } 
                 return vinkinTiedot;
 	}

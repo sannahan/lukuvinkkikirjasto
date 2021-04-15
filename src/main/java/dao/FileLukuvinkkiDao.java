@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import domain.*;
+import java.time.LocalDate;
 
 public class FileLukuvinkkiDao implements LukuvinkkiDao {
     private File tiedosto;
@@ -65,7 +66,8 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
             switch (osat[0]) {
                 // case "2", "3", "4", ...
                 default: // eli "1"
-                vinkit.add(new Oletus(osat[1], osat[2], osat[3]));
+                //LocalDate date = new LocalDate(osat[4]);
+                vinkit.add(new Oletus(osat[1], osat[2], osat[3], osat[5]));
                 break;
             }
         }
@@ -94,7 +96,7 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
         switch (osat[0]) {
             // case "2", "3", "4", ...
             default: // eli "1"
-                Vinkki vinkki = new Oletus(osat[1], osat[2], osat[3]);
+                Vinkki vinkki = new Oletus(osat[1], osat[2], osat[3], osat[4]);
                 return vinkki;
         }
     }
