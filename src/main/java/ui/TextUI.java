@@ -129,6 +129,7 @@ public class TextUI {
                     tagit = vanhaVinkki.get("tagit");
                 }
                 sovellus.lisaaVinkki(otsikko, url, tagit);
+                this.io.print("Vinkki muokattu!");
             } else {
                 this.io.print("Virheellinen id-numero"); 
             }
