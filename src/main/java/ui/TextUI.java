@@ -4,6 +4,7 @@ import java.util.List;
 
 import domain.Sovellus;
 import io.IO;
+import java.time.LocalDate;
 import java.util.Map;
 
 public class TextUI {
@@ -46,6 +47,9 @@ public class TextUI {
                 break;
             case 4:
                 muokkaaVinkkia();
+                break;
+            case 5:
+                merkitseVinkkiLuetuksi();
                 break;
             default:
                 this.io.error("Komentoa ei löydy!");
@@ -120,6 +124,18 @@ public class TextUI {
         }
     }
 
+    private void merkitseVinkkiLuetuksi() {
+        if (listaaOtsikotJosVinkkejaOnOlemassa()) {
+            var muokattava = this.io.nextInt("Anna luetuksi merkattavan vinkin id-numero:");
+            if (sovellus.tarkistaId(muokattava)) {
+                Map<String, String> vanhaVinkki = sovellus.poistaVinkki(muokattava);
+                sovellus.lisaaLuettuVinkki(vanhaVinkki.get("otsikko"), vanhaVinkki.get("url"), vanhaVinkki.get("tagit"), LocalDate.now());
+            } else {
+                this.io.print("Virheellinen id-numero"); 
+            }
+        }        
+    }
+    
     private boolean listaaOtsikotJosVinkkejaOnOlemassa() {
         List<String> otsikot = sovellus.listaaOtsikotIdlla();
         if (otsikot.isEmpty()) {
@@ -139,6 +155,7 @@ public class TextUI {
         this.io.print(" 2: Lisää uusi vinkki");
         this.io.print(" 3: Poista vinkki");
         this.io.print(" 4: Muokkaa vinkkiä");
+        this.io.print(" 5: Merkitse vinkki luetuksi");
         this.io.print("-1: Poistu");
     }
 }

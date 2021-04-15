@@ -18,8 +18,18 @@ public class Oletus implements Vinkki {
 		this.linkki = linkki;
 		this.tagit = tagit;
 		this.luettu = false;
+                this.luettuPvm = null;
 	}
 
+	public Oletus(String otsikko, String linkki, String tagit, LocalDate date) {
+		this.tyyppi = Tyyppi.OLETUS;
+		this.otsikko = otsikko;
+		this.linkki = linkki;
+		this.tagit = tagit;
+		this.luettu = true;
+                this.luettuPvm = date;
+	}        
+        
 	public Tyyppi getTyyppi() {
 		return this.tyyppi;
 	}

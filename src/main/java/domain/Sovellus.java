@@ -3,6 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 import dao.LukuvinkkiDao;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,12 @@ public class Sovellus {
 		Vinkki vinkki = new Oletus(otsikko, URL, tagit);
 		lukuvinkkiDao.lisaa(vinkki);
 	}
-
+        
+	public void lisaaLuettuVinkki(String otsikko, String URL, String tagit, LocalDate date) {
+		Vinkki vinkki = new Oletus(otsikko, URL, tagit, date);
+		lukuvinkkiDao.lisaa(vinkki);
+	}
+        
 	public Map<String, String> poistaVinkki(int indeksi) {
                 Map<String, String> vinkinTiedot = new HashMap<>();
 		Vinkki vinkki = lukuvinkkiDao.poista(indeksi);
