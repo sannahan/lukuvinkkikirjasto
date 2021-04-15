@@ -1,6 +1,7 @@
 package lukuvinkkikirjasto;
 
 import dao.FileLukuvinkkiDao;
+import domain.*;
 import domain.Sovellus;
 import io.StubIO;
 import io.cucumber.java.Before;
@@ -41,6 +42,7 @@ public class Stepdefs {
             throw new RuntimeException(ioe);
         }
         lukuvinkit = new FileLukuvinkkiDao(tiedosto);
+        lukuvinkit.lisaa(new Oletus("Testiotsikko", "Testilinkki", "Testitägi"));
         syoterivit = new ArrayList<>();
         io = new StubIO(syoterivit);
         app = new Sovellus(lukuvinkit);
@@ -133,4 +135,15 @@ public class Stepdefs {
         }
         assertTrue(molemmatLoytyy);        
     }
+    
+    @Given("kayttaja kertoo haluavansa muokata vinkkia") 
+    public void kayttajaKertooHaluavansaMuokataVinkkia() {
+        io.lisaaSyote("4");
+    }
+    
+    @When("kayttaja antaa id:n {string}")
+    public void kayttajaAntaaIdn(String id) {
+        io.lisaaSyote(id);
+    }
+    
 }
