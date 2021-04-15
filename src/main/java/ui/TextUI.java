@@ -111,16 +111,8 @@ public class TextUI {
             if (sovellus.tarkistaId(muokattava)) {
                 Map<String, String> vanhaVinkki = sovellus.poistaVinkki(muokattava);
                 var otsikko = muokkaaOtsikkoa(vanhaVinkki.get("otsikko"));
-                this.io.print("Linkki on nyt " + vanhaVinkki.get("linkki"));
-                var url = this.io.nextLine("Anna uusi URL (tyhjä syöte säilyttää linkin ennallaan): ");
-                if (url.isEmpty()) {
-                    url = vanhaVinkki.get("linkki");
-                }
-                this.io.print("Vinkillä on seuraavat tagit " + vanhaVinkki.get("tagit"));
-                var tagit = this.io.nextLine("Anna uudet tagit (tyhja syöte säilyttää tagit ennallaan):");
-                if (tagit.isEmpty()) {
-                    tagit = vanhaVinkki.get("tagit");
-                }
+                var url = muokkaaLinkkiä(vanhaVinkki.get("linkki"));
+                var tagit = muokkaaTageja(vanhaVinkki.get("tagit"));
                 sovellus.lisaaVinkki(otsikko, url, tagit);
                 this.io.print("Vinkki muokattu!");
             } else {
@@ -138,6 +130,18 @@ public class TextUI {
             uusiOtsikko = this.io.nextLine("Anna uusi otsikko: ");
         }
         return (uusiOtsikko.isBlank()) ? otsikko : uusiOtsikko;
+    }
+
+    private String muokkaaLinkkiä(String linkki) {
+        this.io.print("Linkki on nyt " + linkki);
+        var uusiLinkki = this.io.nextLine("Anna uusi URL (tyhjä syöte säilyttää linkin ennallaan): ");
+        return (uusiLinkki.isBlank()) ? linkki : uusiLinkki;
+    }
+
+    private String muokkaaTageja(String tagit) {
+        this.io.print("Vinkillä on seuraavat tagit " + tagit);
+        var uudetTagit = this.io.nextLine("Anna uudet tagit pilkulla eroteltuna (tyhja syöte säilyttää tagit ennallaan):");
+        return (uudetTagit.isBlank()) ? tagit : uudetTagit;
     }
 
     private void merkitseVinkkiLuetuksi() {
