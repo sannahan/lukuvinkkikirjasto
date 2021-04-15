@@ -10,7 +10,7 @@ public class Oletus implements Vinkki {
 	private String linkki;
 	private String tagit;
 	private boolean luettu;
-	private LocalDate luettuPvm;
+	private String luettuPvm;
 
 	public Oletus(String otsikko, String linkki, String tagit) {
 		this.tyyppi = Tyyppi.OLETUS;
@@ -40,11 +40,11 @@ public class Oletus implements Vinkki {
 		return luettu;
 	}
 	
-	public LocalDate getluettuPvm() {
+	public String getluettuPvm() {
 		return luettuPvm;
 	}
 	
-	public void setLuetuksi(LocalDate pvm) {
+	public void setLuetuksi(String pvm) {
 		luettu = true;
 		luettuPvm = pvm;
 	}
