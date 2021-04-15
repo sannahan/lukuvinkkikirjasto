@@ -40,7 +40,7 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
             // case KADUNMIES:
             default:
                 Oletus oletusVinkki = (Oletus) vinkki;
-                lukuvinkit.add("1;" + oletusVinkki.getOtsikko() + ";" + oletusVinkki.getLinkki() + ";" + oletusVinkki.getTagit()); // Laitoin oletusvinkin tunnisteeksi nyt 1, mutta tätä voi toki muuttaa.
+                lukuvinkit.add("1;" + oletusVinkki.getOtsikko() + ";" + oletusVinkki.getLinkki() + ";" + oletusVinkki.getTagit() + ";" + oletusVinkki.getLuettu() + ";" + oletusVinkki.getluettuPvm()); // Laitoin oletusvinkin tunnisteeksi nyt 1, mutta tätä voi toki muuttaa.
                 break;
         }
 
@@ -65,7 +65,8 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
             switch (osat[0]) {
                 // case "2", "3", "4", ...
                 default: // eli "1"
-                vinkit.add(new Oletus(osat[1], osat[2], osat[3]));
+                //LocalDate date = new LocalDate(osat[4]);
+                vinkit.add(new Oletus(osat[1], osat[2], osat[3], osat[5]));
                 break;
             }
         }
@@ -81,11 +82,25 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
         return otsikot;
     }
 
-    public void poista(int tunnus) {
+    public Vinkki poista(int tunnus) {
         // tässä oletetaan, että tunnukset numeroidaan listauksessa ykkösestä alkaen
-        lukuvinkit.remove(tunnus-1);
+        String poistettu = lukuvinkit.remove(tunnus-1);
         tallenna();
+        return teeRivistaVinkki(poistettu);
+    }
+    
+    // TODO: toisteista koodia lisaa()-metodin kanssa
+    private Vinkki teeRivistaVinkki(String rivi) {
+        String[] osat = rivi.split(";");
+        switch (osat[0]) {
+            // case "2", "3", "4", ...
+            default: // eli "1"
+                Vinkki vinkki = new Oletus(osat[1], osat[2], osat[3], osat[4]);
+                return vinkki;
+        }
     }
 
+    public int getMaara() {
+        return lukuvinkit.size();
+    }
 }
-

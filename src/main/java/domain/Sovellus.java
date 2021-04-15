@@ -6,6 +6,8 @@ import java.util.List;
 import dao.LukuvinkkiDao;
 import domain.Suodatus.Ehto;
 import domain.Suodatus.SisaltaaTagin;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Sovellus {
 	private LukuvinkkiDao lukuvinkkiDao;
@@ -23,13 +25,37 @@ public class Sovellus {
 		return lista;
 	}
 
-	public void lisaaVinkki(String otsikko, String URL, String tagit) {
-		Vinkki vinkki = new Oletus(otsikko, URL, tagit);
+	public List<String> selaaLuettujaVinkkeja() {
+		List<Vinkki> vinkit = lukuvinkkiDao.listaa();
+		List<String> lista = new ArrayList<>();
+		for (Vinkki vinkki : vinkit) {
+                    if (vinkki.getLuettu()) {
+                        lista.add(vinkki.luetutToString());
+                    }
+		}
+		return lista;
+	}
+        
+	public void lisaaVinkki(String otsikko, String url, String tagit) {
+		Vinkki vinkki = new Oletus(otsikko, url, tagit);
 		lukuvinkkiDao.lisaa(vinkki);
 	}
-
-	public void poistaVinkki(int indeksi) {
-		lukuvinkkiDao.poista(indeksi);
+        
+	public void lisaaLuettuVinkki(String otsikko, String url, String tagit, String date) {
+		Vinkki vinkki = new Oletus(otsikko, url, tagit, date);
+		lukuvinkkiDao.lisaa(vinkki);
+	}
+        
+	public Map<String, String> poistaVinkki(int indeksi) {
+                Map<String, String> vinkinTiedot = new HashMap<>();
+		Vinkki vinkki = lukuvinkkiDao.poista(indeksi);
+                if (vinkki != null) {
+                    vinkinTiedot.put("otsikko", vinkki.getOtsikko());
+                    vinkinTiedot.put("linkki", vinkki.getLinkki());
+                    vinkinTiedot.put("tagit", vinkki.getTagit());
+                    vinkinTiedot.put("lukupvm", vinkki.getluettuPvm());
+                } 
+                return vinkinTiedot;
 	}
 
 	public boolean tarkistaOtsikko(String otsikko) {
@@ -58,4 +84,17 @@ public class Sovellus {
 		}
 		return lista;
 	}
+}
+        
+        public boolean tarkistaId(int id) {
+            int vinkkiMaara = lukuvinkkiDao.getMaara();
+            if (id > vinkkiMaara || id < 1) {
+                return false;
+            }
+            return true;
+        }
+        
+        public String getOtsikko(int id) {
+            return lukuvinkkiDao.listaa().get(id - 1).getOtsikko();
+        }
 }
