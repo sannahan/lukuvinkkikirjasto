@@ -1,5 +1,6 @@
 package domain;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface Vinkki {
@@ -7,4 +8,7 @@ public interface Vinkki {
     String getOtsikko();
     String getLinkki();
     String getTagit();
+    boolean getLuettu();
+    String getluettuPvm();
+    String luetutToString();
 }
