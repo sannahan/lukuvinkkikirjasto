@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import domain.*;
-import java.time.LocalDate;
 
 public class FileLukuvinkkiDao implements LukuvinkkiDao {
     private File tiedosto;
