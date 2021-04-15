@@ -84,17 +84,16 @@ public class Sovellus {
 		}
 		return lista;
 	}
-}
         
-        public boolean tarkistaId(int id) {
-            int vinkkiMaara = lukuvinkkiDao.getMaara();
-            if (id > vinkkiMaara || id < 1) {
-                return false;
-            }
-            return true;
-        }
+	public boolean tarkistaId(int id) {
+		int vinkkiMaara = lukuvinkkiDao.getMaara();
+		if (id > vinkkiMaara || id < 1) {
+		    return false;
+		}
+		return true;
+	}
         
-        public String getOtsikko(int id) {
-            return lukuvinkkiDao.listaa().get(id - 1).getOtsikko();
-        }
+	public String getOtsikko(int id) {
+		return lukuvinkkiDao.listaa().get(id - 1).getOtsikko();
+	}
 }
