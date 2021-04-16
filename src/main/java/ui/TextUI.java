@@ -114,7 +114,7 @@ public class TextUI {
             if (sovellus.tarkistaId(muokattava)) {
                 Map<String, String> vanhaVinkki = sovellus.poistaVinkki(muokattava);
                 var otsikko = muokkaaOtsikkoa(vanhaVinkki.get("otsikko"));
-                var url = muokkaaLinkkiä(vanhaVinkki.get("linkki"));
+                var url = muokkaaLinkkia(vanhaVinkki.get("linkki"));
                 var tagit = muokkaaTageja(vanhaVinkki.get("tagit"));
                 sovellus.lisaaVinkki(otsikko, url, tagit);
                 this.io.print("Vinkki muokattu!");
