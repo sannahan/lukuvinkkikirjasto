@@ -80,13 +80,11 @@ public class Sovellus {
 		List<String> lista = new ArrayList<>();
 
 		for (Vinkki vinkki : vinkit) {
-<<<<<<< HEAD
 			if (ehto.test(vinkki)) {
 				lista.add(vinkki.toString());
-=======
+			} 
 			if (ehto.test(vinkki)) { 
 				lista.add(vinkki.toString()); 
->>>>>>> 39c066b0fd16da297bbede841e8192a064378aa6
 			}
 		}
 		return lista;
