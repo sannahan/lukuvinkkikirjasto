@@ -35,8 +35,8 @@ public class Sovellus {
 		return lista;
 	}
 
-	public void lisaaVinkki(String otsikko, String URL, String tagit) {
-		Vinkki vinkki = new Oletus(otsikko.trim().replaceAll(";", ":"), URL.trim().replaceAll(";", ":"),
+	public void lisaaVinkki(String otsikko, String url, String tagit) {
+		Vinkki vinkki = new Oletus(otsikko.trim().replaceAll(";", ":"), url.trim().replaceAll(";", ":"),
 				tagit.replaceAll("\\s|;", ""));
 		lukuvinkkiDao.lisaa(vinkki);
 	}
