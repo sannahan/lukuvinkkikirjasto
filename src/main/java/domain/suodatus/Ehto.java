@@ -1,4 +1,4 @@
-package domain.Suodatus;
+package domain.suodatus;
 
 import domain.Vinkki;
 

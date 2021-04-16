@@ -1,4 +1,4 @@
-package domain.Suodatus;
+package domain.suodatus;
 
 import java.util.Arrays;
 import domain.Vinkki;

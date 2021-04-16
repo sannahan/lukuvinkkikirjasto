@@ -22,7 +22,7 @@ public class Oletus implements Vinkki {
 		this.otsikko = otsikko;
 		this.linkki = linkki;
 		this.tagit = tagit;
-		this.luettu = true;
+		this.luettu = (date.equals("null") ? false : true);
 		this.luettuPvm = date;
 	}
 
@@ -50,7 +50,7 @@ public class Oletus implements Vinkki {
 		return luettuPvm;
 	}
 
-	public void setLuetuksi(String pvm) {
+	public void merkitseLuetuksi(String pvm) {
 		luettu = true;
 		luettuPvm = pvm;
 	}
@@ -65,11 +65,11 @@ public class Oletus implements Vinkki {
 		return "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n" + "Tägit: " + tagitToString() + "\n";
 	}
 
-	public String luetutToString() {
+	/*public String luetutToString() {
 		return "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n" + "Tägit: " + tagitToString() + "\n"
 				+ "Milloin luettu: " + this.getluettuPvm() + "\n";
 
-	}
+	}*/
 
 	public String tagitToString() {
 		String tagitStr = "#";

@@ -7,5 +7,5 @@ public interface Vinkki {
     String getTagit();
     boolean getLuettu();
     String getluettuPvm();
-    String luetutToString();
+    void merkitseLuetuksi(String pvm);
 }

@@ -4,9 +4,6 @@ import java.util.List;
 
 import domain.Sovellus;
 import io.IO;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Map;
 
 public class TextUI {
     private IO io;
@@ -112,9 +109,9 @@ public class TextUI {
         if (listaaOtsikotJosVinkkejaOnOlemassa()) {
             var muokattava = this.io.nextInt("Anna muokattavan vinkin id-numero:");
             if (sovellus.tarkistaId(muokattava)) {
-                Map<String, String> vanhaVinkki = sovellus.poistaVinkki(muokattava);
+                var vanhaVinkki = sovellus.poistaVinkki(muokattava);
                 var otsikko = muokkaaOtsikkoa(vanhaVinkki.get("otsikko"));
-                var url = muokkaaLinkkiä(vanhaVinkki.get("linkki"));
+                var url = muokkaaLinkkia(vanhaVinkki.get("linkki"));
                 var tagit = muokkaaTageja(vanhaVinkki.get("tagit"));
                 sovellus.lisaaVinkki(otsikko, url, tagit);
                 this.io.print("Vinkki muokattu!");
@@ -135,7 +132,7 @@ public class TextUI {
         return (uusiOtsikko.isBlank()) ? otsikko : uusiOtsikko;
     }
 
-    private String muokkaaLinkkiä(String linkki) {
+    private String muokkaaLinkkia(String linkki) {
         this.io.print("Linkki on nyt " + linkki);
         var uusiLinkki = this.io.nextLine("Anna uusi URL (tyhjä syöte säilyttää linkin ennallaan): ");
         return (uusiLinkki.isBlank()) ? linkki : uusiLinkki;
@@ -151,12 +148,7 @@ public class TextUI {
         if (listaaOtsikotJosVinkkejaOnOlemassa()) {
             var muokattava = this.io.nextInt("Anna luetuksi merkattavan vinkin id-numero:");
             if (sovellus.tarkistaId(muokattava)) {
-                Map<String, String> vanhaVinkki = sovellus.poistaVinkki(muokattava);
-                LocalDate dateLD = LocalDate.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
-                String date = dateLD.format(formatter);
-                sovellus.lisaaLuettuVinkki(vanhaVinkki.get("otsikko"), vanhaVinkki.get("url"), vanhaVinkki.get("tagit"),
-                        date);
+                sovellus.merkitseLuetuksi(muokattava);
             } else {
                 this.io.print("Virheellinen id-numero");
             }
@@ -191,14 +183,15 @@ public class TextUI {
             this.io.print(vinkki);
     }
 
-    private void testaus() {
+    // Säästin tämän, jos tekijällä on vielä käyttöä -János
+    /*private void testaus() {
         String output = "#";
         String tagit = "aa,bb,cc,dd";
         String[] tagiLista = tagit.split(",");
         output += String.join(", #", tagiLista);
 
         this.io.print(output);
-    }
+    }*/
 
     private void printInfo() {
         this.io.print(" 0: Info");
