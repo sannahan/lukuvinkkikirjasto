@@ -1,8 +1,11 @@
 package domain;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import dao.LukuvinkkiDao;
+import domain.Suodatus.Ehto;
+import domain.Suodatus.SisaltaaTagin;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,16 +70,30 @@ public class Sovellus {
 		}
 		return lista;
 	}
+
+	public List<String> etsiVinkkejaTagilla(String haettavaTagi) {
+		return suodataVinkkeja(new SisaltaaTagin(haettavaTagi));
+	}
+
+	public List<String> suodataVinkkeja(Ehto ehto) {
+		List<Vinkki> vinkit = lukuvinkkiDao.listaa();
+		List<String> lista = new ArrayList<>();
+
+		for (Vinkki vinkki : vinkit) {
+			if (ehto.test(vinkki)) { lista.add(vinkki.toString()); }
+		}
+		return lista;
+	}
         
-        public boolean tarkistaId(int id) {
-            int vinkkiMaara = lukuvinkkiDao.getMaara();
-            if (id > vinkkiMaara || id < 1) {
-                return false;
-            }
-            return true;
-        }
+	public boolean tarkistaId(int id) {
+		int vinkkiMaara = lukuvinkkiDao.getMaara();
+		if (id > vinkkiMaara || id < 1) {
+		    return false;
+		}
+		return true;
+	}
         
-        public String getOtsikko(int id) {
-            return lukuvinkkiDao.listaa().get(id - 1).getOtsikko();
-        }
+	public String getOtsikko(int id) {
+		return lukuvinkkiDao.listaa().get(id - 1).getOtsikko();
+	}
 }
