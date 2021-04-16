@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import dao.LukuvinkkiDao;
@@ -80,7 +79,9 @@ public class Sovellus {
 		List<String> lista = new ArrayList<>();
 
 		for (Vinkki vinkki : vinkit) {
-			if (ehto.test(vinkki)) { lista.add(vinkki.toString()); }
+			if (ehto.test(vinkki)) { 
+				lista.add(vinkki.toString()); 
+			}
 		}
 		return lista;
 	}
