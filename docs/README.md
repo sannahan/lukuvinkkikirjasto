@@ -10,9 +10,10 @@
 - Generoi jar-tiedosto komennolla `gradle jar` ja suorita jar-tiedosto komennolla `java -jar build/libs/lukuvinkkikirjasto.jar` projektin juurihakemistossa
 
 ## Definition of done
-- Koodi on selkeää ja helposti luettavaa: koodi on katselmoitu toisen tiimiläisen johdosta
-- Kattavahkot testit, jotka menee läpi
+- Koodi on selkeää ja helposti luettavaa: koodi on katselmoitu toisen tiimiläisen johdosta ja koodi tarkistetaan checkstyle actionin avulla
+- Kattavahkot testit, jotka menee läpi: rivikattavuus vähintään 80%
 - Userstoryn hyväksymiskriteerit toteutuu
 
 ![GitHub Actions](https://github.com/sannahan/lukuvinkkikirjasto/workflows/Java%20CI%20with%20Gradle/badge.svg)
 [![codecov](https://codecov.io/gh/sannahan/lukuvinkkikirjasto/branch/main/graph/badge.svg?token=D5RRH7MIFT)](https://codecov.io/gh/sannahan/lukuvinkkikirjasto)
+[![Checkstyle](https://github.com/sannahan/lukuvinkkikirjasto/actions/workflows/checkstyle.yml/badge.svg)](https://github.com/sannahan/lukuvinkkikirjasto/actions/workflows/checkstyle.yml)
