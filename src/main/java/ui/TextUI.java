@@ -187,8 +187,9 @@ public class TextUI {
         }
 
         this.io.print("" + vinkit.size() + " vinkki(ä) löytyi tagilla \"" + haettavaTagi + "\".");
-        for (String vinkki : vinkit)
+        for (String vinkki : vinkit) {
             this.io.print(vinkki);
+        }
     }
 
     private void testaus() {
