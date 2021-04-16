@@ -12,7 +12,7 @@ public class Oletus implements Vinkki {
 		this.tyyppi = Tyyppi.OLETUS;
 		this.otsikko = otsikko;
 		this.linkki = linkki;
-		this.tagit = tagit;
+		this.tagit = (tagit.isEmpty()) ? "lukuvinkki" : tagit; 
 		this.luettu = false;
 		this.luettuPvm = null;
 	}
