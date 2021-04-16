@@ -128,14 +128,16 @@ public class TextUI {
         this.io.print("Otsikko on nyt " + otsikko);
         var uusiOtsikko = this.io.nextLine("Anna uusi otsikko (tyhjä syöte säilyttää otsikon ennallaan): ");
         while (sovellus.tarkistaOtsikko(uusiOtsikko)) {
-            if (uusiOtsikko.isBlank()) break;
+            if (uusiOtsikko.isBlank()) {
+                break;
+            }
             this.io.error("Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko");
             uusiOtsikko = this.io.nextLine("Anna uusi otsikko: ");
         }
         return (uusiOtsikko.isBlank()) ? otsikko : uusiOtsikko;
     }
 
-    private String muokkaaLinkkiä(String linkki) {
+    private String muokkaaLinkkia(String linkki) {
         this.io.print("Linkki on nyt " + linkki);
         var uusiLinkki = this.io.nextLine("Anna uusi URL (tyhjä syöte säilyttää linkin ennallaan): ");
         return (uusiLinkki.isBlank()) ? linkki : uusiLinkki;
