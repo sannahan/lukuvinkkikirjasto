@@ -14,7 +14,7 @@ import java.util.Map;
 public class Sovellus {
 	private LukuvinkkiDao lukuvinkkiDao;
 	private LocalDate paivamaara;
-	DateTimeFormatter pvmMuotoilu;
+	private DateTimeFormatter pvmMuotoilu;
 
 	public Sovellus(LukuvinkkiDao lukuvinkkiDao) {
 		this.lukuvinkkiDao = lukuvinkkiDao;
