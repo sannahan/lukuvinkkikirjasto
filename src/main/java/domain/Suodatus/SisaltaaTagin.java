@@ -4,7 +4,7 @@ import java.util.Arrays;
 import domain.Vinkki;
 
 public class SisaltaaTagin implements Ehto{
-    String tagi;
+    private String tagi;
 
     public SisaltaaTagin(String tagi) {
         this.tagi = tagi;
