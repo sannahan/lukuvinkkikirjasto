@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import dao.LukuvinkkiDao;
@@ -29,33 +28,34 @@ public class Sovellus {
 		List<Vinkki> vinkit = lukuvinkkiDao.listaa();
 		List<String> lista = new ArrayList<>();
 		for (Vinkki vinkki : vinkit) {
-                    if (vinkki.getLuettu()) {
-                        lista.add(vinkki.luetutToString());
-                    }
+			if (vinkki.getLuettu()) {
+				lista.add(vinkki.luetutToString());
+			}
 		}
 		return lista;
 	}
-        
+
 	public void lisaaVinkki(String otsikko, String URL, String tagit) {
-		Vinkki vinkki = new Oletus(otsikko.trim().replaceAll(";", ":"), URL.trim().replaceAll(";", ":"), tagit.replaceAll("\\s|;", ""));
+		Vinkki vinkki = new Oletus(otsikko.trim().replaceAll(";", ":"), URL.trim().replaceAll(";", ":"),
+				tagit.replaceAll("\\s|;", ""));
 		lukuvinkkiDao.lisaa(vinkki);
 	}
-        
+
 	public void lisaaLuettuVinkki(String otsikko, String url, String tagit, String date) {
 		Vinkki vinkki = new Oletus(otsikko, url, tagit, date);
 		lukuvinkkiDao.lisaa(vinkki);
 	}
-        
+
 	public Map<String, String> poistaVinkki(int indeksi) {
-                Map<String, String> vinkinTiedot = new HashMap<>();
+		Map<String, String> vinkinTiedot = new HashMap<>();
 		Vinkki vinkki = lukuvinkkiDao.poista(indeksi);
-                if (vinkki != null) {
-                    vinkinTiedot.put("otsikko", vinkki.getOtsikko());
-                    vinkinTiedot.put("linkki", vinkki.getLinkki());
-                    vinkinTiedot.put("tagit", vinkki.getTagit());
-                    vinkinTiedot.put("lukupvm", vinkki.getluettuPvm());
-                } 
-                return vinkinTiedot;
+		if (vinkki != null) {
+			vinkinTiedot.put("otsikko", vinkki.getOtsikko());
+			vinkinTiedot.put("linkki", vinkki.getLinkki());
+			vinkinTiedot.put("tagit", vinkki.getTagit());
+			vinkinTiedot.put("lukupvm", vinkki.getluettuPvm());
+		}
+		return vinkinTiedot;
 	}
 
 	public boolean tarkistaOtsikko(String otsikko) {
@@ -80,19 +80,21 @@ public class Sovellus {
 		List<String> lista = new ArrayList<>();
 
 		for (Vinkki vinkki : vinkit) {
-			if (ehto.test(vinkki)) { lista.add(vinkki.toString()); }
+			if (ehto.test(vinkki)) {
+				lista.add(vinkki.toString());
+			}
 		}
 		return lista;
 	}
-        
+
 	public boolean tarkistaId(int id) {
 		int vinkkiMaara = lukuvinkkiDao.getMaara();
 		if (id > vinkkiMaara || id < 1) {
-		    return false;
+			return false;
 		}
 		return true;
 	}
-        
+
 	public String getOtsikko(int id) {
 		return lukuvinkkiDao.listaa().get(id - 1).getOtsikko();
 	}
