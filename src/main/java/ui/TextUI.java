@@ -55,6 +55,9 @@ public class TextUI {
             case 6:
                 selaaLuettujaVinkkeja();
                 break;
+            case 7:
+                haeTagilla();
+                break;    
             default:
                 this.io.error("Komentoa ei löydy!");
                 printInfo();
@@ -164,6 +167,30 @@ public class TextUI {
         return true;
     }
 
+    private void haeTagilla() {
+        String haettavaTagi = this.io.nextLine("Syötä etsittävä tagi: ");
+
+        List<String> vinkit = sovellus.etsiVinkkejaTagilla(haettavaTagi);
+
+        if (vinkit.size() == 0) {
+            this.io.print("Yhtään vinkkiä ei löytynyt tagilla \"" + haettavaTagi + "\".");
+            return;
+        }
+
+        this.io.print("" + vinkit.size() + " vinkki(ä) löytyi tagilla \"" + haettavaTagi + "\".");
+        for (String vinkki : vinkit)
+            this.io.print(vinkki);
+    }
+
+    private void testaus() {
+        String output = "#";
+        String tagit = "aa,bb,cc,dd";
+        String[] tagiLista = tagit.split(",");
+        output += String.join(", #", tagiLista);
+
+        this.io.print(output);
+    }
+
     private void printInfo() {
         this.io.print(" 0: Info");
         this.io.print(" 1: Selaa vinkkejä");
@@ -172,6 +199,7 @@ public class TextUI {
         this.io.print(" 4: Muokkaa vinkkiä");
         this.io.print(" 5: Merkitse vinkki luetuksi");
         this.io.print(" 6: Selaa luettuja vinkkejä");
+        this.io.print(" 7: Etsi tagilla");
         this.io.print("-1: Poistu");
     }
 }
