@@ -125,7 +125,9 @@ public class TextUI {
         this.io.print("Otsikko on nyt " + otsikko);
         var uusiOtsikko = this.io.nextLine("Anna uusi otsikko (tyhjä syöte säilyttää otsikon ennallaan): ");
         while (sovellus.tarkistaOtsikko(uusiOtsikko)) {
-            if (uusiOtsikko.isBlank()) break;
+            if (uusiOtsikko.isBlank()) {
+                break;
+            }
             this.io.error("Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko");
             uusiOtsikko = this.io.nextLine("Anna uusi otsikko: ");
         }
@@ -179,8 +181,9 @@ public class TextUI {
         }
 
         this.io.print("" + vinkit.size() + " vinkki(ä) löytyi tagilla \"" + haettavaTagi + "\".");
-        for (String vinkki : vinkit)
+        for (String vinkki : vinkit) {
             this.io.print(vinkki);
+        }
     }
 
     // Säästin tämän, jos tekijällä on vielä käyttöä -János

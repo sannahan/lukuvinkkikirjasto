@@ -91,5 +91,23 @@ public class SovellusTest {
         assertEquals("3: Base64", otsikot.get(2));
         assertEquals("4: Human Reproduction Behavioral Research Video Library", otsikot.get(3));
     }
+    
+    @Test
+    public void lisaaLuettuVinkkiKutsuuDaoa() {
+        testiSovellus.lisaaLuettuVinkki("Python Planet", "https://planetpython.org/", "python,kieli", "2021 03 30");
+        verify(mockDao, times(1)).lisaa(any());
+    }
+    
+    @Test
+    public void selaaLuettujaVinkkejaPalauttaaVainLuetutVinkit() {
+    	List<Vinkki> testiLista = Arrays.asList(
+                new Oletus("Accessibility vodcast (React Finland)", "https://www.youtube.com/watch?v=jouctaXwpdU", "tagi1,tagi2,tagi3"),
+                new Oletus("Axe-con", "https://axe-con.com/", "tagi1,tagi2,tagi3"),
+                new Oletus("Base64", "https://www.youtube.com/watch?v=8qkxeZmKmOY&t=2s", "tagi1,tagi2,tagi3"),
+                new Oletus("Python Planet", "https://planetpython.org/", "python,kieli", "2021 03 30"));
+        Mockito.doReturn(testiLista).when(mockDao).listaa();
+        var vinkit = testiSovellus.selaaLuettujaVinkkeja();
+        assertEquals(vinkit.size(),1);
+    }
 
 }
