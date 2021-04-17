@@ -186,16 +186,6 @@ public class TextUI {
         }
     }
 
-    // Säästin tämän, jos tekijällä on vielä käyttöä -János
-    /*private void testaus() {
-        String output = "#";
-        String tagit = "aa,bb,cc,dd";
-        String[] tagiLista = tagit.split(",");
-        output += String.join(", #", tagiLista);
-
-        this.io.print(output);
-    }*/
-
     private void printInfo() {
         this.io.print(" 0: Info");
         this.io.print(" 1: Selaa vinkkejä");
