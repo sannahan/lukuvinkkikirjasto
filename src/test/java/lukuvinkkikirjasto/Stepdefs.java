@@ -3,7 +3,6 @@ package lukuvinkkikirjasto;
 import dao.FileLukuvinkkiDao;
 import domain.*;
 import domain.Sovellus;
-import io.StubIO;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
