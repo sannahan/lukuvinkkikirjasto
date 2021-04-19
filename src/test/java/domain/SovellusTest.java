@@ -111,4 +111,15 @@ public class SovellusTest {
         assertEquals(vinkit.size(),1);
     }
 
+    @Test
+    public void etsiVinkkejaTagillaPalauttaaOikeatVinkit() {
+        List<Vinkki> testiLista = Arrays.asList(
+                new Oletus("Accessibility vodcast (React Finland)", "https://www.youtube.com/watch?v=jouctaXwpdU", "tagi1,tagi2,tagi3", "null"),
+                new Oletus("Axe-con", "https://axe-con.com/", "tagi1,tagi2,tagi3", "null"),
+                new Oletus("Base64", "https://www.youtube.com/watch?v=8qkxeZmKmOY&t=2s", "tagi1,tagi2,tagi3", "null"),
+                new Oletus("Python Planet", "https://planetpython.org/", "python,kieli", "2021 03 30"));
+        Mockito.doReturn(testiLista).when(mockDao).listaa();
+        var vinkit = testiSovellus.etsiVinkkejaTagilla("tagi2");
+        assertEquals(vinkit.size(), 3);
+    }
 }
