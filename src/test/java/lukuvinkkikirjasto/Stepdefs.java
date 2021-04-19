@@ -44,7 +44,7 @@ public class Stepdefs {
             throw new RuntimeException(ioe);
         }
         lukuvinkit = new FileLukuvinkkiDao(tiedosto);
-        lukuvinkit.lisaa(new Oletus("Testiotsikko", "Testilinkki", "Testitägi"));
+        lukuvinkit.lisaa(new Oletus("Testiotsikko", "Testilinkki", "Testitägi", "null"));
         syoterivit = new ArrayList<>();
         io = new StubIO(syoterivit);
         app = new Sovellus(lukuvinkit);
