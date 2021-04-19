@@ -5,6 +5,7 @@ import domain.*;
 import domain.Sovellus;
 import io.StubIO;
 import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -165,5 +166,20 @@ public class Stepdefs {
         }
         assertFalse(molemmatLoytyy); 
     }
-    
+
+    @Given("kayttaja kertoo haluavansa etsia vinkkeja tagilla")
+    public void kayttajaKertooHaluavansaEtsiaVinkkejaTagilla() {
+        io.lisaaSyote("7");
+    }
+
+    @Given("vinkki {string}, URL {string} ja tagi {string} on listalla")
+    public void vinkkiURLJaTagiOnListalla(String otsikko, String url, String tagi) {
+        io.lisaaSyote("2");
+        io.lisaaSyote(otsikko);
+        io.lisaaSyote(url);
+        io.lisaaSyote(tagi);
+    }
+
+    @And("kayttaja antaa tagin {string}")
+    public void kayttajaAntaaTagin(String tagi) { io.lisaaSyote(tagi); }
 }

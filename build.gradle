@@ -39,6 +39,7 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: ['ui/TextUI.class',
+            'io/TextIO.class',
             'lukuvinkkikirjasto/**'])
         }))
     }
