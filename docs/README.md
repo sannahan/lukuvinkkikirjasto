@@ -8,8 +8,8 @@
 ## Release 1
 
 - Release 1 löytyy [täältä](https://github.com/sannahan/lukuvinkkikirjasto/releases/tag/v0.1.0)
-- Sovellus olettaa, että suoritushakemistossa on tiedosto demo.txt ja tiedosto config.properties
-- Suorita jar-tiedosto komennolla java -jar lukuvinkkikirjasto.jar
+- Sovellus olettaa, että suoritushakemistossa on tiedosto `demo.txt` ja tiedosto `config.properties`
+- Suorita jar-tiedosto komennolla `java -jar lukuvinkkikirjasto.jar`
 
 ## Käyttöohjeet
 - Suorita pääohjelma komennolla `gradle -q --console plain run` (käytä komennosta muotoa `./gradlew`, jos `gradle` ei toimi) projektin juurihakemistossa
