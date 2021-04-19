@@ -8,21 +8,21 @@ public class Oletus implements Vinkki {
 	private boolean luettu;
 	private String luettuPvm;
 
-	public Oletus(String otsikko, String linkki, String tagit) {
+	/*public Oletus(String otsikko, String linkki, String tagit) {
 		this.tyyppi = Tyyppi.OLETUS;
 		this.otsikko = otsikko;
 		this.linkki = linkki;
 		this.tagit = (tagit.isEmpty()) ? "lukuvinkki" : tagit; 
 		this.luettu = false;
 		this.luettuPvm = null;
-	}
+	}*/
 
 	public Oletus(String otsikko, String linkki, String tagit, String date) {
 		this.tyyppi = Tyyppi.OLETUS;
 		this.otsikko = otsikko;
 		this.linkki = linkki;
-		this.tagit = tagit;
-		this.luettu = (date.equals("null") ? false : true);
+		this.tagit = (tagit.isEmpty()) ? "lukuvinkki" : tagit;
+		this.luettu = (date.equals("null")) ? false : true;
 		this.luettuPvm = date;
 	}
 
@@ -62,6 +62,8 @@ public class Oletus implements Vinkki {
 
 	@Override
 	public String toString() {
+		// String vinkki = "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n" + "Tägit: " + tagitToString() + "\n";
+		// vinkki = (luettu) ? vinkki + "Luettu: " + luettuPvm +"\n": vinkki;
 		return "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n" + "Tägit: " + tagitToString() + "\n";
 	}
 

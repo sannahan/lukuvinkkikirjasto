@@ -84,7 +84,7 @@ public class TextUI {
         }
         var url = this.io.nextLine("Anna lukuvinkin URL: ");
         String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
-        sovellus.lisaaVinkki(otsikko, url, tagit);
+        sovellus.lisaaVinkki(otsikko, url, tagit, "null");
     }
 
     private void poistaVinkki() {
@@ -113,7 +113,7 @@ public class TextUI {
                 var otsikko = muokkaaOtsikkoa(vanhaVinkki.get("otsikko"));
                 var url = muokkaaLinkkia(vanhaVinkki.get("linkki"));
                 var tagit = muokkaaTageja(vanhaVinkki.get("tagit"));
-                sovellus.lisaaVinkki(otsikko, url, tagit);
+                sovellus.lisaaVinkki(otsikko, url, tagit, vanhaVinkki.get("lukupvm"));
                 this.io.print("Vinkki muokattu!");
             } else {
                 this.io.print("Virheellinen id-numero");

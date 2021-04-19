@@ -31,7 +31,7 @@ public class SovellusTest {
     @Test
     public void selaaVinkkejaPalauttaaOikeanListan() {
         List<Vinkki> testiLista = Arrays.asList(
-                new Oletus("Accessibility vodcast (React Finland)", "https://www.youtube.com/watch?v=jouctaXwpdU", "tagi1,tagi2,tagi3"),
+                new Oletus("Accessibility vodcast (React Finland)", "https://www.youtube.com/watch?v=jouctaXwpdU", "Accessibility", "1337"),
                 new Oletus("Axe-con", "https://axe-con.com/", "tagi1,tagi2,tagi3"),
                 new Oletus("Base64", "https://www.youtube.com/watch?v=8qkxeZmKmOY&t=2s", "tagi1,tagi2,tagi3"),
                 new Oletus("Human Reproduction Behavioral Research Video Library", "https://www.pornhub.com/", "tagi1,tagi2,tagi3"));
