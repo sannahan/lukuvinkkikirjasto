@@ -53,6 +53,9 @@ public class TextUI {
                 merkitseVinkkiLuetuksi();
                 break;
             case 6:
+                selaaLukemattomiaVinkkeja();
+                break;
+            case 7:
                 selaaLuettujaVinkkeja();
                 break;
             default:
@@ -70,6 +73,11 @@ public class TextUI {
     
     private void selaaLuettujaVinkkeja() {
         for (String vinkki : sovellus.selaaLuettujaVinkkeja())
+            this.io.print(vinkki);
+    }
+
+    private void selaaLukemattomiaVinkkeja() {
+        for (String vinkki : sovellus.selaaLukemattomiaVinkkeja())
             this.io.print(vinkki);
     }
     
@@ -168,7 +176,8 @@ public class TextUI {
         this.io.print(" 3: Poista vinkki");
         this.io.print(" 4: Muokkaa vinkkiä");
         this.io.print(" 5: Merkitse vinkki luetuksi");
-        this.io.print(" 6: Selaa luettuja vinkkejä");
+        this.io.print(" 6: Selaa lukemattomia vinkkejä");
+        this.io.print(" 7: Selaa luettuja vinkkejä");
         this.io.print("-1: Poistu");
     }
 }

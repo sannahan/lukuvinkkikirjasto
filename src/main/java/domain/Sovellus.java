@@ -27,8 +27,19 @@ public class Sovellus {
 		List<Vinkki> vinkit = lukuvinkkiDao.listaa();
 		List<String> lista = new ArrayList<>();
 		for (Vinkki vinkki : vinkit) {
-                    if (vinkki.getLuettu()) {
+                    if (!vinkki.getluettuPvm().equals("null")) {
                         lista.add(vinkki.luetutToString());
+                    }
+		}
+		return lista;
+	}
+        
+        public List<String> selaaLukemattomiaVinkkeja() {
+		List<Vinkki> vinkit = lukuvinkkiDao.listaa();
+		List<String> lista = new ArrayList<>();
+		for (Vinkki vinkki : vinkit) {
+                    if (vinkki.getluettuPvm().equals("null")) {
+                        lista.add(vinkki.toString());
                     }
 		}
 		return lista;
