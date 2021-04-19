@@ -63,9 +63,7 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
         for (String vinkki : lukuvinkit) {
             String[] osat = vinkki.split(";");
             switch (osat[0]) {
-                // case "2", "3", "4", ...
                 default: // eli "1"
-                //LocalDate date = new LocalDate(osat[4]);
                 vinkit.add(new Oletus(osat[1], osat[2], osat[3], osat[5]));
                 break;
             }
