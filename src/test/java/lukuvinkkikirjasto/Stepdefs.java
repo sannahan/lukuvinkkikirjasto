@@ -196,6 +196,11 @@ public class Stepdefs {
         io.lisaaSyote("7");
     }
     
+    @Given("kayttaja kertoo haluavansa selata lukemattomia vinkkeja")
+    public void kayttajaKertooHaluavansaSelataLukemattomiaVinkkeja() {
+        io.lisaaSyote("6");
+    }
+    
     @Then("listauksesta loytyy oikea paivamaara")
     public void listauksestaLoytyyOikeaPaivamaara() {
         ui.suorita();
