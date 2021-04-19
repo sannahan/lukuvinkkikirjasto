@@ -169,7 +169,7 @@ public class Stepdefs {
 
     @Given("kayttaja kertoo haluavansa etsia vinkkeja tagilla")
     public void kayttajaKertooHaluavansaEtsiaVinkkejaTagilla() {
-        io.lisaaSyote("7");
+        io.lisaaSyote("8");
     }
 
     @Given("vinkki {string}, URL {string} ja tagi {string} on listalla")

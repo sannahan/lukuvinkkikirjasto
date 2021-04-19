@@ -41,7 +41,19 @@ public class Sovellus {
 
 		for (Vinkki vinkki : vinkit) {
 			if (vinkki.getLuettu()) { // suodatin.test(vinkki)
-				lista.add(vinkki.toString() + vinkki.getluettuPvm() + "\n");
+				lista.add(vinkki.toString() + "Luettu: " + vinkki.getluettuPvm() + "\n");
+			}
+		}
+		return lista;
+	}
+
+        public List<String> selaaLukemattomiaVinkkeja() {
+		List<Vinkki> vinkit = lukuvinkkiDao.listaa();
+		List<String> lista = new ArrayList<>();
+
+		for (Vinkki vinkki : vinkit) {
+			if (!vinkki.getLuettu()) { // suodatin.test(vinkki)
+				lista.add(vinkki.toString());
 			}
 		}
 		return lista;
