@@ -13,6 +13,8 @@ import ui.TextUI;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -181,5 +183,32 @@ public class Stepdefs {
     }
 
     @And("kayttaja antaa tagin {string}")
-    public void kayttajaAntaaTagin(String tagi) { io.lisaaSyote(tagi); }
+    public void kayttajaAntaaTagin(String tagi) {
+        io.lisaaSyote(tagi);
+    }
+    
+    @Given("kayttaja kertoo haluavansa merkita vinkin luetuksi")
+    public void kayttajaKertooHaluavansaMerkitaVinkinLuetuksi() {
+        io.lisaaSyote("5");
+    }
+    
+    @Then("kayttaja kertoo haluavansa selata luettuja vinkkeja") 
+    public void kayttajaKertooHaluavansaSelataLuettujaVinkkeja() {
+        io.lisaaSyote("7");
+    }
+    
+    @Then("listauksesta loytyy oikea paivamaara")
+    public void listauksestaLoytyyOikeaPaivamaara() {
+        ui.suorita();
+        LocalDate paivamaara = LocalDate.now();
+        DateTimeFormatter pvmMuotoilu = DateTimeFormatter.ofPattern("yyyy MM dd");
+        String pvm = paivamaara.format(pvmMuotoilu);
+        boolean sisPvm = false;
+        for (String s: io.getTulosteet()) {
+            if (s.contains(pvm)) {
+                sisPvm = true;
+            }
+        }
+        assertTrue(sisPvm);
+    }
 }
