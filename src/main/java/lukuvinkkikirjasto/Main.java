@@ -7,14 +7,20 @@ import dao.*;
 import domain.Sovellus;
 import io.IO;
 import io.TextIO;
+import java.io.FileInputStream;
+import java.util.Properties;
 import ui.TextUI;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         IO textIO = new TextIO(new Scanner(System.in));
+        
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("config.properties"));
+        // String usedFile = properties.getProperty("demoFile");
+        String usedFile = properties.getProperty("testFile");
 
-        LukuvinkkiDao lukuvinkkiDao = new FileLukuvinkkiDao(new File("testi.txt"));
-        // LukuvinkkiDao lukuvinkkiDao = new FileLukuvinkkiDao(new File("demo.txt"));
+        LukuvinkkiDao lukuvinkkiDao = new FileLukuvinkkiDao(new File(usedFile));
         
         Sovellus sovellus = new Sovellus(lukuvinkkiDao);
         TextUI kayttoliittyma = new TextUI(textIO, sovellus);

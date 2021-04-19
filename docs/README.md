@@ -5,9 +5,15 @@
 - **[Sprint 2 backlog](https://docs.google.com/spreadsheets/d/1X-Dka5l4AGH5qX0RWS0PIBxflUSbwlH-rtMBb4RWIM4/edit#gid=799619105)**
 <TODO info="lisätään sprint backlogille linkki">
 
+## Release 1
+
+- Release 1 löytyy [täältä](https://github.com/sannahan/lukuvinkkikirjasto/releases/tag/v0.1.0)
+- Sovellus olettaa, että suoritushakemistossa on tiedosto demo.txt ja tiedosto config.properties
+- Suorita jar-tiedosto komennolla java -jar lukuvinkkikirjasto.jar
+
 ## Käyttöohjeet
 - Suorita pääohjelma komennolla `gradle -q --console plain run` (käytä komennosta muotoa `./gradlew`, jos `gradle` ei toimi) projektin juurihakemistossa
-- Generoi jar-tiedosto komennolla `gradle jar` ja suorita jar-tiedosto komennolla `java -jar build/libs/lukuvinkkikirjasto.jar` projektin juurihakemistossa
+- Generoi jar-tiedosto komennolla `gradle shadowJar` ja suorita jar-tiedosto komennolla `java -jar build/libs/lukuvinkkikirjasto.jar` projektin juurihakemistossa
 
 ## Definition of done
 - Koodi on selkeää ja helposti luettavaa: koodi on katselmoitu toisen tiimiläisen johdosta ja koodi tarkistetaan checkstyle actionin avulla
