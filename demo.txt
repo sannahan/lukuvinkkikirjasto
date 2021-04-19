@@ -1,0 +1,10 @@
+1;Accessibility vodcast (React Finland);https://www.youtube.com/watch?v=jouctaXwpdU;accessibility;false;null
+1;Axe-con;https://axe-con.com/;accessibility,conference;false;null
+1;Base64;https://www.youtube.com/watch?v=8qkxeZmKmOY&t=2s;base64,data;true;2021 04 16
+1;Fullstack-kurssi;https://fullstackopen.com/osa0;React,Redux,Node.js,MongoDB,GraphQL,TypeScript;true;2021 04 16
+1;Computerphile;https://www.youtube.com/channel/UC9-y-6csu5WGm29I7JiwpnA;video,history,computers;false;null
+1;Mimmit koodaa;https://mimmitkoodaa.ohjelmistoebusiness.fi/;mimmit,koodaa;false;null
+1;This is not a webinar;https://mimmitkoodaa.ohjelmistoebusiness.fi/thisisnotawebinar/;mimmit,koodaa,notawebinar;true;2021 04 16
+1;Coding the Matrix;https://www.adlibris.com/fi/kirja/coding-the-matrix-linear-algebra-through-applications-to-computer-science-9780615880990;kirja,linis,computers;false;null
+1;Computer Graphics from Scratch;https://www.gabrielgambetta.com/computer-graphics-from-scratch/;graphics,raytracing,linis;false;null
+1;Unreal Learning Portal;https://www.unrealengine.com/en-US/onlinelearning-courses;unreal,graphics,gamedev;false;null
