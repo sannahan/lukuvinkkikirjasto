@@ -115,9 +115,9 @@ public class Sovellus {
     }
     
     public List<Vinkki> etsiVinkkejaJaKonditiolla(List<Vinkki> vinkit, List<String> haettavatTagit) {
-    	List<Vinkki> loydetytVinkit = new ArrayList<>();
+    	List<Vinkki> loydetytVinkit = vinkit;
 		for (int i = 1; i < haettavatTagit.size(); i++) {
-	    	loydetytVinkit = suodataVinkkeja(new SisaltaaTagin(haettavatTagit.get(i)), vinkit);
+	    	loydetytVinkit = suodataVinkkeja(new SisaltaaTagin(haettavatTagit.get(i)), loydetytVinkit);
 		}
     	return loydetytVinkit;
     }
