@@ -3,15 +3,18 @@ package ui;
 import java.util.List;
 
 import domain.Sovellus;
+import domain.UrlDataService;
 import io.IO;
 
 public class TextUI {
     private IO io;
     private Sovellus sovellus;
+    UrlDataService urlService;
 
     public TextUI(IO io, Sovellus sovellus) {
         this.io = io;
         this.sovellus = sovellus;
+        this.urlService = new UrlDataService();
     }
 
     public void suorita() {
@@ -86,14 +89,21 @@ public class TextUI {
     }
 
     private void lisaaVinkki() {
-        var otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
-        while (sovellus.tarkistaOtsikko(otsikko) || otsikko.isBlank()) {
-            var error = (otsikko.isBlank()) ? "Otsikko ei voi olla tyhjä" : "Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko";
-            this.io.error(error);
-            otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
-        }
         var url = this.io.nextLine("Anna lukuvinkin URL: ");
+        String otsikko = this.urlService.getOtsikko(url);
+
+        if (!otsikko.isBlank()) {
+            this.muokkaaOtsikkoa(otsikko);
+        } else {
+            otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
+            while (sovellus.tarkistaOtsikko(otsikko) || otsikko.isBlank()) {
+                var error = (otsikko.isBlank()) ? "Otsikko ei voi olla tyhjä" : "Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko";
+                this.io.error(error);
+                otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
+            }
+        }
         String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
+
         sovellus.lisaaVinkki(otsikko, url, tagit, "null");
     }
 
