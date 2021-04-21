@@ -3,6 +3,7 @@
 - **[Product Backlog](https://docs.google.com/spreadsheets/d/1X-Dka5l4AGH5qX0RWS0PIBxflUSbwlH-rtMBb4RWIM4/edit#gid=1)**
 - **[Sprint 1 backlog](https://docs.google.com/spreadsheets/d/1X-Dka5l4AGH5qX0RWS0PIBxflUSbwlH-rtMBb4RWIM4/edit#gid=7)**
 - **[Sprint 2 backlog](https://docs.google.com/spreadsheets/d/1X-Dka5l4AGH5qX0RWS0PIBxflUSbwlH-rtMBb4RWIM4/edit#gid=799619105)**
+- **[Sprint 3 backlog](https://docs.google.com/spreadsheets/d/1X-Dka5l4AGH5qX0RWS0PIBxflUSbwlH-rtMBb4RWIM4/edit#gid=47336913)**
 <TODO info="lisätään sprint backlogille linkki">
 
 ## Release 1
