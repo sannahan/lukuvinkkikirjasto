@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.Arrays;
 import java.util.List;
 
 import domain.Sovellus;
@@ -181,16 +182,26 @@ public class TextUI {
     }
 
     private void haeTagilla() {
-        String haettavaTagi = this.io.nextLine("Syötä etsittävä tagi: ");
-
-        List<String> vinkit = sovellus.etsiVinkkejaTagilla(haettavaTagi);
-
+        String syotetytTagit = this.io.nextLine("Syötä etsittävät tagit: ");
+        String[] tagit = syotetytTagit.split(" ja ");
+        List<String> haettavatTagit = Arrays.asList(tagit);
+        List<String> vinkit = sovellus.etsiVinkkejaTageilla(haettavatTagit);
+        String tagitStr = "";
+		tagitStr += String.join(" ja ", tagit);
         if (vinkit.size() == 0) {
-            this.io.print("Yhtään vinkkiä ei löytynyt tagilla \"" + haettavaTagi + "\".");
+        	if (tagit.length == 1) {
+        		this.io.print("Yhtään vinkkiä ei löytynyt tagilla \"" + tagit[0] + "\".");
+        	} else {
+        		
+        		this.io.print("Yhtään vinkkiä ei löytynyt tageilla \"" + tagitStr + "\".");
+        	}
             return;
         }
-
-        this.io.print("" + vinkit.size() + " vinkki(ä) löytyi tagilla \"" + haettavaTagi + "\".");
+        if (tagit.length == 1) {
+        	this.io.print("" + vinkit.size() + " vinkki(ä) löytyi tagilla \"" + tagit[0] + "\".");
+        } else {
+        	this.io.print("" + vinkit.size() + " vinkki(ä) löytyi tageilla \"" + tagitStr + "\".");
+        }
         for (String vinkki : vinkit) {
             this.io.print(vinkki);
         }
