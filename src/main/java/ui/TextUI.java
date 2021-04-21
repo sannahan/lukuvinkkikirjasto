@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.List;
+import java.util.Map;
 
 import domain.Sovellus;
 import io.IO;
@@ -57,7 +58,7 @@ public class TextUI {
                 break;
             case 8:
                 haeTagilla();
-                break;    
+                break;
             default:
                 this.io.error("Komentoa ei löydy!");
                 printInfo();
@@ -78,7 +79,6 @@ public class TextUI {
         }
     }
 
-    
     private void selaaLukemattomiaVinkkeja() {
         for (String vinkki : sovellus.selaaLukemattomiaVinkkeja()) {
             this.io.print(vinkki);
@@ -86,14 +86,19 @@ public class TextUI {
     }
 
     private void lisaaVinkki() {
+        this.io.print("\n*** Komennolla PERUUTA voit palata valikkoon ***\n");
         var otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
         while (sovellus.tarkistaOtsikko(otsikko) || otsikko.isBlank()) {
-            var error = (otsikko.isBlank()) ? "Otsikko ei voi olla tyhjä" : "Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko";
+            var error = (otsikko.isBlank()) ? "Otsikko ei voi olla tyhjä"
+                    : "Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko";
             this.io.error(error);
             otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
         }
+        if (otsikko.trim().equals("PERUUTA")) return;
         var url = this.io.nextLine("Anna lukuvinkin URL: ");
+        if (url.trim().equals("PERUUTA")) return;
         String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
+        if (tagit.trim().equals("PERUUTA")) return;
         sovellus.lisaaVinkki(otsikko, url, tagit, "null");
     }
 
@@ -119,16 +124,29 @@ public class TextUI {
         if (listaaOtsikotJosVinkkejaOnOlemassa()) {
             var muokattava = this.io.nextInt("Anna muokattavan vinkin id-numero:");
             if (sovellus.tarkistaId(muokattava)) {
+                this.io.print("\n*** Komennolla PERUUTA voit keskeyttää muokkauksen ja palata valikkoon ***\n");
                 var vanhaVinkki = sovellus.poistaVinkki(muokattava);
                 var otsikko = muokkaaOtsikkoa(vanhaVinkki.get("otsikko"));
+                if (peruutaMuokkaus(otsikko, vanhaVinkki)) return;
                 var url = muokkaaLinkkia(vanhaVinkki.get("linkki"));
+                if (peruutaMuokkaus(url, vanhaVinkki)) return;
                 var tagit = muokkaaTageja(vanhaVinkki.get("tagit"));
+                if (peruutaMuokkaus(tagit, vanhaVinkki)) return;
                 sovellus.lisaaVinkki(otsikko, url, tagit, vanhaVinkki.get("lukupvm"));
                 this.io.print("Vinkki muokattu!");
             } else {
                 this.io.print("Virheellinen id-numero");
             }
         }
+    }
+
+    private boolean peruutaMuokkaus(String komento, Map<String, String> vanhaVinkki) {
+        if (komento.trim().equals("PERUUTA")) {
+            sovellus.lisaaVinkki(vanhaVinkki.get("otsikko"), vanhaVinkki.get("linkki"), vanhaVinkki.get("tagit"),
+                    vanhaVinkki.get("lukupvm"));
+            return true;
+        }
+        return false;
     }
 
     private String muokkaaOtsikkoa(String otsikko) {
@@ -152,7 +170,8 @@ public class TextUI {
 
     private String muokkaaTageja(String tagit) {
         this.io.print("Vinkillä on seuraavat tagit " + tagit);
-        var uudetTagit = this.io.nextLine("Anna uudet tagit pilkulla eroteltuna (tyhja syöte säilyttää tagit ennallaan):");
+        var uudetTagit = this.io
+                .nextLine("Anna uudet tagit pilkulla eroteltuna (tyhja syöte säilyttää tagit ennallaan):");
         return (uudetTagit.isBlank()) ? tagit : uudetTagit;
     }
 

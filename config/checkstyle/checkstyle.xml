@@ -19,7 +19,6 @@
         <module name="AvoidNestedBlocks"/>
         <module name="EmptyBlock"/>
         <module name="LeftCurly"/>
-        <module name="NeedBraces"/>
         <module name="RightCurly"/>
 	<module name="EmptyStatement"/>
 	<module name="EqualsHashCode"/>
