@@ -5,16 +5,19 @@ import java.util.List;
 import java.util.Map;
 
 import domain.Sovellus;
+import domain.UrlDataService;
 import io.IO;
 import java.util.ArrayList;
 
 public class TextUI {
     private IO io;
     private Sovellus sovellus;
+    private UrlDataService urlService;
 
     public TextUI(IO io, Sovellus sovellus) {
         this.io = io;
         this.sovellus = sovellus;
+        this.urlService = new UrlDataService();
     }
 
     public void suorita() {
@@ -88,17 +91,23 @@ public class TextUI {
     }
 
     private void lisaaVinkki() {
-        this.io.print("\n*** Komennolla PERUUTA voit palata valikkoon ***\n");
-        var otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
-        while (sovellus.tarkistaOtsikko(otsikko) || otsikko.isBlank()) {
-            var error = (otsikko.isBlank()) ? "Otsikko ei voi olla tyhjä"
-                    : "Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko";
-            this.io.error(error);
-            otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
-        }
-        if (otsikko.trim().equals("PERUUTA")) return;
         var url = this.io.nextLine("Anna lukuvinkin URL: ");
         if (url.trim().equals("PERUUTA")) return;
+        String otsikko = this.urlService.getOtsikko(url);
+
+        if (!otsikko.isBlank()) {
+            this.muokkaaOtsikkoa(otsikko);
+        } else {
+            this.io.print("\n*** Komennolla PERUUTA voit palata valikkoon ***\n");  
+            otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
+            while (sovellus.tarkistaOtsikko(otsikko) || otsikko.isBlank()) {
+                var error = (otsikko.isBlank()) ? "Otsikko ei voi olla tyhjä"
+                    : "Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko";
+                this.io.error(error);
+                otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
+            }
+        }
+        if (otsikko.trim().equals("PERUUTA")) return;
         String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
         if (tagit.trim().equals("PERUUTA")) return;
         sovellus.lisaaVinkki(otsikko, url, tagit, "null");
