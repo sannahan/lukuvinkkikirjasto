@@ -6,6 +6,7 @@ import java.util.Map;
 
 import domain.Sovellus;
 import io.IO;
+import java.util.ArrayList;
 
 public class TextUI {
     private IO io;
@@ -200,24 +201,46 @@ public class TextUI {
         return true;
     }
 
+
     private void haeTagilla() {
         String syotetytTagit = this.io.nextLine("Syötä etsittävät tagit: ");
-        String[] tagit = syotetytTagit.split(" ja ");
-        List<String> haettavatTagit = Arrays.asList(tagit);
-        List<String> vinkit = sovellus.etsiVinkkejaTageilla(haettavatTagit);
+        boolean tagejaOnVainYksi = true;
+        if (syotetytTagit.contains(" ja ") || syotetytTagit.contains(" tai ")) {
+            tagejaOnVainYksi = false;
+        }
+        List<String> vinkit = new ArrayList<>();
         String tagitStr = "";
-		tagitStr += String.join(" ja ", tagit);
+        //tähän tarkastus, ettei ole sekä ja, että tai
+        if (syotetytTagit.contains(" ja ") && syotetytTagit.contains(" tai ")) {
+            this.io.print("Ei onnistunut, käytä vain 'ja' tai 'tai' operandeja, älä molempia. Aloita alusta.");
+        } else if (tagejaOnVainYksi) {
+            List<String> haettavatTagit = new ArrayList<>();
+            haettavatTagit.add(syotetytTagit);
+            vinkit = sovellus.etsiVinkkejaYhdellaTagilla(haettavatTagit);
+        } else if (syotetytTagit.contains(" ja ")) {
+            String[] tagit = syotetytTagit.split(" ja ");
+            List<String> haettavatTagit = Arrays.asList(tagit);
+            vinkit = sovellus.etsiVinkkejaJaKonditiolla(haettavatTagit);
+            tagitStr += String.join(" ja ", tagit);
+        } else if (syotetytTagit.contains(" tai ")) {
+            String[] tagit = syotetytTagit.split(" tai ");
+            List<String> haettavatTagit = Arrays.asList(tagit);
+            vinkit = sovellus.etsiVinkkejaTaiKonditiolla(haettavatTagit);
+            tagitStr += String.join(" tai ", tagit);
+        }
+        //Molempien pitäisi palata tähän.
         if (vinkit.size() == 0) {
-        	if (tagit.length == 1) {
-        		this.io.print("Yhtään vinkkiä ei löytynyt tagilla \"" + tagit[0] + "\".");
+        	if (tagejaOnVainYksi) {
+                    this.io.print("Yhtään vinkkiä ei löytynyt tagilla \"" + syotetytTagit + "\".");
         	} else {
         		
         		this.io.print("Yhtään vinkkiä ei löytynyt tageilla \"" + tagitStr + "\".");
         	}
             return;
         }
-        if (tagit.length == 1) {
-        	this.io.print("" + vinkit.size() + " vinkki(ä) löytyi tagilla \"" + tagit[0] + "\".");
+
+        if (tagejaOnVainYksi) {
+        	this.io.print("" + vinkit.size() + " vinkki(ä) löytyi tagilla \"" + syotetytTagit + "\".");
         } else {
         	this.io.print("" + vinkit.size() + " vinkki(ä) löytyi tageilla \"" + tagitStr + "\".");
         }
@@ -225,7 +248,7 @@ public class TextUI {
             this.io.print(vinkki);
         }
     }
-
+    
     private void printInfo() {
         this.io.print(" 0: Info");
         this.io.print(" 1: Selaa vinkkejä");
