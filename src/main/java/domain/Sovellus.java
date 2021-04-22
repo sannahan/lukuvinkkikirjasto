@@ -20,12 +20,14 @@ import java.util.Map;
 public class Sovellus {
 
     private LukuvinkkiDao lukuvinkkiDao;
+    private AutotagDao autotagDao;
     private LocalDate paivamaara;
     private DateTimeFormatter pvmMuotoilu;
 
     public Sovellus(LukuvinkkiDao lukuvinkkiDao) {
         this.lukuvinkkiDao = lukuvinkkiDao;
         this.pvmMuotoilu = DateTimeFormatter.ofPattern("yyyy MM dd");
+        this.autotagDao = new HashMapAutotagDao();
     }
 
     public List<String> selaaVinkkeja() {
@@ -68,8 +70,7 @@ public class Sovellus {
     }
 
     private String autoTagaa(String linkki, String tagit) {
-        AutotagDao autoTag = new HashMapAutotagDao();
-        Map<String, String> mappaukset = autoTag.haeMappaukset();
+        Map<String, String> mappaukset = autotagDao.haeMappaukset();
         for (String sivusto : mappaukset.keySet()) {
             if (linkki.contains(sivusto) && !tagit.contains(mappaukset.get(sivusto))) {
                 tagit += (tagit.isEmpty()) ? mappaukset.get(sivusto) : "," + mappaukset.get(sivusto);
