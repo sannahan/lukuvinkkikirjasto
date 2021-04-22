@@ -9,10 +9,10 @@ public class HashMapAutotagDao implements AutotagDao {
 
     public HashMapAutotagDao() {
         mappaukset = Stream.of(new String[][] {
-            { "youtube", "video" }, 
-            { "dl.acm.org", "artikkeli" }, 
-            { "is.fi", "artikkeli" },
-            { "hs.fi", "artikkeli" },
+            {"youtube", "video"}, 
+            {"dl.acm.org", "artikkeli"}, 
+            {"is.fi", "artikkeli"},
+            {"hs.fi", "artikkeli" },
           }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
     }
 
