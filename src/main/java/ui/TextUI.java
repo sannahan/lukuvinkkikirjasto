@@ -11,7 +11,7 @@ import io.IO;
 public class TextUI {
     private IO io;
     private Sovellus sovellus;
-    UrlDataService urlService;
+    private UrlDataService urlService;
 
     public TextUI(IO io, Sovellus sovellus) {
         this.io = io;
