@@ -91,6 +91,7 @@ public class TextUI {
 
     private void lisaaVinkki() {
         var url = this.io.nextLine("Anna lukuvinkin URL: ");
+        if (url.trim().equals("PERUUTA")) return;
         String otsikko = this.urlService.getOtsikko(url);
 
         if (!otsikko.isBlank()) {
@@ -105,16 +106,9 @@ public class TextUI {
                 otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
             }
         }
-// <<<<<<< ehdotettu-otsikko
-        String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
-
-// =======
         if (otsikko.trim().equals("PERUUTA")) return;
-        var url = this.io.nextLine("Anna lukuvinkin URL: ");
-        if (url.trim().equals("PERUUTA")) return;
         String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
         if (tagit.trim().equals("PERUUTA")) return;
-// >>>>>>> main
         sovellus.lisaaVinkki(otsikko, url, tagit, "null");
     }
 
