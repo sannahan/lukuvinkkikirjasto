@@ -64,8 +64,8 @@ public class Stepdefs {
     
     @When("otsikko {string}, URL {string} ja tagi {string} annetaan")
     public void kayttajaAntaaOtsikonJaUrlin(String otsikko, String url, String tagi) {
-        io.lisaaSyote(otsikko);
         io.lisaaSyote(url);
+        io.lisaaSyote(otsikko);
         io.lisaaSyote(tagi);
     }
 
@@ -176,8 +176,8 @@ public class Stepdefs {
     @Given("vinkki {string}, URL {string} ja tagi {string} on listalla")
     public void vinkkiURLJaTagiOnListalla(String otsikko, String url, String tagi) {
         io.lisaaSyote("2");
-        io.lisaaSyote(otsikko);
         io.lisaaSyote(url);
+        io.lisaaSyote(otsikko);
         io.lisaaSyote(tagi);
     }
 
