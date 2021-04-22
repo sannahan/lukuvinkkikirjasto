@@ -56,6 +56,15 @@ public class FileLukuvinkkiDaoTest {
         List<Vinkki> vinkit = lukuvinkit.listaa();
         assertEquals(3, vinkit.size());
     }
+    
+    @Test
+    public void vinkkienListausPalauttaaVinkitKaanteisessaJarjestyksessa() {
+        lukuvinkit.lisaa(vinkki);
+        lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2", "tagi1,tagi2,tagi3", "null"));
+        lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3", "tagi1,tagi2,tagi3", "null"));
+        List<Vinkki> vinkit = lukuvinkit.listaa();
+        assertEquals("kolmas vinkki", vinkit.get(0).getOtsikko());
+    }
 
     @Test
     public void vinkinPoistoOnnistuu() {
@@ -74,20 +83,20 @@ public class FileLukuvinkkiDaoTest {
         lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3", "tagi1,tagi2,tagi3", "null"));
         lukuvinkit.poista(1);
         List<Vinkki> vinkit = lukuvinkit.listaa();
-        Oletus testi = (Oletus)vinkit.get(1);
-        assertEquals("kolmas vinkki", testi.getOtsikko());
-        assertEquals("linkki3", testi.getLinkki());
+        Oletus testi = (Oletus)vinkit.get(0);
+        assertEquals("toinen vinkki", testi.getOtsikko());
+        assertEquals("linkki2", testi.getLinkki());
     }
 
     @Test
-    public void listaaOtsikotListaaOtsikot() {
+    public void listaaOtsikotListaaOtsikotKaanteisessaJarjestyksessa() {
         lukuvinkit.lisaa(vinkki);
         lukuvinkit.lisaa(new Oletus("toinen vinkki", "linkki2", "tagi1,tagi2,tagi3", "null"));
         lukuvinkit.lisaa(new Oletus("kolmas vinkki", "linkki3", "tagi1,tagi2,tagi3", "null"));
         List<String> otsikot = lukuvinkit.listaaOtsikot();
-        assertEquals("otsikko", otsikot.get(0));
+        assertEquals("otsikko", otsikot.get(2));
         assertEquals("toinen vinkki", otsikot.get(1));
-        assertEquals("kolmas vinkki", otsikot.get(2));
+        assertEquals("kolmas vinkki", otsikot.get(0));
     }
 
 }

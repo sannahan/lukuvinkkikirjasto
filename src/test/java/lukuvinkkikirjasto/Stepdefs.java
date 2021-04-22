@@ -215,4 +215,38 @@ public class Stepdefs {
         }
         assertTrue(sisPvm);
     }
+    
+    @Then("viimeisin lisays tulostetaan ensimmaisena")
+    public void viimeisinLisaysTulostetaanEnsimmaisena() {
+        ui.suorita();
+        int uusimmanOtsikonIndeksi = -1;
+        int toiseksiUusimmanOtsikonIndeksi = -2;
+        List<String> tulosteet = io.getTulosteet();
+        for (int i = 0; i < tulosteet.size(); i++) {
+            if (tulosteet.get(i).contains("Uusin otsikko")) {
+                uusimmanOtsikonIndeksi = i;
+            }
+            if (tulosteet.get(i).contains("Toiseksi uusin otsikko")) {
+                toiseksiUusimmanOtsikonIndeksi = i;
+            }
+        }
+        assertTrue(uusimmanOtsikonIndeksi < toiseksiUusimmanOtsikonIndeksi);
+    }
+    
+    @Then("viimeisin muokkaus tulostetaan ensimmaisena")
+    public void viimeisinMuokkausTulostetaanEnsimmaisena() {
+        ui.suorita();
+        int uusimmanOtsikonIndeksi = -1;
+        int toiseksiUusimmanOtsikonIndeksi = -2;
+        List<String> tulosteet = io.getTulosteet();
+        for (int i = 0; i < tulosteet.size(); i++) {
+            if (tulosteet.get(i).contains("Muokattu otsikko")) {
+                uusimmanOtsikonIndeksi = i;
+            }
+            if (tulosteet.get(i).contains("Muokkaamaton otsikko")) {
+                toiseksiUusimmanOtsikonIndeksi = i;
+            }
+        }
+        assertTrue(uusimmanOtsikonIndeksi < toiseksiUusimmanOtsikonIndeksi);
+    }
 }
