@@ -24,3 +24,8 @@ Feature: Kayttaja voi lisata vinkkeja
         When  otsikko "loisto", URL "muu.com" ja tagi "paras" annetaan
         Then  sovellus kysyy käyttäjältä uutta komentoa
 
+    Scenario: kayttaja voi keskeyttaa vinkin lisayksen ja palata valikkoon
+        Given kayttaja kertoo haluavansa lisata vinkin
+        When  kayttaja kirjoittaa "PERUUTA" 
+        Then  sovellus kysyy käyttäjältä uutta komentoa
+

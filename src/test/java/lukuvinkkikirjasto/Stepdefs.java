@@ -144,8 +144,8 @@ public class Stepdefs {
         io.lisaaSyote("4");
     }
     
-    @When("kayttaja antaa id:n {string}")
-    public void kayttajaAntaaIdn(String id) {
+    @When("kayttaja kirjoittaa {string}")
+    public void kayttajaKirjoittaa(String id) {
         io.lisaaSyote(id);
     }
     
@@ -181,10 +181,10 @@ public class Stepdefs {
         io.lisaaSyote(tagi);
     }
 
-    @And("kayttaja antaa tagin {string}")
-    public void kayttajaAntaaTagin(String tagi) {
+    /*@And("kayttaja kirjoittaa {string}")
+    public void kayttajaAntaaSyotteen(String tagi) {
         io.lisaaSyote(tagi);
-    }
+    }*/
     
     @Given("kayttaja kertoo haluavansa merkita vinkin luetuksi")
     public void kayttajaKertooHaluavansaMerkitaVinkinLuetuksi() {
