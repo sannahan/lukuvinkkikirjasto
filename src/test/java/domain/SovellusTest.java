@@ -120,7 +120,7 @@ public class SovellusTest {
                 new Oletus("Base64", "https://www.youtube.com/watch?v=8qkxeZmKmOY&t=2s", "tagi1,tagi2,tagi3", "null"),
                 new Oletus("Python Planet", "https://planetpython.org/", "python,kieli", "2021 03 30"));
         Mockito.doReturn(testiLista).when(mockDao).listaa();
-        var vinkit = testiSovellus.etsiVinkkejaTageilla(tagit);
+        var vinkit = testiSovellus.etsiVinkkejaYhdellaTagilla(tagit);
         assertEquals(vinkit.size(), 3);
     }
     
@@ -133,7 +133,7 @@ public class SovellusTest {
                 new Oletus("Base64", "https://www.youtube.com/watch?v=8qkxeZmKmOY&t=2s", "tagi1,tagi2,tagi3", "null"),
                 new Oletus("Python Planet", "https://planetpython.org/", "python,kieli", "2021 03 30"));
         Mockito.doReturn(testiLista).when(mockDao).listaa();
-        var vinkit = testiSovellus.etsiVinkkejaTageilla(tagit);
+        var vinkit = testiSovellus.etsiVinkkejaYhdellaTagilla(tagit);
         assertEquals(vinkit.size(), 1);
     }
 }

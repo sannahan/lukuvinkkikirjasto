@@ -10,6 +10,8 @@ import dao.HashMapAutotagDao;
 import dao.LukuvinkkiDao;
 import domain.suodatus.Ehto;
 import domain.suodatus.Kaikki;
+import domain.suodatus.SisaltaaJonkunAnnetuistaTageista;
+import domain.suodatus.SisaltaaKaikkiAnnetutTagit;
 import domain.suodatus.SisaltaaTagin;
 
 import java.util.HashMap;
@@ -116,25 +118,22 @@ public class Sovellus {
     	return lista;
     }
 
-    public List<String> etsiVinkkejaTageilla(List<String> haettavatTagit) {
+    public List<String> etsiVinkkejaYhdellaTagilla(List<String> haettavatTagit) {
     	List<Vinkki> vinkit = lukuvinkkiDao.listaa();
     	List<Vinkki> loydetytVinkit = suodataVinkkeja(new SisaltaaTagin(haettavatTagit.get(0)), vinkit);
-    	/*Ajattelin, että kun lisätään tai konditionaali, niin tämän seuraavan if:n sisällä voi olla 
-    	joku boolean ja == true -tyylinen ratkaisu, siksi rakensin sen näin, että ensiksi tehdään yhden tagin
-    	ja sen pohjalta sitten tehdään ja / tai hakuja. Jos haluat tehdä jotenkin ihan toisin, niin siitä vaan
-    	muuttamaan!*/
-    	if (haettavatTagit.size() > 1) {
-    		loydetytVinkit = etsiVinkkejaJaKonditiolla(loydetytVinkit, haettavatTagit);
-    	}
         return vinkkiListaToString(loydetytVinkit);
     }
     
-    public List<Vinkki> etsiVinkkejaJaKonditiolla(List<Vinkki> vinkit, List<String> haettavatTagit) {
-    	List<Vinkki> loydetytVinkit = vinkit;
-		for (int i = 1; i < haettavatTagit.size(); i++) {
-	    	loydetytVinkit = suodataVinkkeja(new SisaltaaTagin(haettavatTagit.get(i)), loydetytVinkit);
-		}
-    	return loydetytVinkit;
+    public List<String> etsiVinkkejaJaKonditiolla(List<String> haettavatTagit) {
+    	List<Vinkki> vinkit = lukuvinkkiDao.listaa();
+    	List<Vinkki> loydetytVinkit = suodataVinkkeja(new SisaltaaKaikkiAnnetutTagit(haettavatTagit), vinkit);
+        return vinkkiListaToString(loydetytVinkit);
+    }
+
+    public List<String> etsiVinkkejaTaiKonditiolla(List<String> haettavatTagit) {
+    	List<Vinkki> vinkit = lukuvinkkiDao.listaa();
+    	List<Vinkki> loydetytVinkit = suodataVinkkeja(new SisaltaaJonkunAnnetuistaTageista(haettavatTagit), vinkit);
+        return vinkkiListaToString(loydetytVinkit);
     }
 
     public List<Vinkki> suodataVinkkeja(Ehto suodatin, List<Vinkki> vinkit) {
