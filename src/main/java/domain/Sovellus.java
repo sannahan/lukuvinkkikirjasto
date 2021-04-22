@@ -24,7 +24,8 @@ public class Sovellus {
     }
 
     public List<String> selaaVinkkeja() {
-        return suodataVinkkeja(new Kaikki());
+    	List<Vinkki> vinkit = lukuvinkkiDao.listaa();
+        return vinkkiListaToString(suodataVinkkeja(new Kaikki(), vinkit));
     }
 
     public List<String> selaaLuettujaVinkkeja() {
@@ -91,18 +92,41 @@ public class Sovellus {
         }
         return lista;
     }
-
-    public List<String> etsiVinkkejaTagilla(String haettavaTagi) {
-        return suodataVinkkeja(new SisaltaaTagin(haettavaTagi));
+    
+    public List<String> vinkkiListaToString(List<Vinkki> vinkit) {
+    	List<String> lista = new ArrayList<>();
+    	for (Vinkki vinkki : vinkit) {
+    		lista.add(vinkki.toString());
+    	}
+    	return lista;
     }
 
-    public List<String> suodataVinkkeja(Ehto suodatin) {
-        List<Vinkki> vinkit = lukuvinkkiDao.listaa();
-        List<String> lista = new ArrayList<>();
+    public List<String> etsiVinkkejaTageilla(List<String> haettavatTagit) {
+    	List<Vinkki> vinkit = lukuvinkkiDao.listaa();
+    	List<Vinkki> loydetytVinkit = suodataVinkkeja(new SisaltaaTagin(haettavatTagit.get(0)), vinkit);
+    	/*Ajattelin, että kun lisätään tai konditionaali, niin tämän seuraavan if:n sisällä voi olla 
+    	joku boolean ja == true -tyylinen ratkaisu, siksi rakensin sen näin, että ensiksi tehdään yhden tagin
+    	ja sen pohjalta sitten tehdään ja / tai hakuja. Jos haluat tehdä jotenkin ihan toisin, niin siitä vaan
+    	muuttamaan!*/
+    	if (haettavatTagit.size() > 1) {
+    		loydetytVinkit = etsiVinkkejaJaKonditiolla(loydetytVinkit, haettavatTagit);
+    	}
+        return vinkkiListaToString(loydetytVinkit);
+    }
+    
+    public List<Vinkki> etsiVinkkejaJaKonditiolla(List<Vinkki> vinkit, List<String> haettavatTagit) {
+    	List<Vinkki> loydetytVinkit = vinkit;
+		for (int i = 1; i < haettavatTagit.size(); i++) {
+	    	loydetytVinkit = suodataVinkkeja(new SisaltaaTagin(haettavatTagit.get(i)), loydetytVinkit);
+		}
+    	return loydetytVinkit;
+    }
 
+    public List<Vinkki> suodataVinkkeja(Ehto suodatin, List<Vinkki> vinkit) {
+        List<Vinkki> lista = new ArrayList<>();
         for (Vinkki vinkki : vinkit) {
             if (suodatin.test(vinkki)) {
-                lista.add(vinkki.toString());
+                lista.add(vinkki);
             }
         }
         return lista;

@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import domain.*;
+import java.util.Collections;
 
 public class FileLukuvinkkiDao implements LukuvinkkiDao {
     private File tiedosto;
@@ -68,6 +68,7 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
                 break;
             }
         }
+        Collections.reverse(vinkit);
         return vinkit;
     }
     
@@ -81,8 +82,10 @@ public class FileLukuvinkkiDao implements LukuvinkkiDao {
     }
 
     public Vinkki poista(int tunnus) {
-        // tässä oletetaan, että tunnukset numeroidaan listauksessa ykkösestä alkaen
-        String poistettu = lukuvinkit.remove(tunnus-1);
+        // käyttäjä identifioi poistettavan vinkin sen tunnuksella
+        // tunnukset ovat lukuja välillä 1 - listan koko
+        // lukuvinkit listataan käyttäjälle käänteisessä järjestyksessä, joten tunnus vähennetään tässä listan koosta 
+        String poistettu = lukuvinkit.remove(lukuvinkit.size()-tunnus);
         tallenna();
         return teeRivistaVinkki(poistettu);
     }

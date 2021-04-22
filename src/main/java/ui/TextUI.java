@@ -1,6 +1,8 @@
 package ui;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import domain.Sovellus;
 import domain.UrlDataService;
@@ -60,7 +62,7 @@ public class TextUI {
                 break;
             case 8:
                 haeTagilla();
-                break;    
+                break;
             default:
                 this.io.error("Komentoa ei löydy!");
                 printInfo();
@@ -81,7 +83,6 @@ public class TextUI {
         }
     }
 
-    
     private void selaaLukemattomiaVinkkeja() {
         for (String vinkki : sovellus.selaaLukemattomiaVinkkeja()) {
             this.io.print(vinkki);
@@ -95,15 +96,25 @@ public class TextUI {
         if (!otsikko.isBlank()) {
             this.muokkaaOtsikkoa(otsikko);
         } else {
+            this.io.print("\n*** Komennolla PERUUTA voit palata valikkoon ***\n");  
             otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
             while (sovellus.tarkistaOtsikko(otsikko) || otsikko.isBlank()) {
-                var error = (otsikko.isBlank()) ? "Otsikko ei voi olla tyhjä" : "Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko";
+                var error = (otsikko.isBlank()) ? "Otsikko ei voi olla tyhjä"
+                    : "Syöttämälläsi otsikolla löytyy jo vinkki. Syötä uniikki otsikko";
                 this.io.error(error);
                 otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
             }
         }
+// <<<<<<< ehdotettu-otsikko
         String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
 
+// =======
+        if (otsikko.trim().equals("PERUUTA")) return;
+        var url = this.io.nextLine("Anna lukuvinkin URL: ");
+        if (url.trim().equals("PERUUTA")) return;
+        String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
+        if (tagit.trim().equals("PERUUTA")) return;
+// >>>>>>> main
         sovellus.lisaaVinkki(otsikko, url, tagit, "null");
     }
 
@@ -129,16 +140,29 @@ public class TextUI {
         if (listaaOtsikotJosVinkkejaOnOlemassa()) {
             var muokattava = this.io.nextInt("Anna muokattavan vinkin id-numero:");
             if (sovellus.tarkistaId(muokattava)) {
+                this.io.print("\n*** Komennolla PERUUTA voit keskeyttää muokkauksen ja palata valikkoon ***\n");
                 var vanhaVinkki = sovellus.poistaVinkki(muokattava);
                 var otsikko = muokkaaOtsikkoa(vanhaVinkki.get("otsikko"));
+                if (peruutaMuokkaus(otsikko, vanhaVinkki)) return;
                 var url = muokkaaLinkkia(vanhaVinkki.get("linkki"));
+                if (peruutaMuokkaus(url, vanhaVinkki)) return;
                 var tagit = muokkaaTageja(vanhaVinkki.get("tagit"));
+                if (peruutaMuokkaus(tagit, vanhaVinkki)) return;
                 sovellus.lisaaVinkki(otsikko, url, tagit, vanhaVinkki.get("lukupvm"));
                 this.io.print("Vinkki muokattu!");
             } else {
                 this.io.print("Virheellinen id-numero");
             }
         }
+    }
+
+    private boolean peruutaMuokkaus(String komento, Map<String, String> vanhaVinkki) {
+        if (komento.trim().equals("PERUUTA")) {
+            sovellus.lisaaVinkki(vanhaVinkki.get("otsikko"), vanhaVinkki.get("linkki"), vanhaVinkki.get("tagit"),
+                    vanhaVinkki.get("lukupvm"));
+            return true;
+        }
+        return false;
     }
 
     private String muokkaaOtsikkoa(String otsikko) {
@@ -162,7 +186,8 @@ public class TextUI {
 
     private String muokkaaTageja(String tagit) {
         this.io.print("Vinkillä on seuraavat tagit " + tagit);
-        var uudetTagit = this.io.nextLine("Anna uudet tagit pilkulla eroteltuna (tyhja syöte säilyttää tagit ennallaan):");
+        var uudetTagit = this.io
+                .nextLine("Anna uudet tagit pilkulla eroteltuna (tyhja syöte säilyttää tagit ennallaan):");
         return (uudetTagit.isBlank()) ? tagit : uudetTagit;
     }
 
@@ -191,16 +216,26 @@ public class TextUI {
     }
 
     private void haeTagilla() {
-        String haettavaTagi = this.io.nextLine("Syötä etsittävä tagi: ");
-
-        List<String> vinkit = sovellus.etsiVinkkejaTagilla(haettavaTagi);
-
+        String syotetytTagit = this.io.nextLine("Syötä etsittävät tagit: ");
+        String[] tagit = syotetytTagit.split(" ja ");
+        List<String> haettavatTagit = Arrays.asList(tagit);
+        List<String> vinkit = sovellus.etsiVinkkejaTageilla(haettavatTagit);
+        String tagitStr = "";
+		tagitStr += String.join(" ja ", tagit);
         if (vinkit.size() == 0) {
-            this.io.print("Yhtään vinkkiä ei löytynyt tagilla \"" + haettavaTagi + "\".");
+        	if (tagit.length == 1) {
+        		this.io.print("Yhtään vinkkiä ei löytynyt tagilla \"" + tagit[0] + "\".");
+        	} else {
+        		
+        		this.io.print("Yhtään vinkkiä ei löytynyt tageilla \"" + tagitStr + "\".");
+        	}
             return;
         }
-
-        this.io.print("" + vinkit.size() + " vinkki(ä) löytyi tagilla \"" + haettavaTagi + "\".");
+        if (tagit.length == 1) {
+        	this.io.print("" + vinkit.size() + " vinkki(ä) löytyi tagilla \"" + tagit[0] + "\".");
+        } else {
+        	this.io.print("" + vinkit.size() + " vinkki(ä) löytyi tageilla \"" + tagitStr + "\".");
+        }
         for (String vinkki : vinkit) {
             this.io.print(vinkki);
         }

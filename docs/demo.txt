@@ -1,8 +1,0 @@
-1;Accessibility vodcast (React Finland);https://www.youtube.com/watch?v=jouctaXwpdU
-1;Axe-con;https://axe-con.com/
-1;Base64;https://www.youtube.com/watch?v=8qkxeZmKmOY&t=2s
-1;Fullstack-kurssi;https://fullstackopen.com/osa0
-1;Computerphile;https://www.youtube.com/channel/UC9-y-6csu5WGm29I7JiwpnA
-1;Mimmit koodaa;https://mimmitkoodaa.ohjelmistoebusiness.fi/
-1;This is not a webinar;https://mimmitkoodaa.ohjelmistoebusiness.fi/thisisnotawebinar/
-1;Coding the Matrix;https://www.adlibris.com/fi/kirja/coding-the-matrix-linear-algebra-through-applications-to-computer-science-9780615880990
