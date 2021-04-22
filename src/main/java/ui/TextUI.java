@@ -96,7 +96,7 @@ public class TextUI {
         String otsikko = this.urlService.getOtsikko(url);
 
         if (!otsikko.isBlank()) {
-            this.muokkaaOtsikkoa(otsikko);
+            otsikko = this.muokkaaOtsikkoa(otsikko);
         } else {
             this.io.print("\n*** Komennolla PERUUTA voit palata valikkoon ***\n");  
             otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
