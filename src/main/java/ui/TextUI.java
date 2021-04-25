@@ -14,10 +14,10 @@ public class TextUI {
     private Sovellus sovellus;
     private UrlDataService urlService;
 
-    public TextUI(IO io, Sovellus sovellus) {
+    public TextUI(IO io, Sovellus sovellus, UrlDataService urlService) {
         this.io = io;
         this.sovellus = sovellus;
-        this.urlService = new UrlDataService();
+        this.urlService = urlService;
     }
 
     public void suorita() {
