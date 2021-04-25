@@ -34,7 +34,7 @@ public class UrlDataServiceImpl implements UrlDataService{
     }
 
     private boolean onkoValidiURL(String url) {
-        return url.matches("^((http|https):\\/\\/)?(w{3}.)?([a-zA-Z0-9]+).([a-z]{2,3})");
+        return url.matches("^((http|https):\\/\\/)?(w{3}.)?([a-zA-Z0-9]+).([a-z]{2,3})(.)*");
     }
 
     private boolean onkoAlussaHTTP(String url) {
