@@ -28,8 +28,7 @@ public class UrlDataServiceImpl implements UrlDataService{
         } catch (Throwable e) {
             // e.printStackTrace();
         }
-
-        System.out.println("Otsikko: " + htmlOtsikko);
+        
         return htmlOtsikko;
     }
 
