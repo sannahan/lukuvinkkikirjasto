@@ -1,15 +1,13 @@
 Feature: Kayttaja voi merkita vinkin luetuksi
 
-Scenario: Tallennetaan paivamaara, jolloin merkattu luetuksi
-    Given kayttaja kertoo haluavansa merkita vinkin luetuksi
-    When kayttaja kirjoittaa "1"
-    And kayttaja kertoo haluavansa selata luettuja vinkkeja
-    And annetaan lopetuskomento
-    Then listauksesta loytyy oikea paivamaara
+    Scenario: Kun kayttaja merkitsee vinkin luetuksi, tallentuu oikea paivamaara
+        Given kayttaja kertoo haluavansa merkita vinkin luetuksi
+        When  kayttaja valitsee listalta vinkin
+        Then  sovellus tallentaa oikean paivamaara
 
-Scenario: Luetuksi merkattava vinkki valitaan listalta numeron perusteella
-    Given kayttaja kertoo haluavansa merkita vinkin luetuksi
-    When kayttaja kirjoittaa "1"
-    And kayttaja kertoo haluavansa selata luettuja vinkkeja
-    And annetaan lopetuskomento
-    Then listauksesta loytyy vinkki "Testiotsikko" ja linkki "Testilinkki"
+    Scenario: Luetuksi merkattava vinkki valitaan listalta numeron perusteella
+        Given sovellukseen on lisatty vinkkeja
+        And   kayttaja kertoo haluavansa merkita vinkin luetuksi
+        When  kayttaja kirjoittaa "1"
+        And   kayttaja kertoo haluavansa selata luettuja vinkkeja
+        Then  sovellus tallentaa oikean paivamaara
