@@ -49,7 +49,9 @@ public class Stepdefs {
         syoterivit = new ArrayList<>();
         io = new StubIO(syoterivit);
         app = new Sovellus(lukuvinkit);
-        ui = new TextUI(io, app);
+        // TODO tälle pitää tehdä stub
+        UrlDataService urlService = new UrlDataServiceStub();
+        ui = new TextUI(io, app, urlService);
     }
     
     @After
