@@ -30,7 +30,7 @@ Feature: Kayttaja suodattaa vinkkeja
     Given vinkki "loisto", URL "muu.com" ja tagi "paras,jep,jee" on listalla
     And vinkki "paras", URL "maa.com" ja tagi "paras,maa,jee" on listalla
     And kayttaja kertoo haluavansa etsia vinkkeja tagilla
-    When  kayttaja antaa tagin "paras ja jep ja jee"
+    When  kayttaja kirjoittaa "paras ja jep ja jee"
     And   annetaan lopetuskomento
     Then  listauksesta loytyy vinkki "Vinkki: loisto" ja linkki "muu.com"
     Then  listauksesta ei loydy vinkkia "paras" ja linkkia "maa.com"

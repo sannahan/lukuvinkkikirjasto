@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.AutotagDao;
-import dao.HashMapAutotagDao;
 import dao.LukuvinkkiDao;
 import domain.suodatus.Ehto;
 import domain.suodatus.Kaikki;
@@ -24,10 +23,10 @@ public class Sovellus {
     private LocalDate paivamaara;
     private DateTimeFormatter pvmMuotoilu;
 
-    public Sovellus(LukuvinkkiDao lukuvinkkiDao) {
+    public Sovellus(LukuvinkkiDao lukuvinkkiDao, AutotagDao autotagDao) {
         this.lukuvinkkiDao = lukuvinkkiDao;
         this.pvmMuotoilu = DateTimeFormatter.ofPattern("yyyy MM dd");
-        this.autotagDao = new HashMapAutotagDao();
+        this.autotagDao = autotagDao;
     }
 
     public List<String> selaaVinkkeja() {

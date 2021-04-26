@@ -24,8 +24,9 @@ public class Main {
         String usedFile = properties.getProperty("testFile");
 
         LukuvinkkiDao lukuvinkkiDao = new FileLukuvinkkiDao(new File(usedFile));
+        AutotagDao autotagDao = new HashMapAutotagDao();
         
-        Sovellus sovellus = new Sovellus(lukuvinkkiDao);
+        Sovellus sovellus = new Sovellus(lukuvinkkiDao, autotagDao);
         TextUI kayttoliittyma = new TextUI(textIO, sovellus, urlService);
 
         kayttoliittyma.suorita();
