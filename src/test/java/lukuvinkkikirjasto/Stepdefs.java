@@ -49,7 +49,9 @@ public class Stepdefs {
         syoterivit = new ArrayList<>();
         io = new StubIO(syoterivit);
         app = new Sovellus(lukuvinkit);
-        ui = new TextUI(io, app);
+        // TODO tälle pitää tehdä stub
+        UrlDataService urlService = new UrlDataServiceStub();
+        ui = new TextUI(io, app, urlService);
     }
     
     @After
@@ -64,8 +66,8 @@ public class Stepdefs {
     
     @When("otsikko {string}, URL {string} ja tagi {string} annetaan")
     public void kayttajaAntaaOtsikonJaUrlin(String otsikko, String url, String tagi) {
-        io.lisaaSyote(otsikko);
         io.lisaaSyote(url);
+        io.lisaaSyote(otsikko);
         io.lisaaSyote(tagi);
     }
 
@@ -176,8 +178,8 @@ public class Stepdefs {
     @Given("vinkki {string}, URL {string} ja tagi {string} on listalla")
     public void vinkkiURLJaTagiOnListalla(String otsikko, String url, String tagi) {
         io.lisaaSyote("2");
-        io.lisaaSyote(otsikko);
         io.lisaaSyote(url);
+        io.lisaaSyote(otsikko);
         io.lisaaSyote(tagi);
     }
 
