@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import dao.AutotagDao;
 import dao.LukuvinkkiDao;
 import domain.suodatus.Ehto;
 import domain.suodatus.Kaikki;
@@ -17,12 +19,14 @@ import java.util.Map;
 public class Sovellus {
 
     private LukuvinkkiDao lukuvinkkiDao;
+    private AutotagDao autotagDao;
     private LocalDate paivamaara;
     private DateTimeFormatter pvmMuotoilu;
 
-    public Sovellus(LukuvinkkiDao lukuvinkkiDao) {
+    public Sovellus(LukuvinkkiDao lukuvinkkiDao, AutotagDao autotagDao) {
         this.lukuvinkkiDao = lukuvinkkiDao;
         this.pvmMuotoilu = DateTimeFormatter.ofPattern("yyyy MM dd");
+        this.autotagDao = autotagDao;
     }
 
     public List<String> selaaVinkkeja() {
@@ -58,9 +62,20 @@ public class Sovellus {
     }
 
     public void lisaaVinkki(String otsikko, String linkki, String tagit, String paivamaara) {
+        tagit = autoTagaa(linkki, tagit.replaceAll("\\s|;", ""));
         Vinkki vinkki = new Oletus(otsikko.trim().replaceAll(";", ":"), linkki.trim().replaceAll(";", ":"),
-                tagit.replaceAll("\\s|;", ""), paivamaara);
+                tagit, paivamaara);
         lukuvinkkiDao.lisaa(vinkki);
+    }
+
+    private String autoTagaa(String linkki, String tagit) {
+        Map<String, String> mappaukset = autotagDao.haeMappaukset();
+        for (String sivusto : mappaukset.keySet()) {
+            if (linkki.contains(sivusto) && !tagit.contains(mappaukset.get(sivusto))) {
+                tagit += (tagit.isEmpty()) ? mappaukset.get(sivusto) : "," + mappaukset.get(sivusto);
+            } 
+        }
+        return tagit;
     }
 
     public void merkitseLuetuksi(int indeksi) {

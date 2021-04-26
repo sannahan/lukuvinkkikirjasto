@@ -1,6 +1,8 @@
 package domain;
 
+import dao.AutotagDao;
 import dao.FileLukuvinkkiDao;
+import dao.HashMapAutotagDao;
 import dao.LukuvinkkiDao;
 
 import static org.junit.Assert.assertEquals;
@@ -20,12 +22,14 @@ import org.mockito.Mockito;
 
 public class SovellusTest {
     LukuvinkkiDao mockDao;
+    AutotagDao autotagDao;
     Sovellus testiSovellus;
 
     @Before
     public void setUp() {
         mockDao = mock(FileLukuvinkkiDao.class);
-        testiSovellus = new Sovellus(mockDao);
+        autotagDao = new HashMapAutotagDao();
+        testiSovellus = new Sovellus(mockDao, autotagDao);
     }
     /*
     @Test
