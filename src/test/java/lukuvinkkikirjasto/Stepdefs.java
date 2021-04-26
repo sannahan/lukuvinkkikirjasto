@@ -1,6 +1,8 @@
 package lukuvinkkikirjasto;
 
+import dao.AutotagDao;
 import dao.FileLukuvinkkiDao;
+import dao.HashMapAutotagDao;
 import domain.*;
 import domain.Sovellus;
 import io.cucumber.java.Before;
@@ -33,6 +35,7 @@ public class Stepdefs {
     File tiedosto;
     StubIO io;
     FileLukuvinkkiDao lukuvinkit;
+    AutotagDao autotagDao;
     List<String> syoterivit;
     TextUI ui;
     
@@ -46,9 +49,10 @@ public class Stepdefs {
         }
         lukuvinkit = new FileLukuvinkkiDao(tiedosto);
         lukuvinkit.lisaa(new Oletus("Testiotsikko", "Testilinkki", "Testitägi", "null"));
+        autotagDao = new HashMapAutotagDao();
         syoterivit = new ArrayList<>();
         io = new StubIO(syoterivit);
-        app = new Sovellus(lukuvinkit);
+        app = new Sovellus(lukuvinkit, autotagDao);
         // TODO tälle pitää tehdä stub
         UrlDataService urlService = new UrlDataServiceStub();
         ui = new TextUI(io, app, urlService);
@@ -250,5 +254,24 @@ public class Stepdefs {
             }
         }
         assertTrue(uusimmanOtsikonIndeksi < toiseksiUusimmanOtsikonIndeksi);
+    }
+
+    @Then("lisatyn vinkin tageista loytyy {string}") 
+    public void tarkistaTagi(String tagi) {
+        io.lisaaSyote("1");
+        io.lisaaSyote("-1");
+        ui.suorita();
+        List<String> tulosteet = io.getTulosteet();
+        assertTrue(tulosteet.get(tulosteet.size() - 4).contains(tagi));
+    }
+
+    @Then("lisatyn vinkin tagit ovat {string}") 
+    public void tarkistaVinkinKaikkiTagit(String tagit) {
+        io.lisaaSyote("1");
+        io.lisaaSyote("-1");
+        ui.suorita();
+        List<String> tulosteet = io.getTulosteet();
+        assertTrue(tulosteet.get(tulosteet.size() - 4).contains(tagit));
+        assertFalse(tulosteet.get(tulosteet.size() - 4).contains(tagit + "#video"));
     }
 }
