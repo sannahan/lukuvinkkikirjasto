@@ -53,7 +53,11 @@ public class Oletus implements Vinkki {
 
     @Override
     public String toString() {
-        return "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n" + "Tägit: " + tagitToString() + "\n";
+        String tuloste = "Vinkki: " + this.otsikko + "\n" + "Linkki: " + this.linkki + "\n" + "Tägit: " + tagitToString() + "\n";
+        if (luettu) {
+            tuloste += "Luettu: " + luettuPvm + "\n";
+        }
+        return tuloste;
     }
 
     public String tagitToString() {
