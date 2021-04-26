@@ -6,11 +6,10 @@ Feature: Kayttaja voi lisata vinkkeja
         And   annetaan lopetuskomento
         Then  sovellus suorittaa ja lopettaa
 
-    Scenario: kayttaja voi lisata vinkin ja uusi komento
+    Scenario: Kun kayttaja lisaa onnistuneesti vinkin, kysyy sovellus uutta komentoa
         Given kayttaja kertoo haluavansa lisata vinkin
         When  otsikko "loisto", URL "muu.com" ja tagi "paras" annetaan
-        And   annetaan lopetuskomento
-        Then  sovellus vastaa "Komento:"
+        Then  sovellus kysyy käyttäjältä uutta komentoa
 
     Scenario: kayttaja voi lisata vinkin ja vinkki loytyy
         Given kayttaja kertoo haluavansa lisata vinkin
