@@ -22,7 +22,7 @@ public class Sovellus {
 
     public Sovellus(LukuvinkkiDao lukuvinkkiDao) {
         this.lukuvinkkiDao = lukuvinkkiDao;
-        this.pvmMuotoilu = DateTimeFormatter.ofPattern("yyyy MM dd");
+        this.pvmMuotoilu = DateTimeFormatter.ofPattern("d.M.yyyy");
     }
 
     public List<String> selaaVinkkeja() {
