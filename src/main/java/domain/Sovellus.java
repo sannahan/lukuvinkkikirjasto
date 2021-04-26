@@ -7,11 +7,7 @@ import java.util.List;
 
 import dao.AutotagDao;
 import dao.LukuvinkkiDao;
-import domain.suodatus.Ehto;
-import domain.suodatus.Kaikki;
-import domain.suodatus.SisaltaaJonkunAnnetuistaTageista;
-import domain.suodatus.SisaltaaKaikkiAnnetutTagit;
-import domain.suodatus.SisaltaaTagin;
+import domain.suodatus.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,29 +32,12 @@ public class Sovellus {
 
     public List<String> selaaLuettujaVinkkeja() {
         List<Vinkki> vinkit = lukuvinkkiDao.listaa();
-        List<String> lista = new ArrayList<>();
-        // Tämän voisi hoitaa Ehto -rajapinnan toteuttavalla LuettuTaiLukematon -metodilla, suodataVinkkeja -metodin läpi.
-        // Tällöin lukupäivämäärä jäisi tulostamatta.
-        // Ehto suodatin = new Luettu(); // Oletuksena hyväksyy luetut
-
-        for (Vinkki vinkki : vinkit) {
-            if (vinkki.getLuettu()) { // suodatin.test(vinkki)
-                lista.add(vinkki.toString() + "Luettu: " + vinkki.getluettuPvm() + "\n");
-            }
-        }
-        return lista;
+        return vinkkiListaToString(suodataVinkkeja(new LuettuTaiLukematon(), vinkit));
     }
 
     public List<String> selaaLukemattomiaVinkkeja() {
         List<Vinkki> vinkit = lukuvinkkiDao.listaa();
-        List<String> lista = new ArrayList<>();
-
-        for (Vinkki vinkki : vinkit) {
-            if (!vinkki.getLuettu()) { // suodatin.test(vinkki)
-                lista.add(vinkki.toString());
-            }
-        }
-        return lista;
+        return vinkkiListaToString(suodataVinkkeja(new LuettuTaiLukematon(false), vinkit));
     }
 
     public void lisaaVinkki(String otsikko, String linkki, String tagit, String paivamaara) {
