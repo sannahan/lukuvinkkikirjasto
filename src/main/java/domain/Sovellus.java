@@ -21,7 +21,7 @@ public class Sovellus {
 
     public Sovellus(LukuvinkkiDao lukuvinkkiDao, AutotagDao autotagDao) {
         this.lukuvinkkiDao = lukuvinkkiDao;
-        this.pvmMuotoilu = DateTimeFormatter.ofPattern("yyyy MM dd");
+        this.pvmMuotoilu = DateTimeFormatter.ofPattern("d.M.yyyy");
         this.autotagDao = autotagDao;
     }
 
