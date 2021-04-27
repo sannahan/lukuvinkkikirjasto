@@ -6,9 +6,9 @@
 - **[Sprint 3 backlog](https://docs.google.com/spreadsheets/d/1X-Dka5l4AGH5qX0RWS0PIBxflUSbwlH-rtMBb4RWIM4/edit#gid=47336913)**
 <TODO info="lisätään sprint backlogille linkki">
 
-## Release 1
+## Release 2
 
-- Release 1 löytyy [täältä](https://github.com/sannahan/lukuvinkkikirjasto/releases/tag/v0.1.0)
+- Release 2 löytyy [täältä](https://github.com/sannahan/lukuvinkkikirjasto/releases/tag/v2.0.1)
 - Sovellus olettaa, että suoritushakemistossa on tiedosto `demo.txt` ja tiedosto `config.properties`
 - Suorita jar-tiedosto komennolla `java -jar lukuvinkkikirjasto.jar`
 
