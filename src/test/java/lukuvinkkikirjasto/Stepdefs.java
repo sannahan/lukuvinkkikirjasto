@@ -1,6 +1,8 @@
 package lukuvinkkikirjasto;
 
+import dao.AutotagDao;
 import dao.FileLukuvinkkiDao;
+import dao.HashMapAutotagDao;
 import domain.*;
 import domain.Sovellus;
 import io.cucumber.java.Before;
@@ -33,6 +35,7 @@ public class Stepdefs {
     File tiedosto;
     StubIO io;
     FileLukuvinkkiDao lukuvinkit;
+    AutotagDao autotagDao;
     List<String> syoterivit;
     TextUI ui;
     
@@ -46,9 +49,10 @@ public class Stepdefs {
         }
         lukuvinkit = new FileLukuvinkkiDao(tiedosto);
         lukuvinkit.lisaa(new Oletus("Testiotsikko", "Testilinkki", "Testitägi", "null"));
+        autotagDao = new HashMapAutotagDao();
         syoterivit = new ArrayList<>();
         io = new StubIO(syoterivit);
-        app = new Sovellus(lukuvinkit);
+        app = new Sovellus(lukuvinkit, autotagDao);
         // TODO tälle pitää tehdä stub
         UrlDataService urlService = new UrlDataServiceStub();
         ui = new TextUI(io, app, urlService);
@@ -101,6 +105,7 @@ public class Stepdefs {
     
     @Then("sovellus vastaa {string}")
     public void sovellusVastaaOdotetulla(String expectedOutput) {
+        io.lisaaSyote("-1");
         ui.suorita();        
         //assertTrue(io.getTulosteet().contains(expectedOutput));
         boolean sisaltaako = false;
@@ -123,6 +128,7 @@ public class Stepdefs {
     
     @Then("listauksesta loytyy vinkki {string} ja linkki {string}") 
     public void listauksestaLoytyyVinkkiJaLinkki(String vinkki, String linkki) {
+        io.lisaaSyote("-1");
         ui.suorita();  
         boolean sisVinkin = false;
         boolean sisLinkin = false;
@@ -149,6 +155,11 @@ public class Stepdefs {
     @When("kayttaja kirjoittaa {string}")
     public void kayttajaKirjoittaa(String id) {
         io.lisaaSyote(id);
+    }
+
+    @When("kayttaja valitsee listalta vinkin")
+    public void kayttajaValitseeListaltaVinkin() {
+        io.lisaaSyote("1");
     }
     
     @Then("listauksesta ei loydy vinkkia {string} ja linkkia {string}")
@@ -197,14 +208,46 @@ public class Stepdefs {
     public void kayttajaKertooHaluavansaSelataLuettujaVinkkeja() {
         io.lisaaSyote("7");
     }
+
+    @Given("sovellukseen on lisatty vinkkeja")
+    public void sovellukseenOnLisattyVinkkejaJoitaEiOleLuettu() {
+        lukuvinkit.lisaa(new Oletus("Lehtijuttu", "www.hs.fi/juttu", "sanomalehti,juttu", "null"));
+        lukuvinkit.lisaa(new Oletus("Videolinkki", "www.youtube.com/", "parhautta", "null"));
+        io.lisaaSyote("5");
+        io.lisaaSyote("2");
+    }
     
-    @Given("kayttaja kertoo haluavansa selata lukemattomia vinkkeja")
+    @When("kayttaja kertoo haluavansa selata vinkkeja joita ei ole luettu")
     public void kayttajaKertooHaluavansaSelataLukemattomiaVinkkeja() {
         io.lisaaSyote("6");
     }
+
+    @Then("sovellus listaa lukemattomat vinkit") 
+    public void lukemattomatLoytyvatListalta() {
+        listauksestaLoytyyVinkkiJaLinkki("Testiotsikko", "Testilinkki");
+        listauksestaLoytyyVinkkiJaLinkki("Videolinkki", "www.youtube.com/");
+    }
+
+    @Then("sovellus ei listaa luettuja vinkkeja") 
+    public void luetutEivatLoydyListalta() {
+        listauksestaEiLoydyVinkkiaJaLinkkia("Lehtijuttu", "www.hs.fi/juttu");
+    }
+
+    @Then("sovellus listaa luetut vinkit") 
+    public void luetutLoytyvatListalta() {
+        listauksestaLoytyyVinkkiJaLinkki("Lehtijuttu", "www.hs.fi/juttu");
+    }
+
+    @Then("sovellus ei listaa lukemattomia vinkkeja") 
+    public void lukemattomatEivatLoydyListalta() {
+        listauksestaEiLoydyVinkkiaJaLinkkia("Testiotsikko", "Testilinkki");
+        listauksestaEiLoydyVinkkiaJaLinkkia("Videolinkki", "www.youtube.com/");
+    }
     
-    @Then("listauksesta loytyy oikea paivamaara")
+    @Then("sovellus tallentaa oikean paivamaara")
     public void listauksestaLoytyyOikeaPaivamaara() {
+        io.lisaaSyote("7");
+        io.lisaaSyote("-1");
         ui.suorita();
         LocalDate paivamaara = LocalDate.now();
         DateTimeFormatter pvmMuotoilu = DateTimeFormatter.ofPattern("yyyy MM dd");
@@ -220,6 +263,7 @@ public class Stepdefs {
     
     @Then("viimeisin lisays tulostetaan ensimmaisena")
     public void viimeisinLisaysTulostetaanEnsimmaisena() {
+        io.lisaaSyote("-1");
         ui.suorita();
         int uusimmanOtsikonIndeksi = -1;
         int toiseksiUusimmanOtsikonIndeksi = -2;
@@ -237,6 +281,7 @@ public class Stepdefs {
     
     @Then("viimeisin muokkaus tulostetaan ensimmaisena")
     public void viimeisinMuokkausTulostetaanEnsimmaisena() {
+        io.lisaaSyote("-1");
         ui.suorita();
         int uusimmanOtsikonIndeksi = -1;
         int toiseksiUusimmanOtsikonIndeksi = -2;
@@ -250,5 +295,24 @@ public class Stepdefs {
             }
         }
         assertTrue(uusimmanOtsikonIndeksi < toiseksiUusimmanOtsikonIndeksi);
+    }
+
+    @Then("lisatyn vinkin tageista loytyy {string}") 
+    public void tarkistaTagi(String tagi) {
+        io.lisaaSyote("1");
+        io.lisaaSyote("-1");
+        ui.suorita();
+        List<String> tulosteet = io.getTulosteet();
+        assertTrue(tulosteet.get(tulosteet.size() - 4).contains(tagi));
+    }
+
+    @Then("lisatyn vinkin tagit ovat {string}") 
+    public void tarkistaVinkinKaikkiTagit(String tagit) {
+        io.lisaaSyote("1");
+        io.lisaaSyote("-1");
+        ui.suorita();
+        List<String> tulosteet = io.getTulosteet();
+        assertTrue(tulosteet.get(tulosteet.size() - 4).contains(tagit));
+        assertFalse(tulosteet.get(tulosteet.size() - 4).contains(tagit + "#video"));
     }
 }
