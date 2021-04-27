@@ -245,7 +245,7 @@ public class Stepdefs {
         io.lisaaSyote("-1");
         ui.suorita();
         LocalDate paivamaara = LocalDate.now();
-        DateTimeFormatter pvmMuotoilu = DateTimeFormatter.ofPattern("yyyy MM dd");
+        DateTimeFormatter pvmMuotoilu = DateTimeFormatter.ofPattern("d.M.yyyy");
         String pvm = paivamaara.format(pvmMuotoilu);
         boolean sisPvm = false;
         for (String s: io.getTulosteet()) {
