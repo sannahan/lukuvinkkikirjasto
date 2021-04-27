@@ -46,4 +46,14 @@ public class StubIO implements IO {
     public void lisaaSyote(String syote) {
         syotteet.add(syote);
     }
+    
+	@Override
+	public String trimTags(String tags) {
+		String[] tagsList = tags.split(","); 
+		String trimmed = "" + tagsList[0].replaceAll("#", "").trim().toLowerCase();
+		for (int i = 1; i < tagsList.length; i++) {
+			trimmed += "," + tagsList[i].replaceAll("#", "").trim().toLowerCase();
+		}
+		return trimmed;
+	}
 }
