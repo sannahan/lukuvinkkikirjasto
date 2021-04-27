@@ -193,11 +193,6 @@ public class Stepdefs {
         io.lisaaSyote(otsikko);
         io.lisaaSyote(tagi);
     }
-
-    /*@And("kayttaja kirjoittaa {string}")
-    public void kayttajaAntaaSyotteen(String tagi) {
-        io.lisaaSyote(tagi);
-    }*/
     
     @Given("kayttaja kertoo haluavansa merkita vinkin luetuksi")
     public void kayttajaKertooHaluavansaMerkitaVinkinLuetuksi() {

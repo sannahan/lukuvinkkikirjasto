@@ -22,9 +22,3 @@ Feature: Kayttaja voi lisata vinkkeja
         When  otsikko "", URL "http://www.youtube.com" ja tagi "yt" annetaan
         And   kayttaja kertoo haluavansa selata vinkkeja
         Then  listauksesta loytyy vinkki "Vinkki: YouTube" ja linkki "http://www.youtube.com"
-
-    Scenario: kayttaja voi keskeyttaa vinkin lisayksen ja palata valikkoon
-        Given kayttaja kertoo haluavansa lisata vinkin
-        When  kayttaja kirjoittaa "PERUUTA" 
-        Then  sovellus kysyy käyttäjältä uutta komentoa
-
