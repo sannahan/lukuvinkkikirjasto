@@ -10,7 +10,7 @@ mainClassName = 'lukuvinkkikirjasto.Main'
 
 jar {
     manifest {
-        attributes 'Main-Class': 'Main'
+        attributes 'Main-Class': 'lukuvinkkikirjasto.Main'
     }
 }
 
