@@ -92,7 +92,7 @@ public class TextUI {
 
     private void lisaaVinkki() {
         var url = this.io.nextLine("Anna lukuvinkin URL: ");
-        if (url.trim().equals("PERUUTA")) return;
+        if (url.equals("PERUUTA")) return;
         String otsikko = this.urlService.getOtsikko(url);
 
         if (!otsikko.isBlank()) {
@@ -107,9 +107,10 @@ public class TextUI {
                 otsikko = this.io.nextLine("Anna lukuvinkin otsikko: ");
             }
         }
-        if (otsikko.trim().equals("PERUUTA")) return;
+        if (otsikko.equals("PERUUTA")) return;
         String tagit = this.io.nextLine("Lisää tägejä pilkulla erotettuna: ");
-        if (tagit.trim().equals("PERUUTA")) return;
+        tagit = this.io.trimTags(tagit);
+        if (tagit.equals("PERUUTA")) return;
         sovellus.lisaaVinkki(otsikko, url, tagit, "null");
     }
 
@@ -152,7 +153,7 @@ public class TextUI {
     }
 
     private boolean peruutaMuokkaus(String komento, Map<String, String> vanhaVinkki) {
-        if (komento.trim().equals("PERUUTA")) {
+        if (komento.equals("PERUUTA")) {
             sovellus.lisaaVinkki(vanhaVinkki.get("otsikko"), vanhaVinkki.get("linkki"), vanhaVinkki.get("tagit"),
                     vanhaVinkki.get("lukupvm"));
             return true;
@@ -183,6 +184,7 @@ public class TextUI {
         this.io.print("Vinkillä on seuraavat tagit " + tagit);
         var uudetTagit = this.io
                 .nextLine("Anna uudet tagit pilkulla eroteltuna (tyhja syöte säilyttää tagit ennallaan):");
+        uudetTagit = this.io.trimTags(uudetTagit);
         return (uudetTagit.isBlank()) ? tagit : uudetTagit;
     }
 
@@ -213,13 +215,13 @@ public class TextUI {
 
     private void haeTagilla() {
         String syotetytTagit = this.io.nextLine("Syötä etsittävät tagit: ");
+        syotetytTagit = this.io.trimTags(syotetytTagit);
         boolean tagejaOnVainYksi = true;
         if (syotetytTagit.contains(" ja ") || syotetytTagit.contains(" tai ")) {
             tagejaOnVainYksi = false;
         }
         List<String> vinkit = new ArrayList<>();
         String tagitStr = "";
-        //tähän tarkastus, ettei ole sekä ja, että tai
         if (syotetytTagit.contains(" ja ") && syotetytTagit.contains(" tai ")) {
             this.io.print("Ei onnistunut, käytä vain 'ja' tai 'tai' operandeja, älä molempia. Aloita alusta.");
         } else if (tagejaOnVainYksi) {

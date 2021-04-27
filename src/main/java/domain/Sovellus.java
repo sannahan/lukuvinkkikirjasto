@@ -41,8 +41,8 @@ public class Sovellus {
     }
 
     public void lisaaVinkki(String otsikko, String linkki, String tagit, String paivamaara) {
-        tagit = autoTagaa(linkki, tagit.replaceAll("\\s|;", ""));
-        Vinkki vinkki = new Oletus(otsikko.trim().replaceAll(";", ":"), linkki.trim().replaceAll(";", ":"),
+        tagit = autoTagaa(linkki, tagit);
+        Vinkki vinkki = new Oletus(otsikko.replaceAll(";", ":"), linkki.replaceAll(";", ":"),
                 tagit, paivamaara);
         lukuvinkkiDao.lisaa(vinkki);
     }
