@@ -12,7 +12,7 @@ Ensimmäisessä sprintissä etsittiin vielä yhteisiä työtapoja. Tiimiytyminen
 Kakkossprintissä puhuttiin ilahduttavan hyvästä tiimihengestä ja erityisesti sad-kohtaan ei juuri keksitty parannusehdotuksia. Muutama debuggauksen parissa vietetty aikaavievä tuokio aiheutti kuitenkin keskustelua siitä, että muilta on aina hyvä pyytää apua! Keskustelimme myös siitä, että toteutustavoista olisi syytä puhua enemmän jo sprintin suunnittelukokouksessa.
 
 ## Kolmannen sprintin ongelmat
-JAR!!!
+Kolmas sprintti sujui hyvin ja retrospektiivissä kehuja sai niin tehty koodi kuin tiimikin. Totesimme myös, että kurssi miniprojekteineen oli todella hyödyllinen ja opettavainen! Kolmas sprintti opetti myös, ettei asioita kannata jäädä viime tippaan: jar-julkaisu ei sujunutkaan ihan ongelmitta siihen varatussa ajassa ennen loppudemoa. 
 
 ## Mikä projektissa sujui hyvin?
 Tiimimme mielestä projekti sujui kokonaisuudessaan todella hyvin, niin yhteistyön kuin lopputuloksenkin näkökulmasta.
