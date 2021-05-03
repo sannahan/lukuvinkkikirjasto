@@ -1,7 +1,11 @@
 # Mailasin loppuraportti
 
 ## Tiimimme ylpeät jäsenet
-dd
+Amalia Ahola
+Janos Pap
+Mika Ryynänen
+Sanna Hanén
+Laura Andström
 
 ## Ensimmäisen sprintin ongelmat
 
