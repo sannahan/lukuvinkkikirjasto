@@ -2,7 +2,7 @@
 
 ## Tiimimme ylpeät jäsenet
 - Amalia Ahola
-- Janos Pap
+- János Pap
 - Mika Ryynänen
 - Sanna Hanén
 - Laura Andström
