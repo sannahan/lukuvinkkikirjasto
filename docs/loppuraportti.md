@@ -43,8 +43,9 @@ Toisi luottamusta selvittää niitä oikeassakin elämässä.
 * Miten rajoittaa daily tiukkaan 15 minuuttiin.
 
 ## Mikä tuntui turhalta:
-Etukäteen retrospektiivit tuntuivat turhalta mutta käytännössä ne osoittautuivat hyödylliseksi.
-Tiukat checkstyle-säännöt häiritsivät näin pienessä projektissa. Hyödyllistä olisi ehkä ollut se,
+Projekti tuntui todella hyödylliseltä, eli turhia juttuja ei tiimimme kokenut paljoa olevan.
+Etukäteen monet retrospektiivit kuulostivat turhalta, mutta käytännössä ne osoittautuivat todella hyödylliseksi.
+Tiukat checkstyle-säännöt hieman häiritsivät näin pienessä projektissa. Hyödyllistä olisi ehkä ollut se,
 että yhdessä oltaisiin enemmän mietitty mitä checkstylen säännöt sisältävät.
 
 
