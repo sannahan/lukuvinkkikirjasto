@@ -9,6 +9,8 @@ Ensimmäisessä sprintissä etsittiin vielä yhteisiä työtapoja. Tiimiytyminen
 
 ## Toisen sprintin ongelmat
 
+Kakkossprintissä puhuttiin ilahduttavan hyvästä tiimihengestä ja erityisesti sad-kohtaan ei juuri keksitty parannusehdotuksia. Muutama debuggauksen parissa vietetty aikaavievä tuokio aiheutti kuitenkin keskustelua siitä, että muilta on aina hyvä pyytää apua! Keskustelimme myös siitä, että toteutustavoista olisi syytä puhua enemmän jo sprintin suunnittelukokouksessa.
+
 ## Kolmannen sprintin ongelmat
 JAR!!!
 
