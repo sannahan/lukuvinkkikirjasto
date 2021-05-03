@@ -5,6 +5,8 @@ dd
 
 ## Ensimmäisen sprintin ongelmat
 
+Ensimmäisessä sprintissä etsittiin vielä yhteisiä työtapoja. Tiimiytyminen lähti hyvin käyntiin, mutta huomattiin, että kommunikoida kannattaa siltikin vielä lisää. Tuli jotain väärinkäsityksiä, kuten kelle jokin muutamaa storya sivuava homma kuuluu tai millaista arkkitehtuuria toinen oli ajatellut. Aluksi sovimme vain, että kuittaamme Telegram-ryhmässämme, kun koodi on pushattu ja jokin ryhmäläinen katselmoi ja kuittaa. Huomasimme kuitenkin, että pull requestit ovat tehokkaampi ja selvempi tapa tehdä tämä, mutta halusimme silti pitää myös aina kommentoinnin ja keskustelun ryhmässä käynnissä. Teknisesti kaikki lähti liikkeelle mukavasti, StubIO tuotti tuskaa, mutta siitäkin selvittiin helposti toisia auttaen. Aikataulutus, etenkin pidennetyllä pääsiäisen aiheuttamalla sprintillä, tuotti hieman hankaluuksia, ja työmäärä meinasi jäädä vähäiseksi, mutta hyödyllistä hommaa löytyi refaktoroinnista ja katselmoinnista. Yhteiset miitit saatiin sovittua melko vaivattomasti, ja kaikki pääsi paikalle. Eri aikataulujen takia tehtiin hommia Telegrammissa eri aikoihin, joka sai kaipaamaan avotoimiston yhteistyön helppoutta.
+
 ## Toisen sprintin ongelmat
 
 ## Kolmannen sprintin ongelmat
